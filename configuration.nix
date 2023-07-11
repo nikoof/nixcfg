@@ -79,12 +79,8 @@
   };
 
   services.openssh.enable = true;
-  services.printing = {
-    enable = true;
-    drivers = with pkgs; [
-      postscript-lexmark
-    ];
-  };
+  services.printing.enable = true;
+
   services.avahi = {
     enable = true;
     nssmdns = true;
@@ -132,14 +128,14 @@
     STACK_XDG       = "1";
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = 
+    with pkgs; let localPkgs = import ./packages { inherit pkgs; }; in [
     curl
     neovim
     git
     stow
     gnupg pinentry
-    libsForQt5.qt5.qtgraphicaleffects
-    (import ./sddm-sugar-candy-tokyonight.nix)
+    localPkgs.sddm-sugar-candy-tokyonight
     playerctl
     libsForQt5.qtstyleplugin-kvantum
     lxappearance
@@ -155,36 +151,11 @@
   users.users.nikoof = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
-    packages = with pkgs; [
-      polybar
-      picom
-      dunst
-      dmenu
-      feh
-      j4-dmenu-desktop
-      xclip scrot
-      starship
-      alacritty
-      exa
-      neofetch
-      taskwarrior
-      discord betterdiscordctl
-      firefox
-      thunderbird
-      spotify
-      keepassxc
-      qbittorrent
-      themechanger
-      gimp
-      libreoffice
-      dracula-icon-theme
-      heroic
-      bottles
-      zathura
-      sxiv
-      gh
-      obsidian
-    ];
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    users.nikoof = import /home/nikoof/.config/nixpkgs/home.nix;
   };
 
   programs.steam = {
@@ -195,25 +166,12 @@
 
   programs.dconf.enable = true;
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
   programs.mtr.enable = true;
   programs.gnupg.agent = {
     enable = true;
     enableSSHSupport = true;
   };
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  # system.copySystemConfiguration = true;
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It's perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.05"; # Did you read the comment?
+  system.stateVersion = "23.05";
 }
 

@@ -1,4 +1,9 @@
-with import <nixpkgs> {};
+{ stdenv
+, lib
+, fetchFromGitHub
+, qtgraphicaleffects
+, ...
+}:
 
 stdenv.mkDerivation rec {
   pname = "sddm-sugar-candy-tokyonight";
@@ -11,11 +16,19 @@ stdenv.mkDerivation rec {
     sha256 = "05k89hzj7sh6ibrr4k3a8zg4cjpidjdjvjn0h7ycbwg988vkfz9b";
   };
 
-  dontBuild = true;
+  propagateBuildInputs = [ qtgraphicaleffects ];
 
-  installPhase = ''
-    mkdir -p $out/share/sddm/themes
-    cp -aR $src $out/share/sddm/themes/sugar-candy-tokyonight
+  dontBuild = true;
+  dontWrapQtApps = true;
+
+  postInstall = ''
+    mkdir -p $out/share/sddm/themes/sugar-candy-tokyonight
+    mv * $out/share/sddm/themes/sugar-candy-tokyonight/
+  '';
+
+  postFixup = ''
+    mkdir -p $out/nix-support
+    echo ${qtgraphicaleffects} >> $out/nix-support/propagated-user-env-packages
   '';
 
   meta = with lib; {
