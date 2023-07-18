@@ -1,7 +1,8 @@
 { config, nixpkgs, home-manager, ... }:
-
 let
-  pkgs = nixpkgs.legacyPackages.x86_64-linux;
+  pkgs = import nixpkgs {
+    config.allowUnfree = true;
+  };
 in {
   imports = [
     ./hardware-configuration.nix
@@ -44,7 +45,6 @@ in {
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nixpkgs.config.allowUnfree = true;
 
   services.xserver = {
     enable = true;
