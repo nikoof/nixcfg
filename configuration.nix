@@ -1,6 +1,8 @@
 { config, nixpkgs, home-manager, ... }:
 
-{
+let
+  pkgs = nixpkgs.legacyPackages.x86_64-linux;
+in {
   imports = [
     ./hardware-configuration.nix
     home-manager.nixosModules.default
@@ -158,7 +160,7 @@
 
   home-manager = {
     useGlobalPkgs = true;
-    users.nikoof = import /home/nikoof/.config/nixpkgs/home.nix;
+    users.nikoof = import ./users/nikoof/home.nix;
   };
 
   programs.steam = {
