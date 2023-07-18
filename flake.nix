@@ -22,6 +22,12 @@
       modules = [
 	./hosts/nkbox-hw.nix
         ./hosts/nkbox.nix
+	home-manager.nixosModules.home-manager {
+          home-manager = {
+            useGlobalPkgs = true;
+            users.nikoof = import ./users/nikoof.nix;
+	  };
+	}
       ];
     };
   };
