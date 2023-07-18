@@ -7,11 +7,19 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
-    nixosConfigurations.nkbox = nixpkgs.lib.nixosSystem {
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
+    let
       system = "x86_64-linux";
-      specialArgs = inputs;
-      modules = [ ./configuration.nix ];
+      pkgs = import nixpkgs {
+	inherit system;
+        config.allowUnfree = true;
+	overlays = [];
+      };
+    in {
+    nixosConfigurations.nkbox = nixpkgs.lib.nixosSystem {
+      inherit system;
+      specialArgs = { inherit pkgs; } // inputs;
+      modules = [ ./hosts/nkbox.nix ];
     };
   };
 }

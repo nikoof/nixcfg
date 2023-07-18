@@ -1,9 +1,6 @@
-{ config, nixpkgs, home-manager, ... }:
-let
-  pkgs = import nixpkgs {
-    config.allowUnfree = true;
-  };
-in {
+{ config, pkgs, nixpkgs, home-manager, ... }:
+
+{
   imports = [
     ./hardware-configuration.nix
     home-manager.nixosModules.default
@@ -45,6 +42,7 @@ in {
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nixpkgs.config.allowUnfree = true;
 
   services.xserver = {
     enable = true;
