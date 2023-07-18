@@ -19,7 +19,10 @@
     nixosConfigurations.nkbox = nixpkgs.lib.nixosSystem {
       inherit system;
       specialArgs = { inherit pkgs; } // inputs;
-      modules = [ ./hosts/nkbox.nix ];
+      modules = [
+	./hosts/nkbox-hw.nix
+        ./hosts/nkbox.nix
+      ];
     };
   };
 }
