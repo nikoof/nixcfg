@@ -1,9 +1,9 @@
-{ config, pkgs, ... }:
+{ config, nixpkgs, home-manager, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
-    <home-manager/nixos>
+    home-manager.nixosModules.default
   ];
 
   boot.loader = {
@@ -54,7 +54,7 @@
     windowManager.leftwm.enable = true;
     layout = "us,ro,de";
     xkbVariant = ",std,qwerty";
-    xkbOptions = "grp:win_space_toggle";
+    xkbOptions = "grp:win_space_toggle,compose:menu";
     xrandrHeads = [
       {
         output = "DP-3";
@@ -80,6 +80,7 @@
 
   services.openssh.enable = true;
   services.printing.enable = true;
+  services.udisks2.enable = true;
 
   services.avahi = {
     enable = true;
@@ -126,6 +127,8 @@
     XCOMPOSECACHE   = "${XDG_CACHE_HOME}/X11/xcompose";
     SQLITE_HISTORY  = "${XDG_CACHE_HOME}/sqlite_history";
     STACK_XDG       = "1";
+
+    GTK_IM_MODULE   = "xim";
   };
 
   environment.systemPackages = 
