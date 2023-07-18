@@ -1,7 +1,9 @@
 { config, pkgs, nixpkgs, home-manager, ... }:
 
 {
-  imports = [];
+  imports = [
+    home-manager.nixosModules.default
+  ];
 
   boot.loader = {
     systemd-boot = {
@@ -129,7 +131,7 @@
   };
 
   environment.systemPackages = 
-    with pkgs; let localPkgs = import ../packages { inherit pkgs; }; in [
+    with pkgs; let localPkgs = import ./packages { inherit pkgs; }; in [
     curl
     neovim
     git
@@ -153,6 +155,10 @@
     extraGroups = [ "wheel" "networkmanager" ];
   };
 
+  home-manager = {
+    useGlobalPkgs = true;
+    users.nikoof = import ./users/nikoof/home.nix;
+  };
 
   programs.steam = {
     enable = true;
