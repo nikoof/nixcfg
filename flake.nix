@@ -35,5 +35,21 @@
 	}
       ];
     };
+
+    nixosConfigurations.nkideapad = nixpkgs.lib.nixosSystem {
+      inherit system;
+      inherit pkgs;
+      # specialArgs = { inherit pkgs; } // inputs;
+      modules = [
+	./hosts/nkideapad-hw.nix
+        ./hosts/nkideapad.nix
+	home-manager.nixosModules.home-manager {
+	  home-manager = {
+            useGlobalPkgs = true;
+            users.nikoof = import ./users/nikoof/home.nix;
+	  };
+	}
+      ];
+    };
   };
 }
