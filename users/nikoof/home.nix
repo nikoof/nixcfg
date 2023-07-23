@@ -11,7 +11,7 @@
     exa neofetch
     taskwarrior
     discord betterdiscordctl
-    firefox thunderbird
+    firefox unstable.thunderbird
     spotify
     keepassxc
     qbittorrent

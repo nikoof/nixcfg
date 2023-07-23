@@ -140,12 +140,16 @@
     libsForQt5.qtstyleplugin-kvantum
     lxappearance
     pulseaudio
+    cifs-utils
+    hunspellDicts.en_US
+    hunspellDicts.en_GB-ise
   ];
 
   fonts.fonts = with pkgs; [
     fira-code
     nerdfonts
     symbola
+    corefonts
   ];
 
   users.users.nikoof = {
