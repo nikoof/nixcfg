@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     owner = "Nikoof";
     repo = "sddm-sugar-candy-tokyonight";
     rev = "0eb32a21f63f8e2a1cc230b75ee87e6050085468";
-    sha256 = "05k89hzj7sh6ibrr4k3a8zg4cjpidjdjvjn0h7ycbwg988vkfz9b";
+    sha256 = "14kx1q6hhri0r6g4875jipxfkzlsr0gw2ka0f2x2c9jm9pqs8np7";
   };
 
   propagateBuildInputs = [ qtgraphicaleffects ];
