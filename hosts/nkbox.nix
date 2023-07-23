@@ -135,7 +135,7 @@
     git
     stow
     gnupg pinentry
-    localPkgs.sddm-sugar-candy-tokyonight
+    localPkgs.sddm-sugar-candy-tokyonight-nixbg
     playerctl
     libsForQt5.qtstyleplugin-kvantum
     lxappearance
