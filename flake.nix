@@ -19,10 +19,11 @@
         config.allowUnfree = true;
 	overlays = [ overlay-unstable ];
       };
+      localPkgs = import ./packages { inherit pkgs; };
     in {
     nixosConfigurations.nkbox = nixpkgs.lib.nixosSystem {
-      inherit system pkgs;
-      # specialArgs = { inherit pkgs; } // inputs;
+      inherit system;
+      specialArgs = { inherit pkgs localPkgs; };
       modules = [
 	./hardware/nkbox.nix
         ./hosts/nkbox.nix

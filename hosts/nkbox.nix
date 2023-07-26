@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, home-manager, ... }:
+{ inputs, config, pkgs, localPkgs, home-manager, ... }:
 
 {
   imports = [];
@@ -137,7 +137,7 @@
   };
 
   environment.systemPackages = 
-    with pkgs; let localPkgs = import ../packages { inherit pkgs; }; in [
+    with pkgs; [
     curl
     neovim
     git
