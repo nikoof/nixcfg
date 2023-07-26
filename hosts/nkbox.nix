@@ -14,7 +14,11 @@
 
   networking = {
     hostName = "nkbox";
-    networkmanager.enable = true;
+    networkmanager = {
+      enable = true;
+    };
+
+    tempAddresses = "disabled";
 
     firewall = {
       enable = true;
@@ -36,6 +40,9 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+    extraPackages = with pkgs; [
+      vaapiVdpau
+    ];
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -94,15 +101,16 @@
     overrideFolders = true;
     devices = {
       "nkgalaxy" = { id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE"; };
+      "nkideapad" = { id = "TJJMOB6-T5YQQCE-HLRVVPW-NV5RWES-CYHWQQH-E25WYYF-VY4P6C4-KU66BA5"; };
     };
     folders = {
       "Obsidian" = {
         path = "/home/nikoof/Documents/nkbrain";
-	devices = [ "nkgalaxy" ];
+	devices = [ "nkgalaxy" "nkideapad" ];
       };
       "KeePass" = {
         path = "/home/nikoof/KeePass";
-	devices = [ "nkgalaxy" ];
+	devices = [ "nkgalaxy" "nkideapad" ];
       };
     };
   };

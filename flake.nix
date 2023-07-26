@@ -21,11 +21,10 @@
       };
     in {
     nixosConfigurations.nkbox = nixpkgs.lib.nixosSystem {
-      inherit system;
-      inherit pkgs;
+      inherit system pkgs;
       # specialArgs = { inherit pkgs; } // inputs;
       modules = [
-	./hosts/nkbox-hw.nix
+	./hardware/nkbox.nix
         ./hosts/nkbox.nix
 	home-manager.nixosModules.home-manager {
 	  home-manager = {
