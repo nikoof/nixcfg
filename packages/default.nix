@@ -1,4 +1,6 @@
-{ pkgs, ... }:
+{ pkgs ? import <nixpkgs>
+, ...
+}:
 
 {
   sddm-sugar-candy-tokyonight = pkgs.libsForQt5.callPackage ./sddm-sugar-candy-tokyonight.nix { };
