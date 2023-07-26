@@ -30,7 +30,7 @@
 	home-manager.nixosModules.home-manager {
 	  home-manager = {
             useGlobalPkgs = true;
-            users.nikoof = import ./users/nikoof/home.nix;
+            users.nikoof = import ./users/nikoof;
 	  };
 	}
       ];
@@ -46,7 +46,7 @@
 	home-manager.nixosModules.home-manager {
 	  home-manager = {
             useGlobalPkgs = true;
-            users.nikoof = import ./users/nikoof/home.nix;
+            users.nikoof = import ./users/nikoof;
 	  };
 	}
       ];
