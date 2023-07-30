@@ -26,6 +26,7 @@
       specialArgs = { inherit pkgs localPkgs; };
       modules = [
 	./hardware/nkbox.nix
+	./hosts/common.nix
         ./hosts/nkbox.nix
 	home-manager.nixosModules.home-manager {
 	  home-manager = {
