@@ -1,4 +1,4 @@
-{ inputs, config, pkgs, lib, localPkgs, home-manager, ... }:
+{ inputs, config, pkgs, lib, home-manager, ... }:
 
 {
   imports = [];
@@ -129,7 +129,7 @@
     hunspellDicts.en_US
     hunspellDicts.en_GB-ise
     libsForQt5.qtstyleplugin-kvantum
-    localPkgs.sddm-sugar-candy-tokyonight-nixbg
+    local.sddm-sugar-candy-tokyonight-nixbg
   ];
 
   fonts.fonts = with pkgs; [
