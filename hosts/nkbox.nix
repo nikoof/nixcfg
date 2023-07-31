@@ -2,7 +2,6 @@
 
 {
   imports = [];
-
   boot.loader = {
     systemd-boot = {
       enable = true;
@@ -115,15 +114,16 @@
     neovim
     git
     stow
-    gnupg pinentry
-    localPkgs.sddm-sugar-candy-tokyonight-nixbg
+    gnupg
+    pinentry
     playerctl
-    libsForQt5.qtstyleplugin-kvantum
     lxappearance
     pulseaudio
     cifs-utils
     hunspellDicts.en_US
     hunspellDicts.en_GB-ise
+    libsForQt5.qtstyleplugin-kvantum
+    localPkgs.sddm-sugar-candy-tokyonight-nixbg
   ];
 
   fonts.fonts = with pkgs; [
