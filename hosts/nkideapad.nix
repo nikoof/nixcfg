@@ -1,4 +1,4 @@
-{ config, pkgs, nixpkgs, home-manager, ... }:
+{ config, pkgs, localPkgs, home-manager, ... }:
 
 {
   imports = [];
@@ -23,9 +23,6 @@
     };
   };
 
-  time.timeZone = "Europe/Bucharest";
-  i18n.defaultLocale = "en_US.UTF-8";
-
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -37,9 +34,6 @@
     ];
   };
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nixpkgs.config.allowUnfree = true;
-
   services.xserver = {
     enable = true;
     displayManager.sddm = {
@@ -47,9 +41,6 @@
       theme = "sugar-candy-tokyonight";
     };
     windowManager.leftwm.enable = true;
-    layout = "us,ro,de";
-    xkbVariant = ",std,qwerty";
-    xkbOptions = "grp:win_space_toggle,compose:menu";
   };
 
   security.rtkit.enable = true;
@@ -94,29 +85,7 @@
     };
   };
 
-  environment.sessionVariables = rec {
-    XDG_DATA_HOME   = "$HOME/.local/share";
-    XDG_CONFIG_HOME = "$HOME/.config";
-    XDG_STATE_HOME  = "$HOME/.local/state";
-    XDG_CACHE_HOME  = "$HOME/.cache";
-
-    XDG_BIN_HOME    = "$HOME/.local/state";
-    PATH = [ "${XDG_BIN_HOME}" ];
-
-    RUSTUP_HOME     = "${XDG_DATA_HOME}/rustup";
-    GTK2_RC_FILES   = "${XDG_CONFIG_HOME}/gtk-2.0/gtkrc";
-    HISTFILE        = "${XDG_STATE_HOME}/bash/history";
-    RANDFILE        = "${XDG_STATE_HOME}/rnd";
-    CUDA_CACHE_PATH = "${XDG_CACHE_HOME}/nv";
-    XCOMPOSECACHE   = "${XDG_CACHE_HOME}/X11/xcompose";
-    SQLITE_HISTORY  = "${XDG_CACHE_HOME}/sqlite_history";
-    STACK_XDG       = "1";
-
-    GTK_IM_MODULE   = "xim";
-  };
-
-  environment.systemPackages = 
-    with pkgs; let localPkgs = import ../packages { inherit pkgs; }; in [
+  environment.systemPackages = with pkgs; [
     curl
     neovim
     git
@@ -142,14 +111,6 @@
   users.users.nikoof = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
-  };
-
-  programs.dconf.enable = true;
-
-  programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
   };
 
   system.stateVersion = "23.05";

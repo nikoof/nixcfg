@@ -2,13 +2,14 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, nixos-hardware, home-manager, ... }:
     let
       system = "x86_64-linux";
       overlay-unstable = final: prev: {
@@ -42,10 +43,12 @@
 
     nixosConfigurations.nkideapad = nixpkgs.lib.nixosSystem {
       inherit system;
-      inherit pkgs;
-      # specialArgs = { inherit pkgs; } // inputs;
+      specialArgs = { inherit pkgs localPkgs; };
       modules = [
-	./hosts/nkideapad-hw.nix
+        nixos-hardware.nixosModules.common-pc-laptop-hdd
+	nixos-hardware.nixosModules.common-gpu-intel
+	./hardware/nkideapad.nix
+	./hosts/common.nix
         ./hosts/nkideapad.nix
 	home-manager.nixosModules.home-manager {
 	  home-manager = {
