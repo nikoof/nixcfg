@@ -11,6 +11,12 @@
     efi.canTouchEfiVariables = true;
   };
 
+  boot.plymouth = {
+    enable = true;
+    themePackages = with pkgs; [ nixos-bgrt-plymouth ];
+    theme = "nixos-bgrt";
+  };
+
   networking = {
     hostName = "nkbox";
     networkmanager = {
@@ -131,6 +137,7 @@
     nerdfonts
     symbola
     corefonts
+    noto-fonts
   ];
 
   users.users.nikoof = {
