@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.username = "nikoof";
@@ -6,7 +6,7 @@
 
   home.packages = with pkgs; [
     polybar picom dunst feh
-    dmenu rofi j4-dmenu-desktop
+    dmenu rofi
     xclip scrot
     exa neofetch
     taskwarrior
@@ -15,27 +15,55 @@
     spotify
     keepassxc
     qbittorrent
-    themechanger
     gimp
     libreoffice
-    dracula-icon-theme
     heroic
     bottles
     sxiv
     obsidian
   ];
 
+  gtk = {
     enable = true;
 
+    theme = {
+      name = "Nordic";
+      package = pkgs.nordic; 
     };
 
+    iconTheme = {
+      name = "Nordzy-turquoise-dark";
+      package = pkgs.nordzy-icon-theme;
+    };
 
+    cursorTheme = {
+      name = "Nordzy-cursors-white";
+      package = pkgs.nordzy-cursor-theme;
+    };
 
+    font = {
+      name = "Sans Regular";
+      size = 11;
+    };
 
-
+    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+    gtk3.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+    gtk4.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
     };
   };
+  home.sessionVariables.GTK_THEME = "Nordic";
 
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      gtk-theme = "Nordic";
+      color-scheme = "prefer-dark";
     };
   };
 
