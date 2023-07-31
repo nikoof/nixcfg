@@ -23,22 +23,25 @@
     obsidian
   ];
 
+  programs.bash.enable = true;
+
   gtk = {
     enable = true;
 
     theme = {
-      name = "Nordic";
-      package = pkgs.nordic; 
+      name = "Tokyonight-Moon-B";
+      package = pkgs.tokyo-night-gtk; 
     };
 
+    # TODO: Change overall theme to Rose Pine
     iconTheme = {
-      name = "Nordzy-turquoise-dark";
-      package = pkgs.nordzy-icon-theme;
+      name = "oomox-rose-pine-moon";
+      package = pkgs.rose-pine-icon-theme;
     };
 
     cursorTheme = {
-      name = "Nordzy-cursors-white";
-      package = pkgs.nordzy-cursor-theme;
+      name = "Simp1e-Tokyo-Night-Storm";
+      package = pkgs.simp1e-cursors;
     };
 
     font = {
@@ -46,23 +49,18 @@
       size = 11;
     };
 
-    gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
     gtk3.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
+      gtk-application-prefer-dark-theme = true;
     };
     gtk4.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
+      gtk-application-prefer-dark-theme = true;
     };
   };
-  home.sessionVariables.GTK_THEME = "Nordic";
+  home.sessionVariables.GTK_THEME = "Tokyonight-Moon-B";
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
-      gtk-theme = "Nordic";
+      gtk-theme = "Tokyonight-Moon-B";
       color-scheme = "prefer-dark";
     };
   };
