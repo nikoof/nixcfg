@@ -10,7 +10,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, flake-utils, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, nixos-hardware, flake-utils, home-manager, ... }:
     let
       system = "x86_64-linux";
       overlays = import ./overlays { inherit inputs; };
