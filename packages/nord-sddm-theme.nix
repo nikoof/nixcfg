@@ -2,6 +2,8 @@
 , lib
 , fetchFromGitHub
 , qtgraphicaleffects
+, qtquickcontrols
+, plasma-framework
 , ...
 }:
 
@@ -13,22 +15,32 @@ stdenv.mkDerivation rec {
     owner = "nautilor";
     repo = "nord-sddm";
     rev = "ad72c3c7048c8aabe85bab41cbeab5f3c4502250";
-    sha256 = "05k89hzj7sh6ibrr4k3a8zg4cjpidjdjvjn0h7ycbwg988vkfz9b";
+    sha256 = "sha256-Ah2azTHUghxLGyAMEdR+GpEDbZGxwx2ABAyv92CxLQo=";
   };
 
-  # propagatedBuildInputs = [ qtgraphicaleffects ];
+  buildInputs = [
+    qtgraphicaleffects
+    qtquickcontrols
+    plasma-framework
+  ];
 
   dontBuild = true;
   dontWrapQtApps = true;
 
   postInstall = ''
-    mv Nord $out/share/sddm/themes/
+    mkdir -p $out/share/sddm/themes
+    cp -r Nord $out/share/sddm/themes/
+  '';
+
+  postFixup = ''
+    mkdir -p $out/nix-support
+    echo ${qtgraphicaleffects} >> $out/nix-support/propagated-user-env-packages
+    echo ${plasma-framework} >> $out/nix-support/propagated-user-env-packages
   '';
 
   meta = with lib; {
     description = "Nord theme for SDDM";
     homepage = "https://github.com/nautilor/nord-sddm";
-    license = licenses.none;
     platforms = platforms.linux;
   };
 }
