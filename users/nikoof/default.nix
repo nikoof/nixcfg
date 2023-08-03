@@ -67,8 +67,8 @@
   programs.zathura = import ./zathura.nix;
 
   xresources.extraConfig = ''
-    Sxiv.foreground: #c0caf5
-    Sxiv.background: #24283b
+    Sxiv.foreground: #e5e9f0
+    Sxiv.background: #2e3440
   '';
 
   home.stateVersion = "23.05";

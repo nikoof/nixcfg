@@ -2,36 +2,49 @@
   enable = true;
   options = {
     font = "FiraCode Nerd Font Mono 10";
-    default-fg = "#c0caf5";
-    default-bg = "#24283b";
-    inputbar-fg = "#c0caf5";
-    inputbar-bg = "#24283b";
-    statusbar-fg = "#c0caf5";
-    statusbar-bg = "#1a1b26";
-    notification-fg = "#c0caf5";
-    notification-bg = "#24283b";
-    notification-error-fg = "#24283b";
-    notification-error-bg = "#f7768e";
-    notification-warning-fg = "#24283b";
-    notification-warning-bg = "#e0af68";
-    completion-fg = "#c0caf5";
-    completion-bg = "#24283b";
-    completion-group-fg = "#c0caf5";
-    completion-group-bg = "#1a1b26";
-    completion-highlight-fg = "#24283b";
-    completion-highlight-bg = "#bb9af7";
-    highlight-color = "#7aa2f7";
-    highlight-active-color = "#bb9af7";
-    highlight-fg = "#1a1b26";
     recolor = true;
     recolor-keephue = true;
-    recolor-darkcolor = "#c0caf5";
     recolor-lightcolor = "#1a1b26";
     recolor-reverse-video = true;
     render-loading = true;
-    render-loading-fg = "#c0caf5";
-    render-loading-bg = "#24283b";
     selection-clipboard = "clipboard";
     selection-notification = false;
+  } // {
+    notification-error-bg =       "#2E3440";
+    notification-error-fg =       "#BF616A";
+    notification-warning-bg =     "#2E3440";
+    notification-warning-fg =     "#D08770";
+    notification-bg =             "#2E3440";
+    notification-fg =             "#D8DEE9";
+
+    completion-bg =               "#2E3440";
+    completion-fg =               "#D8DEE9";
+    completion-group-bg =         "#3B4252";
+    completion-group-fg =         "#D8DEE9";
+    completion-highlight-bg =     "#88C0D0";
+    completion-highlight-fg =     "#3B4252";
+
+    index-bg =                    "#2E3440";
+    index-fg =                    "#8FBCBB";
+    index-active-bg =             "#8FBCBB";
+    index-active-fg =             "#2E3440";
+
+    inputbar-bg =                 "#2E3440";
+    inputbar-fg =                 "#E5E9F0";
+
+    statusbar-bg =                "#2E3440";
+    statusbar-fg =                "#E5E9F0";
+
+    highlight-color =             "#D08770";
+    highlight-active-color =      "#BF616A";
+
+    default-bg =                  "#2E3440";
+    default-fg =                  "#D8DEE9";
+    render-loading =              "true";
+    render-loading-bg =           "#2E3440";
+    render-loading-fg =           "#434C5E";
+
+    recolor-lightcolor =          "#2E3440";
+    recolor-darkcolor =           "#ECEFF4";
   };
 }
