@@ -53,7 +53,7 @@
     videoDrivers = [ "nvidia" ];
     displayManager.sddm = {
       enable = true;
-      theme = "sugar-candy-tokyonight";
+      theme = "Nord";
     };
     windowManager.leftwm.enable = true;
     layout = "us,ro,de";
@@ -129,7 +129,7 @@
     hunspellDicts.en_US
     hunspellDicts.en_GB-ise
     libsForQt5.qtstyleplugin-kvantum
-    local.sddm-sugar-candy-tokyonight-nixbg
+    local.nord-sddm-theme
   ];
 
   fonts.fonts = with pkgs; [
