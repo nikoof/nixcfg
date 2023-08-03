@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs , ... }:
 
 {
   home.username = "nikoof";
@@ -29,7 +29,7 @@
   ];
 
   qt.style.name = "kvantum";
-  gtk = import ./theme.nix;
+  gtk = import ./theme.nix { inherit pkgs; };
 
   programs.bash = import ./bash.nix;
   programs.rofi = import ./rofi.nix;
@@ -39,7 +39,7 @@
 
   programs.bat = {
     enable = true;
-    config.theme = "Nord-sublime";
+    config.theme = "Nord";
   };
 
   programs.exa = {
