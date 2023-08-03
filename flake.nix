@@ -8,9 +8,13 @@
       url = "github:nix-community/home-manager/release-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixvim = {
+      url = "github:nix-community/nixvim/nixos-23.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, nixos-hardware, flake-utils, home-manager, ... }:
+  outputs = inputs@{ self, nixpkgs, nixos-hardware, nixvim, flake-utils, home-manager, ... }:
     let
       system = "x86_64-linux";
       overlays = import ./overlays { inherit inputs; };
@@ -36,6 +40,11 @@
               users.nikoof = import ./users/nikoof;
             };
           }
+	  nixvim.nixosModules.nixvim {
+            programs.nixvim = {
+	      colorschemes.nord.enable = true;
+	    };
+	  }
         ];
       };
 
