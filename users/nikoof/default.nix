@@ -28,43 +28,30 @@
     nordic
   ];
 
-  programs.bash.enable = true;
-
   qt.style.name = "kvantum";
+  gtk = import ./theme.nix;
 
-  gtk = {
-    enable = true;
-
-    gtk2.extraConfig = ''
-      gtk-application-prefer-dark-theme = 1
-      gtk-theme-name = "Nordic"
-    '';
-
-    theme = {
-      name = "Graphite-Dark-nord";
-      package = pkgs.graphite-gtk-theme; 
-    };
-
-    iconTheme = {
-      name = "Nordzy";
-      package = pkgs.nordzy-icon-theme;
-    };
-
-    cursorTheme = {
-      name = "Simp1e-Nord-Dark";
-      package = pkgs.simp1e-cursors;
-    };
-
-    font = {
-      name = "Sans Regular";
-      size = 11;
-    };
-  };
-
+  programs.bash = import ./bash.nix;
   programs.rofi = import ./rofi.nix;
   programs.alacritty = import ./alacritty.nix;
   programs.starship = import ./starship.nix { inherit pkgs; };
   programs.zathura = import ./zathura.nix;
+
+  programs.bat = {
+    enable = true;
+    config.theme = "Nord-sublime";
+  };
+
+  programs.exa = {
+    enable = true;
+    enableAliases = true;
+    extraOptions = [
+     "--group-directories-first"
+     "--header"
+    ];
+    git = true;
+    icons = true;
+  };
 
   xresources.extraConfig = ''
     Sxiv.foreground: #e5e9f0
