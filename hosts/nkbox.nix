@@ -129,6 +129,7 @@
     hunspellDicts.en_US
     hunspellDicts.en_GB-ise
     libsForQt5.qtstyleplugin-kvantum
+    libsForQt5.plasma-framework
     local.nord-sddm-theme
   ];
 
