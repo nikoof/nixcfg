@@ -21,47 +21,43 @@
     bottles
     sxiv
     obsidian
+    mpv
+    btop
+    du-dust
+    syncplay
+    nordic
   ];
 
   programs.bash.enable = true;
 
+  qt.style.name = "kvantum";
+
   gtk = {
     enable = true;
 
+    gtk2.extraConfig = ''
+      gtk-application-prefer-dark-theme = 1
+      gtk-theme-name = "Nordic"
+    '';
+
     theme = {
-      name = "Tokyonight-Moon-B";
-      package = pkgs.tokyo-night-gtk; 
+      name = "Graphite-Dark-nord";
+      package = pkgs.graphite-gtk-theme; 
     };
 
-    # TODO: Change overall theme to Rose Pine
     iconTheme = {
-      name = "oomox-rose-pine-moon";
-      package = pkgs.rose-pine-icon-theme;
+      name = "Nordzy";
+      package = pkgs.nordzy-icon-theme;
     };
 
     cursorTheme = {
-      name = "Simp1e-Tokyo-Night-Storm";
+      name = "Simp1e-Nord-Dark";
       package = pkgs.simp1e-cursors;
     };
 
     font = {
       name = "Sans Regular";
       size = 11;
-    };
-
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
-  };
-  home.sessionVariables.GTK_THEME = "Tokyonight-Moon-B";
-
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      gtk-theme = "Tokyonight-Moon-B";
-      color-scheme = "prefer-dark";
     };
   };
 

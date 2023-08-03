@@ -19,6 +19,7 @@
         config.allowUnfree = true;
 	overlays = with overlays; [
           local-packages
+	  modifications
 	  unstable-packages
 	];
       };
