@@ -54,7 +54,6 @@
 	  common-pc-laptop
           common-pc-laptop-ssd
 	  common-gpu-nvidia
-	  common-gpu-nvidia-prime
 	  ./hardware/nkideapad.nix
 	  ./hosts/common.nix
           ./hosts/nkideapad.nix
