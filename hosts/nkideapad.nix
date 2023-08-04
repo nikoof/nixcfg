@@ -36,8 +36,12 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    open = true;
     nvidiaSettings = true;
+
+    prime = {
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+    };
   };
 
   hardware.opengl = {
@@ -57,21 +61,6 @@
       theme = "Nord";
     };
     windowManager.leftwm.enable = true;
-    layout = "us,ro,de";
-    xkbVariant = ",std,qwerty";
-    xkbOptions = "grp:win_space_toggle,compose:menu";
-    xrandrHeads = [
-      {
-        output = "DP-3";
-	primary = true;
-      }
-      {
-        output = "HDMI-0";
-	monitorConfig = ''
-          Option "RightOf" "DP-3"
-	'';
-      }
-    ];
   };
 
   security.rtkit.enable = true;
@@ -101,17 +90,17 @@
     overrideDevices = true;
     overrideFolders = true;
     devices = {
+      "nkbox" = { id = "6KIED2W-IJFLOZN-BM4KOU3-HOOZFO4-MGZV6LH-Z75QBSY-C3UW73O-2GA3HQO"; };
       "nkgalaxy" = { id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE"; };
-      "nkideapad" = { id = "TJJMOB6-T5YQQCE-HLRVVPW-NV5RWES-CYHWQQH-E25WYYF-VY4P6C4-KU66BA5"; };
     };
     folders = {
       "Obsidian" = {
         path = "/home/nikoof/Documents/nkbrain";
-	devices = [ "nkgalaxy" "nkideapad" ];
+	devices = [ "nkgalaxy" "nkbox" ];
       };
       "KeePass" = {
         path = "/home/nikoof/KeePass";
-	devices = [ "nkgalaxy" "nkideapad" ];
+	devices = [ "nkgalaxy" "nkbox" ];
       };
     };
   };
@@ -132,6 +121,8 @@
     libsForQt5.qtstyleplugin-kvantum
     libsForQt5.plasma-framework
     local.nord-sddm-theme
+    acpi
+    lm_sensors
   ];
 
   fonts.fonts = with pkgs; [
