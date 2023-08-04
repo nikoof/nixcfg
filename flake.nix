@@ -49,12 +49,31 @@
       };
 
       nixosConfigurations.nkideapad = nixpkgs.lib.nixosSystem {
+        inherit system pkgs;
+        modules = with nixos-hardware.nixosModules; [
+	  common-pc-laptop
+          common-pc-laptop-ssd
+	  common-gpu-nvidia
+	  common-gpu-nvidia-prime
+	  ./hardware/nkideapad.nix
+	  ./hosts/common.nix
+          ./hosts/nkideapad.nix
+          home-manager.nixosModules.home-manager {
+            home-manager = {
+              useGlobalPkgs = true;
+              users.nikoof = import ./users/nikoof;
+            };
+          }
+        ];
+      };
+
+      nixosConfigurations.nkideapad-old = nixpkgs.lib.nixosSystem {
 	inherit system pkgs;
         modules = [
           nixos-hardware.nixosModules.common-pc-laptop-hdd
 	  nixos-hardware.nixosModules.common-gpu-intel
-	  ./hardware/nkideapad.nix
-          ./hosts/nkideapad.nix
+	  ./hardware/nkideapad-old.nix
+          ./hosts/nkideapad-old.nix
           home-manager.nixosModules.home-manager {
             home-manager = {
               useGlobalPkgs = true;

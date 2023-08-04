@@ -1,7 +1,8 @@
-{ inputs, config, pkgs, lib, home-manager, ... }:
+{ config, pkgs, localPkgs, home-manager, ... }:
 
 {
   imports = [];
+
   boot.loader = {
     systemd-boot = {
       enable = true;
@@ -11,31 +12,15 @@
     efi.canTouchEfiVariables = true;
   };
 
-  boot.plymouth = {
-    enable = true;
-    themePackages = with pkgs; [ nixos-bgrt-plymouth ];
-    theme = "nixos-bgrt";
-  };
-
   networking = {
-    hostName = "nkideapad";
-    networkmanager = {
-      enable = true;
-    };
-
-    useDHCP = lib.mkDefault true;
+    hostName = "nkideapad-old";
+    networkmanager.enable = true;
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 1630 1631 1632 1633 1634 1635 1636 1637 1638 1639 1640 1641 ];
-      allowedUDPPorts = [ 1630 1631 1632 1633 1634 1635 1636 1637 1638 1639 1640 1641 ];
+      allowedTCPPorts = [ ];
+      allowedUDPPorts = [ ];
     };
-  };
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    open = true;
-    nvidiaSettings = true;
   };
 
   hardware.opengl = {
@@ -43,33 +28,19 @@
     driSupport = true;
     driSupport32Bit = true;
     extraPackages = with pkgs; [
+      vaapiIntel
       vaapiVdpau
+      libvdpau-va-gl
     ];
   };
 
   services.xserver = {
     enable = true;
-    videoDrivers = [ "nvidia" ];
     displayManager.sddm = {
       enable = true;
-      theme = "Nord";
+      theme = "sugar-candy-tokyonight";
     };
     windowManager.leftwm.enable = true;
-    layout = "us,ro,de";
-    xkbVariant = ",std,qwerty";
-    xkbOptions = "grp:win_space_toggle,compose:menu";
-    xrandrHeads = [
-      {
-        output = "DP-3";
-	primary = true;
-      }
-      {
-        output = "HDMI-0";
-	monitorConfig = ''
-          Option "RightOf" "DP-3"
-	'';
-      }
-    ];
   };
 
   security.rtkit.enable = true;
@@ -100,16 +71,16 @@
     overrideFolders = true;
     devices = {
       "nkgalaxy" = { id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE"; };
-      "nkideapad" = { id = "TJJMOB6-T5YQQCE-HLRVVPW-NV5RWES-CYHWQQH-E25WYYF-VY4P6C4-KU66BA5"; };
+      "nkbox" = { id = "6KIED2W-IJFLOZN-BM4KOU3-HOOZFO4-MGZV6LH-Z75QBSY-C3UW73O-2GA3HQO"; };
     };
     folders = {
       "Obsidian" = {
         path = "/home/nikoof/Documents/nkbrain";
-	devices = [ "nkgalaxy" "nkideapad" ];
+	devices = [ "nkgalaxy" "nkbox" ];
       };
       "KeePass" = {
         path = "/home/nikoof/KeePass";
-	devices = [ "nkgalaxy" "nkideapad" ];
+	devices = [ "nkgalaxy" "nkbox" ];
       };
     };
   };
@@ -119,17 +90,15 @@
     neovim
     git
     stow
-    gnupg
-    pinentry
+    gnupg pinentry
+    localPkgs.sddm-sugar-candy-tokyonight-nixbg
     playerctl
+    libsForQt5.qtstyleplugin-kvantum
     lxappearance
     pulseaudio
     cifs-utils
     hunspellDicts.en_US
     hunspellDicts.en_GB-ise
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.plasma-framework
-    local.nord-sddm-theme
   ];
 
   fonts.fonts = with pkgs; [
@@ -137,19 +106,11 @@
     nerdfonts
     symbola
     corefonts
-    noto-fonts
   ];
 
   users.users.nikoof = {
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
-  };
-
-  programs.gamemode.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
   };
 
   system.stateVersion = "23.05";
