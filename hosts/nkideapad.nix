@@ -17,6 +17,8 @@
     theme = "nixos-bgrt";
   };
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   networking = {
     hostName = "nkideapad";
     networkmanager = {
