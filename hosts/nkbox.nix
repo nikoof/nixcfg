@@ -101,7 +101,7 @@
     overrideFolders = true;
     devices = {
       "nkgalaxy" = { id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE"; };
-      "nkideapad" = { id = "TJJMOB6-T5YQQCE-HLRVVPW-NV5RWES-CYHWQQH-E25WYYF-VY4P6C4-KU66BA5"; };
+      "nkideapad" = { id = "QJMJGXY-IXRL5PU-TCOYPF6-OEVTKUN-CWAGEJW-ZZQBE3I-5T5HV5P-W6KZXAL"; };
     };
     folders = {
       "Obsidian" = {
