@@ -53,14 +53,13 @@
     ];
   };
 
+  hardware.bluetooth.enable = true;
+
   services.xserver = {
     enable = true;
     videoDrivers = [ "nvidia" ];
-    displayManager.sddm = {
-      enable = true;
-      theme = "Nord";
-    };
-    windowManager.leftwm.enable = true;
+    displayManager.sddm.enable = true;
+    desktopManager.plasma5.enable = true;
   };
 
   security.rtkit.enable = true;
@@ -133,11 +132,11 @@
     cifs-utils
     hunspellDicts.en_US
     hunspellDicts.en_GB-ise
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.plasma-framework
     local.nord-sddm-theme
     acpi
     lm_sensors
+    libsForQt5.sddm-kcm
+    libsForQt5.kde-gtk-config
   ];
 
   fonts.fonts = with pkgs; [

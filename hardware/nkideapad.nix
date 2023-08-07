@@ -14,32 +14,31 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/27e2ab01-47d8-47e5-9d2f-12fc30faf651";
+    { device = "/dev/disk/by-uuid/c10e2f83-8c02-4c75-99ab-40aaa3b71bb3";
       fsType = "btrfs";
       options = [ "subvol=@" ];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/27e2ab01-47d8-47e5-9d2f-12fc30faf651";
+    { device = "/dev/disk/by-uuid/c10e2f83-8c02-4c75-99ab-40aaa3b71bb3";
       fsType = "btrfs";
-      options = [ "subvol=@nix" ];
-    };
+      options = [ "subvol=@nix" ]; };
 
   fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/27e2ab01-47d8-47e5-9d2f-12fc30faf651";
+    { device = "/dev/disk/by-uuid/c10e2f83-8c02-4c75-99ab-40aaa3b71bb3";
       fsType = "btrfs";
       options = [ "subvol=@home" ];
     };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/1DD9-3325";
-      fsType = "vfat";
-    };
-
   fileSystems."/swap" =
-    { device = "/dev/disk/by-uuid/27e2ab01-47d8-47e5-9d2f-12fc30faf651";
+    { device = "/dev/disk/by-uuid/c10e2f83-8c02-4c75-99ab-40aaa3b71bb3";
       fsType = "btrfs";
       options = [ "subvol=@swap" ];
+    };
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/E70B-B6CF";
+      fsType = "vfat";
     };
 
   swapDevices = [ { device = "/swap/swapfile"; } ];
@@ -49,7 +48,7 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp0s13f0u1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.enp0s20f0u1.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp47s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
