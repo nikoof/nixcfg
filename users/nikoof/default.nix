@@ -12,6 +12,7 @@
     taskwarrior
     discord betterdiscordctl
     firefox unstable.thunderbird
+    chromium
     spotify
     keepassxc
     qbittorrent
@@ -26,16 +27,29 @@
     du-dust
     syncplay
     nordic
+    nordzy-icon-theme
+    simp1e-cursors
+    vscode
+    gh
   ];
 
-  qt.style.name = "kvantum";
-  gtk = import ./theme.nix { inherit pkgs; };
+  # qt.style.name = "kvantum";
+  # gtk = import ./theme.nix { inherit pkgs; };
+
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
+    };
+  };
 
   programs.bash = import ./bash.nix;
   programs.rofi = import ./rofi.nix;
   programs.alacritty = import ./alacritty.nix;
   programs.starship = import ./starship.nix { inherit pkgs; };
   programs.zathura = import ./zathura.nix;
+
+  programs.direnv.enable = true;
 
   programs.bat = {
     enable = true;

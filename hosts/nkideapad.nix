@@ -18,6 +18,7 @@
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.extraModulePackages = with config.boot.kernelPackages; [ xone ];
 
   networking = {
     hostName = "nkideapad";
@@ -55,10 +56,33 @@
 
   hardware.bluetooth.enable = true;
 
+  systemd.targets.machines.enable = true;
+  systemd.nspawn."ubuntu-jammy" = {
+    enable = true;
+    execConfig = {
+      Boot = true;
+      ResolvConf = "bind-host";
+    };
+    networkConfig = {
+      Private = false;
+    };
+  };
+  systemd.services."systemd-nspawn@ubuntu-jammy" = {
+    enable = true;
+    overrideStrategy = "asDropin";
+    wantedBy = [ "machines.target" ];
+  };
+  
+  services.udev.extraRules = ''
+    SUBSYSTEM=="usb", ATTR{idVendor}=="2e8a", ATTR{idProduct}=="000c", MODE:="666"
+  '';
+
   services.xserver = {
     enable = true;
     videoDrivers = [ "nvidia" ];
-    displayManager.sddm.enable = true;
+    displayManager.sddm = {
+      enable = true;
+    };
     desktopManager.plasma5.enable = true;
   };
 
@@ -70,6 +94,8 @@
     pulse.enable = true;
     jack.enable = true;
   };
+
+  virtualisation.libvirtd.enable = true;
 
   services.openssh.enable = true;
   services.printing.enable = true;
@@ -119,7 +145,11 @@
     };
   };
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; with libsForQt5; [
+    libthai
+    pyocd
+    picoprobe-udev-rules
+    libusb1
     curl
     neovim
     git
@@ -130,26 +160,32 @@
     lxappearance
     pulseaudio
     cifs-utils
+    pciutils
+    usbutils
     hunspellDicts.en_US
     hunspellDicts.en_GB-ise
     local.nord-sddm-theme
     acpi
     lm_sensors
-    libsForQt5.sddm-kcm
-    libsForQt5.kde-gtk-config
+
+    kde-gtk-config
+    kcalc
+
+    qemu
   ];
 
   fonts.fonts = with pkgs; [
     fira-code
     nerdfonts
-    symbola
     corefonts
     noto-fonts
+    noto-fonts-emoji
+    noto-fonts-cjk-sans
   ];
 
   users.users.nikoof = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "dialout" "tty" "plugdev" "libvirtd" ];
   };
 
   programs.gamemode.enable = true;
