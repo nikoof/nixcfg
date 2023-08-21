@@ -7,7 +7,7 @@ let
   desktopItem = makeDesktopItem {
     name = "lunar-client";
     exec = "lunar-client";
-    icon = "launcher";
+    icon = "lunar-client";
     comment = "Minecraft 1.7, 1.8, 1.12, 1.15, 1.16, 1.17, and 1.18 Client";
     desktopName = "Lunar Client";
     genericName = "Minecraft Client";
