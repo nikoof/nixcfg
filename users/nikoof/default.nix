@@ -5,13 +5,14 @@
   home.homeDirectory = "/home/nikoof";
 
   home.packages = with pkgs; [
-    polybar picom dunst feh
-    dmenu rofi
-    xclip scrot
-    exa neofetch
+    xclip
+    exa
+    neofetch
     taskwarrior
-    discord betterdiscordctl
-    firefox unstable.thunderbird
+    discord
+    betterdiscordctl
+    firefox
+    unstable.thunderbird
     chromium
     spotify
     keepassxc
@@ -20,7 +21,6 @@
     libreoffice
     heroic
     bottles
-    sxiv
     obsidian
     mpv
     btop
@@ -31,6 +31,7 @@
     simp1e-cursors
     vscode
     gh
+    unstable.lunar-client
   ];
 
   # qt.style.name = "kvantum";
