@@ -30,7 +30,9 @@
     in rec {
       nixosConfigurations.nkbox = nixpkgs.lib.nixosSystem {
 	inherit system pkgs;
-        modules = [
+        modules = with nixos-hardware.nixosModules; [
+	  common-pc-ssd
+          common-gpu-nvidia-nonprime
           ./hardware/nkbox.nix
           ./hosts/common.nix
           ./hosts/nkbox.nix
