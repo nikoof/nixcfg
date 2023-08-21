@@ -31,7 +31,7 @@
     simp1e-cursors
     vscode
     gh
-    unstable.lunar-client
+    local.lunar-client
   ];
 
   # qt.style.name = "kvantum";
