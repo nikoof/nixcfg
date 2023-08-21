@@ -53,12 +53,8 @@
     videoDrivers = [ "nvidia" ];
     displayManager.sddm = {
       enable = true;
-      theme = "Nord";
     };
-    windowManager.leftwm.enable = true;
-    layout = "us,ro,de";
-    xkbVariant = ",std,qwerty";
-    xkbOptions = "grp:win_space_toggle,compose:menu";
+    desktopManager.plasma5.enable = true;
     xrandrHeads = [
       {
         output = "DP-3";
@@ -101,7 +97,7 @@
     overrideFolders = true;
     devices = {
       "nkgalaxy" = { id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE"; };
-      "nkideapad" = { id = "QJMJGXY-IXRL5PU-TCOYPF6-OEVTKUN-CWAGEJW-ZZQBE3I-5T5HV5P-W6KZXAL"; };
+      "nkideapad" = { id = "DFBQIQO-4Q5RHSF-TFQAH2X-7IH7URS-EQDBRHT-VAK7HAY-WXQC75W-7SOMIAO"; };
     };
     folders = {
       "Obsidian" = {
@@ -128,9 +124,7 @@
     cifs-utils
     hunspellDicts.en_US
     hunspellDicts.en_GB-ise
-    libsForQt5.qtstyleplugin-kvantum
-    libsForQt5.plasma-framework
-    local.nord-sddm-theme
+    libsForQt5.kdeconnect-kde
   ];
 
   fonts.fonts = with pkgs; [
