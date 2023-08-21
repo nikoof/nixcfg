@@ -9,9 +9,6 @@
     graphite-gtk-theme = prev.graphite-gtk-theme.override {
       tweaks = [ "nord" ];
     };
-
-    inherit (import inputs.nixpkgs-unstable { inherit (prev) system; })
-    	mesa;
   };
 
   unstable-packages = final: prev: {
