@@ -136,9 +136,10 @@
   fonts.fonts = with pkgs; [
     fira-code
     nerdfonts
-    symbola
     corefonts
     noto-fonts
+    noto-fonts-emoji
+    noto-fonts-cjk-sans
   ];
 
   users.users.nikoof = {
