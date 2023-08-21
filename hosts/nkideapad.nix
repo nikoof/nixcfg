@@ -30,8 +30,14 @@
 
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 1630 1631 1632 1633 1634 1635 1636 1637 1638 1639 1640 1641 ];
-      allowedUDPPorts = [ 1630 1631 1632 1633 1634 1635 1636 1637 1638 1639 1640 1641 ];
+      allowedTCPPortRanges = [
+        { from = 1630; to = 1641; }
+	{ from = 1714; to = 1764; }
+      ];
+      allowedUDPPortRanges = [
+        { from = 1630; to = 1641; }
+	{ from = 1714; to = 1764; }
+      ];
     };
   };
 
@@ -170,6 +176,7 @@
 
     kde-gtk-config
     kcalc
+    kdeconnect
 
     qemu
   ];
