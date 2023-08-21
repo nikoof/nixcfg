@@ -7,7 +7,7 @@ let
   desktopItem = makeDesktopItem {
     name = "lunar-client";
     exec = "lunar-client";
-    icon = "lunarclient";
+    icon = "launcher";
     comment = "Minecraft 1.7, 1.8, 1.12, 1.15, 1.16, 1.17, and 1.18 Client";
     desktopName = "Lunar Client";
     genericName = "Minecraft Client";
@@ -21,7 +21,7 @@ let
   src = fetchurl {
     url = "https://launcherupdates.lunarclientcdn.com/Lunar%20Client-${version}.AppImage";
     name = "lunar-client.AppImage";
-    hash = "sha256-8F6inLctNLCrTvO/f4IWHclpm/6vqW44NKbct0Epp4s=";
+    hash = "sha256-SYEf2x2dpLsMfSVe1gvWX4SVpZjat4M6eaQ9SREzrAI=";
   };
 in
 appimageTools.wrapType1 rec {
