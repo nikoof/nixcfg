@@ -11,7 +11,7 @@
     taskwarrior
     discord
     betterdiscordctl
-    firefox
+    unstable.firefox
     unstable.thunderbird
     chromium
     spotify
