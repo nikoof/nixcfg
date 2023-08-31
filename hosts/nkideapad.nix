@@ -172,6 +172,7 @@
     hunspellDicts.en_GB-ise
     local.nord-sddm-theme
     acpi
+    wireguard-tools
     lm_sensors
 
     kde-gtk-config
