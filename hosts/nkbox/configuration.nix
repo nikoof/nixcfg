@@ -1,7 +1,11 @@
-{ inputs, config, pkgs, lib, home-manager, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 {
-  imports = [];
+  imports = [
+    ../../modules/common.nix
+    inputs.home-manager.nixosModules.home-manager
+  ];
+
   boot.loader = {
     systemd-boot = {
       enable = true;
@@ -149,6 +153,12 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" ];
   };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    users.nikoof = import ../../users/nikoof;
+  };
+
 
   programs.gamemode.enable = true;
   programs.steam = {

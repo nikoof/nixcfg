@@ -1,7 +1,10 @@
 { inputs, config, pkgs, lib, home-manager, ... }:
 
 {
-  imports = [];
+  imports = [
+    ../../modules/common.nix
+  ];
+
   boot.loader = {
     systemd-boot = {
       enable = true;
