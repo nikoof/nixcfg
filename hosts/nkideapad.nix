@@ -192,6 +192,7 @@
   ];
 
   users.users.nikoof = {
+    description = "Nicolas Bratoveanu";
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "dialout" "tty" "plugdev" "libvirtd" ];
   };

@@ -3,7 +3,7 @@
 {
   imports = [];
 
-  time.timeZone = "Europe/Bucharest";
+  services.automatic-timezoned.enable = true;
   i18n.defaultLocale = "en_US.UTF-8";
 
   services.openssh.enable = true;

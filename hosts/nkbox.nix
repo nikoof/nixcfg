@@ -143,6 +143,7 @@
   ];
 
   users.users.nikoof = {
+    description = "Nicolas Bratoveanu";
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
   };

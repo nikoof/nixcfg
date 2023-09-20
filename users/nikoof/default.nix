@@ -11,8 +11,8 @@
     taskwarrior
     discord
     betterdiscordctl
-    unstable.firefox
-    unstable.thunderbird
+    unstable.firefox-bin
+    unstable.thunderbird-bin
     chromium
     spotify
     keepassxc
@@ -32,6 +32,7 @@
     vscode
     gh
     unstable.lunar-client
+    virt-manager
   ];
 
   # qt.style.name = "kvantum";
@@ -51,6 +52,16 @@
   programs.zathura = import ./zathura.nix;
 
   programs.direnv.enable = true;
+
+  programs.helix = {
+    enable = true;
+    settings = {
+      theme = "nord";
+      editor = {
+        line-number = "relative";
+      };
+    };
+  };
 
   programs.bat = {
     enable = true;
