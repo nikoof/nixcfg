@@ -31,7 +31,7 @@
           common-gpu-nvidia-nonprime
           ./hosts/nkbox/hardware.nix
           ./hosts/nkbox/configuration.nix
-        ]
+        ];
       };
 
       nixosConfigurations.nkideapad = nixpkgs.lib.nixosSystem {
@@ -42,12 +42,6 @@
 	  common-gpu-nvidia
           ./hosts/nkideapad/hardware.nix
           ./hosts/nkideapad/configuration.nix
-          home-manager.nixosModules.home-manager {
-            home-manager = {
-              useGlobalPkgs = true;
-              users.nikoof = import ./users/nikoof;
-            };
-          }
         ];
       };
 
