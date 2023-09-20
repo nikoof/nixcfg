@@ -175,7 +175,6 @@
     usbutils
     hunspellDicts.en_US
     hunspellDicts.en_GB-ise
-    local.nord-sddm-theme
     acpi
     wireguard-tools
     lm_sensors
@@ -204,7 +203,7 @@
 
   home-manager = {
     useGlobalPkgs = true;
-    users.nikoof = import ./users/nikoof;
+    users.nikoof = import ../../users/nikoof;
   };
 
   programs.gamemode.enable = true;
