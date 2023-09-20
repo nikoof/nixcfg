@@ -37,6 +37,8 @@
 	{ from = 1714; to = 1764; }
       ];
     };
+
+    interfaces.enp3s0.wakeOnLan.enable = true;
   };
 
   hardware.nvidia = {
@@ -144,7 +146,7 @@
 
   users.users.nikoof = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" ];
   };
 
   programs.gamemode.enable = true;
