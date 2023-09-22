@@ -46,23 +46,6 @@
         ];
       };
 
-      nixosConfigurations.nkideapad-old = nixpkgs.lib.nixosSystem {
-        inherit system pkgs;
-        modules = [
-          nixos-hardware.nixosModules.common-pc-laptop-hdd
-          nixos-hardware.nixosModules.common-gpu-intel
-          ./hardware/nkideapad-old.nix
-          ./hosts/nkideapad-old.nix
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              users.nikoof = import ./users/nikoof;
-            };
-          }
-        ];
-      };
-
       formatter.${system} = pkgs.nixpkgs-fmt;
     };
 }
