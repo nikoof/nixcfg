@@ -14,44 +14,51 @@
   home.homeDirectory = "/home/nikoof";
 
   home.packages = with pkgs; [
-    xclip
-    exa
+    # Utilities
     neofetch
+    xclip
+    btop
+    du-dust
+
+    # Development
+    virt-manager
+    gh
+    vscode
+
+    # School
+    unstable.zoom-us
+    unstable.ciscoPacketTracer8
+
+    # Media
+    mpv
+    spotify
+    gimp
+    libreoffice
+    qbittorrent
+    syncplay
+
+    # Gaming
+    heroic
+    bottles
+    local.lunar-client
+
+    # Productivity
     taskwarrior
+    obsidian
+    keepassxc
+
+    # Messaging
     discord
     betterdiscordctl
     unstable.firefox-bin
     unstable.thunderbird-bin
     chromium
-    spotify
-    keepassxc
-    qbittorrent
-    gimp
-    libreoffice
-    heroic
-    bottles
-    obsidian
-    mpv
-    btop
-    du-dust
-    syncplay
+
+    # Theming
     nordic
     nordzy-icon-theme
     simp1e-cursors
-    vscode
-    gh
-    virt-manager
-    local.lunar-client
-    unstable.zoom-us
-    unstable.ciscoPacketTracer8
   ];
-
-  dconf.settings = {
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
-    };
-  };
 
   programs.direnv.enable = true;
 
@@ -81,10 +88,12 @@
     icons = true;
   };
 
-  xresources.extraConfig = ''
-    Sxiv.foreground: #e5e9f0
-    Sxiv.background: #2e3440
-  '';
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
+    };
+  };
 
   home.stateVersion = "23.05";
 }
