@@ -1,7 +1,17 @@
-{ inputs, config, pkgs, lib, home-manager, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 {
-  imports = [];
+  imports = [
+    ../../modules/boot.nix
+    ../../modules/environment.nix
+    ../../modules/fonts.nix
+    ../../modules/locale.nix
+    ../../modules/services.nix
+
+    inputs.home-manager.nixosModules.home-manager
+  ];
+
+
   boot.loader = {
     systemd-boot = {
       enable = true;
@@ -170,7 +180,6 @@
     usbutils
     hunspellDicts.en_US
     hunspellDicts.en_GB-ise
-    local.nord-sddm-theme
     acpi
     wireguard-tools
     lm_sensors
@@ -195,6 +204,11 @@
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" "dialout" "tty" "plugdev" "libvirtd" ];
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    users.nikoof = import ../../users/nikoof;
   };
 
   programs.gamemode.enable = true;
