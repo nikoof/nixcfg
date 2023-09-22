@@ -33,10 +33,9 @@
     gh
     virt-manager
     local.lunar-client
+    unstable.zoom-us
+    unstable.ciscoPacketTracer8
   ];
-
-  # qt.style.name = "kvantum";
-  # gtk = import ./theme.nix { inherit pkgs; };
 
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
