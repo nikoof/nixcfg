@@ -6,17 +6,17 @@
   settings = {
     format = pkgs.lib.concatStrings [
       "[∴ ](bold blue)"
-            "$hostname"
-            "$directory"
-            "([∴](bold blue) ($c) )"
-            "([∴](bold blue) ($rust) )"
-            "([∴](bold blue) ($python))"
-            " $fill "
-            ''(\[$cmd_duration\])''
-            "$line_break"
-            ''\[$username\]''
-            " $character"
-            "[λ](bold blue) "
+      "$hostname"
+      "$directory"
+      "([∴](bold blue) ($c) )"
+      "([∴](bold blue) ($rust) )"
+      "([∴](bold blue) ($python))"
+      " $fill "
+      ''(\[$cmd_duration\])''
+      "$line_break"
+      ''\[$username\]''
+      " $character"
+      "[λ](bold blue) "
     ];
 
     username = {
@@ -25,26 +25,26 @@
       format = "[$user]($style)";
       disabled = false;
       show_always = true;
-          };
+    };
 
-          directory = {
+    directory = {
       truncation_length = 4;
-            style = "blue bold";
-            read_only = " ";
-          };
+      style = "blue bold";
+      read_only = " ";
+    };
 
-          hostname = {
+    hostname = {
       ssh_only = false;
       ssh_symbol = "";
       style = "bold green";
       format = "[@](bold blue)[$hostname]($style)[ ∴ ](bold blue)";
-          };
+    };
 
     character = {
       format = "$symbol ";
       success_symbol = "[⟶](bold green)";
       error_symbol = "[⟶](bold red)";
-          };
+    };
 
     cmd_duration = {
       min_time = 500;
@@ -60,13 +60,13 @@
       style = "bold";
       version_format = "$raw";
     };
-    
+
     rust = {
       symbol = "";
       format = "[$symbol $version]($style)";
       style = "red bold";
     };
-    
+
     python = {
       symbol = "";
       format = ''[$symbol$pyenv_prefix ($version) (\($virtualenv\))]($style)'';

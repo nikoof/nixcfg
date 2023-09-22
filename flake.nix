@@ -15,19 +15,20 @@
       system = "x86_64-linux";
       overlays = import ./overlays { inherit inputs; };
       pkgs = import nixpkgs {
-	inherit system;
+        inherit system;
         config.allowUnfree = true;
-	overlays = with overlays; [
+        overlays = with overlays; [
           local-packages
-	  modifications
-	  unstable-packages
-	];
+          modifications
+          unstable-packages
+        ];
       };
-    in rec {
+    in
+    rec {
       nixosConfigurations.nkbox = nixpkgs.lib.nixosSystem {
-	specialArgs = { inherit system inputs pkgs; };
+        specialArgs = { inherit system inputs pkgs; };
         modules = with nixos-hardware.nixosModules; [
-	  common-pc-ssd
+          common-pc-ssd
           common-gpu-nvidia-nonprime
           ./hosts/nkbox/hardware.nix
           ./hosts/nkbox/configuration.nix
@@ -35,24 +36,25 @@
       };
 
       nixosConfigurations.nkideapad = nixpkgs.lib.nixosSystem {
-	specialArgs = { inherit system inputs pkgs; };
+        specialArgs = { inherit system inputs pkgs; };
         modules = with nixos-hardware.nixosModules; [
-	  common-pc-laptop
+          common-pc-laptop
           common-pc-laptop-ssd
-	  common-gpu-nvidia
+          common-gpu-nvidia
           ./hosts/nkideapad/hardware.nix
           ./hosts/nkideapad/configuration.nix
         ];
       };
 
       nixosConfigurations.nkideapad-old = nixpkgs.lib.nixosSystem {
-	inherit system pkgs;
+        inherit system pkgs;
         modules = [
           nixos-hardware.nixosModules.common-pc-laptop-hdd
-	  nixos-hardware.nixosModules.common-gpu-intel
-	  ./hardware/nkideapad-old.nix
+          nixos-hardware.nixosModules.common-gpu-intel
+          ./hardware/nkideapad-old.nix
           ./hosts/nkideapad-old.nix
-          home-manager.nixosModules.home-manager {
+          home-manager.nixosModules.home-manager
+          {
             home-manager = {
               useGlobalPkgs = true;
               users.nikoof = import ./users/nikoof;
@@ -60,5 +62,7 @@
           }
         ];
       };
+
+      formatter.${system} = pkgs.nixpkgs-fmt;
     };
 }

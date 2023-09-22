@@ -9,7 +9,7 @@
 
   theme = {
     name = "Graphite-Dark-nord";
-    package = pkgs.graphite-gtk-theme; 
+    package = pkgs.graphite-gtk-theme;
   };
 
   iconTheme = {

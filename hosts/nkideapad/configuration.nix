@@ -42,11 +42,11 @@
       enable = true;
       allowedTCPPortRanges = [
         { from = 1630; to = 1641; }
-	{ from = 1714; to = 1764; }
+        { from = 1714; to = 1764; }
       ];
       allowedUDPPortRanges = [
         { from = 1630; to = 1641; }
-	{ from = 1714; to = 1764; }
+        { from = 1714; to = 1764; }
       ];
     };
   };
@@ -88,7 +88,7 @@
     overrideStrategy = "asDropin";
     wantedBy = [ "machines.target" ];
   };
-  
+
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTR{idVendor}=="2e8a", ATTR{idProduct}=="000c", MODE:="666"
   '';
@@ -137,11 +137,11 @@
     folders = {
       "Obsidian" = {
         path = "/home/nikoof/Documents/nkbrain";
-	devices = [ "nkgalaxy" "nkbox" ];
+        devices = [ "nkgalaxy" "nkbox" ];
       };
       "KeePass" = {
         path = "/home/nikoof/KeePass";
-	devices = [ "nkgalaxy" "nkbox" ];
+        devices = [ "nkgalaxy" "nkbox" ];
       };
     };
   };
@@ -151,12 +151,12 @@
     enable = true;
     settings = {
       battery = {
-         governor = "powersave";
-         turbo = "never";
+        governor = "powersave";
+        turbo = "never";
       };
       charger = {
-         governor = "performance";
-         turbo = "auto";
+        governor = "performance";
+        turbo = "auto";
       };
     };
   };

@@ -25,11 +25,11 @@
       enable = true;
       allowedTCPPortRanges = [
         { from = 1630; to = 1641; }
-	{ from = 1714; to = 1764; }
+        { from = 1714; to = 1764; }
       ];
       allowedUDPPortRanges = [
         { from = 1630; to = 1641; }
-	{ from = 1714; to = 1764; }
+        { from = 1714; to = 1764; }
       ];
     };
 
@@ -57,13 +57,13 @@
     xrandrHeads = [
       {
         output = "DP-3";
-	primary = true;
+        primary = true;
       }
       {
         output = "HDMI-0";
-	monitorConfig = ''
-          Option "RightOf" "DP-3"
-	'';
+        monitorConfig = ''
+                    Option "RightOf" "DP-3"
+          	'';
       }
     ];
   };
@@ -146,11 +146,11 @@
     folders = {
       "Obsidian" = {
         path = "/home/nikoof/Documents/nkbrain";
-	devices = [ "nkgalaxy" "nkideapad" ];
+        devices = [ "nkgalaxy" "nkideapad" ];
       };
       "KeePass" = {
         path = "/home/nikoof/KeePass";
-	devices = [ "nkgalaxy" "nkideapad" ];
+        devices = [ "nkgalaxy" "nkideapad" ];
       };
     };
   };
