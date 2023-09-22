@@ -2,25 +2,16 @@
 
 {
   imports = [
-    ../../modules/common.nix
+    ../../modules/boot.nix
+    ../../modules/environment.nix
+    ../../modules/fonts.nix
+    ../../modules/locale.nix
+    ../../modules/services.nix
+
     inputs.home-manager.nixosModules.home-manager
   ];
 
-  boot.loader = {
-    systemd-boot = {
-      enable = true;
-      consoleMode = "max";
-    };
-
-    efi.canTouchEfiVariables = true;
-  };
-
-  boot.plymouth = {
-    enable = true;
-    themePackages = with pkgs; [ nixos-bgrt-plymouth ];
-    theme = "nixos-bgrt";
-  };
-
+  # Networking
   networking = {
     hostName = "nkbox";
     networkmanager = {
@@ -45,6 +36,8 @@
     interfaces.enp3s0.wakeOnLan.enable = true;
   };
 
+
+  # Video & Audio
   hardware.nvidia = {
     modesetting.enable = true;
     open = true;
@@ -55,17 +48,11 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      vaapiVdpau
-    ];
   };
 
   services.xserver = {
     enable = true;
-    videoDrivers = [ "nvidia" ];
-    displayManager.sddm = {
-      enable = true;
-    };
+    displayManager.sddm.enable = true;
     desktopManager.plasma5.enable = true;
     xrandrHeads = [
       {
@@ -90,9 +77,10 @@
     jack.enable = true;
   };
 
+
+  # Services
   services.openssh.enable = true;
   services.printing.enable = true;
-  services.udisks2.enable = true;
 
   services.avahi = {
     enable = true;
@@ -100,6 +88,50 @@
     openFirewall = true;
   };
 
+  programs.gamemode.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
+  };
+
+
+  # Packages
+  environment.systemPackages = with pkgs; ([
+    # KDE Apps
+    libsForQt5.kdeconnect-kde
+
+    # System Utilities
+    curl
+    git
+    gnupg
+    pinentry
+    cifs-utils
+    playerctl
+
+    # Editor
+    neovim
+
+    # Others
+    hunspellDicts.en_US
+    hunspellDicts.en_GB-ise
+  ]);
+
+
+  # Users
+  users.users.nikoof = {
+    description = "Nicolas Bratoveanu";
+    isNormalUser = true;
+    extraGroups = [ "wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" ];
+  };
+
+  home-manager = {
+    useGlobalPkgs = true;
+    users.nikoof = import ../../users/nikoof;
+  };
+
+
+  # Syncthing
   services.syncthing = {
     enable = true;
     user = "nikoof";
@@ -121,50 +153,6 @@
 	devices = [ "nkgalaxy" "nkideapad" ];
       };
     };
-  };
-
-  environment.systemPackages = with pkgs; [
-    curl
-    neovim
-    git
-    stow
-    gnupg
-    pinentry
-    playerctl
-    lxappearance
-    pulseaudio
-    cifs-utils
-    hunspellDicts.en_US
-    hunspellDicts.en_GB-ise
-    libsForQt5.kdeconnect-kde
-  ];
-
-  fonts.fonts = with pkgs; [
-    fira-code
-    nerdfonts
-    corefonts
-    noto-fonts
-    noto-fonts-emoji
-    noto-fonts-cjk-sans
-  ];
-
-  users.users.nikoof = {
-    description = "Nicolas Bratoveanu";
-    isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" ];
-  };
-
-  home-manager = {
-    useGlobalPkgs = true;
-    users.nikoof = import ../../users/nikoof;
-  };
-
-
-  programs.gamemode.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
   };
 
   system.stateVersion = "23.05";

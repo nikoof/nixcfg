@@ -2,7 +2,12 @@
 
 {
   imports = [
-    ../../modules/common.nix
+    ../../modules/boot.nix
+    ../../modules/environment.nix
+    ../../modules/fonts.nix
+    ../../modules/locale.nix
+    ../../modules/services.nix
+
     inputs.home-manager.nixosModules.home-manager
   ];
 

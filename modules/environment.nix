@@ -3,17 +3,6 @@
 {
   imports = [];
 
-  services.automatic-timezoned.enable = true;
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  services.openssh.enable = true;
-
-  services.xserver = {
-    layout = "us,ro,de";
-    xkbVariant = ",std,qwerty";
-    xkbOptions = "grp:win_space_toggle,compose:menu";
-  };
-
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
@@ -36,12 +25,5 @@
     STACK_XDG       = "1";
 
     GTK_IM_MODULE   = "xim";
-  };
-
-  programs.dconf.enable = true;
-  programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
   };
 }
