@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   enable = true;
   enableBashIntegration = true;
   settings = {
@@ -52,7 +50,7 @@
       style = "bold yellow";
     };
 
-    fill = { symbol = " "; };
+    fill = {symbol = " ";};
 
     c = {
       symbol = "";

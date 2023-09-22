@@ -1,6 +1,10 @@
-{ config, inputs, lib, pkgs, ... }:
-
 {
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: {
   fonts.fonts = with pkgs; [
     fira-code
     nerdfonts

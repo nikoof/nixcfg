@@ -1,6 +1,10 @@
-{ inputs, config, lib, pkgs, ... }:
-
 {
+  inputs,
+  config,
+  lib,
+  pkgs,
+  ...
+}: {
   boot.loader = {
     systemd-boot.enable = true;
     systemd-boot.consoleMode = "max";
@@ -9,7 +13,7 @@
 
   boot.plymouth = {
     enable = true;
-    themePackages = with pkgs; [ nixos-bgrt-plymouth ];
+    themePackages = with pkgs; [nixos-bgrt-plymouth];
     theme = "nixos-bgrt";
   };
 }

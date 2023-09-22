@@ -1,6 +1,10 @@
-{ inputs, config, pkgs, lib, ... }:
-
 {
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ../../modules/boot.nix
     ../../modules/environment.nix
@@ -24,18 +28,29 @@
     firewall = {
       enable = true;
       allowedTCPPortRanges = [
-        { from = 1630; to = 1641; }
-        { from = 1714; to = 1764; }
+        {
+          from = 1630;
+          to = 1641;
+        }
+        {
+          from = 1714;
+          to = 1764;
+        }
       ];
       allowedUDPPortRanges = [
-        { from = 1630; to = 1641; }
-        { from = 1714; to = 1764; }
+        {
+          from = 1630;
+          to = 1641;
+        }
+        {
+          from = 1714;
+          to = 1764;
+        }
       ];
     };
 
     interfaces.enp3s0.wakeOnLan.enable = true;
   };
-
 
   # Video & Audio
   hardware.nvidia = {
@@ -62,8 +77,8 @@
       {
         output = "HDMI-0";
         monitorConfig = ''
-                    Option "RightOf" "DP-3"
-          	'';
+          Option "RightOf" "DP-3"
+        '';
       }
     ];
   };
@@ -76,7 +91,6 @@
     pulse.enable = true;
     jack.enable = true;
   };
-
 
   # Services
   services.openssh.enable = true;
@@ -95,9 +109,8 @@
     dedicatedServer.openFirewall = true;
   };
 
-
   # Packages
-  environment.systemPackages = with pkgs; ([
+  environment.systemPackages = with pkgs; [
     # KDE Apps
     libsForQt5.kdeconnect-kde
 
@@ -115,21 +128,19 @@
     # Others
     hunspellDicts.en_US
     hunspellDicts.en_GB-ise
-  ]);
-
+  ];
 
   # Users
   users.users.nikoof = {
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" ];
+    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd"];
   };
 
   home-manager = {
     useGlobalPkgs = true;
     users.nikoof = import ../../users/nikoof;
   };
-
 
   # Syncthing
   services.syncthing = {
@@ -140,21 +151,20 @@
     overrideDevices = true;
     overrideFolders = true;
     devices = {
-      "nkgalaxy" = { id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE"; };
-      "nkideapad" = { id = "DFBQIQO-4Q5RHSF-TFQAH2X-7IH7URS-EQDBRHT-VAK7HAY-WXQC75W-7SOMIAO"; };
+      "nkgalaxy" = {id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE";};
+      "nkideapad" = {id = "DFBQIQO-4Q5RHSF-TFQAH2X-7IH7URS-EQDBRHT-VAK7HAY-WXQC75W-7SOMIAO";};
     };
     folders = {
       "Obsidian" = {
         path = "/home/nikoof/Documents/nkbrain";
-        devices = [ "nkgalaxy" "nkideapad" ];
+        devices = ["nkgalaxy" "nkideapad"];
       };
       "KeePass" = {
         path = "/home/nikoof/KeePass";
-        devices = [ "nkgalaxy" "nkideapad" ];
+        devices = ["nkgalaxy" "nkideapad"];
       };
     };
   };
 
   system.stateVersion = "23.05";
 }
-

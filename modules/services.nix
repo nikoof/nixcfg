@@ -1,7 +1,10 @@
-{ inputs, config, lib, ... }:
-
 {
-  imports = [ ];
+  inputs,
+  config,
+  lib,
+  ...
+}: {
+  imports = [];
 
   services.automatic-timezoned.enable = true;
 

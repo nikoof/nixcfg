@@ -1,13 +1,11 @@
-{ inputs, ... }:
-
-{
+{inputs, ...}: {
   local-packages = final: prev: {
-    local = import ../packages { pkgs = final; };
+    local = import ../packages {pkgs = final;};
   };
 
   modifications = final: prev: {
     graphite-gtk-theme = prev.graphite-gtk-theme.override {
-      tweaks = [ "nord" ];
+      tweaks = ["nord"];
     };
   };
 

@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   enable = true;
 
   gtk2.extraConfig = ''

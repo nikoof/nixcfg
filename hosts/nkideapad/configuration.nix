@@ -1,6 +1,10 @@
-{ inputs, config, pkgs, lib, ... }:
-
 {
+  inputs,
+  config,
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [
     ../../modules/boot.nix
     ../../modules/environment.nix
@@ -10,7 +14,6 @@
 
     inputs.home-manager.nixosModules.home-manager
   ];
-
 
   boot.loader = {
     systemd-boot = {
@@ -23,12 +26,12 @@
 
   boot.plymouth = {
     enable = true;
-    themePackages = with pkgs; [ nixos-bgrt-plymouth ];
+    themePackages = with pkgs; [nixos-bgrt-plymouth];
     theme = "nixos-bgrt";
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.extraModulePackages = with config.boot.kernelPackages; [ xone ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [xone];
 
   networking = {
     hostName = "nkideapad";
@@ -41,12 +44,24 @@
     firewall = {
       enable = true;
       allowedTCPPortRanges = [
-        { from = 1630; to = 1641; }
-        { from = 1714; to = 1764; }
+        {
+          from = 1630;
+          to = 1641;
+        }
+        {
+          from = 1714;
+          to = 1764;
+        }
       ];
       allowedUDPPortRanges = [
-        { from = 1630; to = 1641; }
-        { from = 1714; to = 1764; }
+        {
+          from = 1630;
+          to = 1641;
+        }
+        {
+          from = 1714;
+          to = 1764;
+        }
       ];
     };
   };
@@ -86,7 +101,7 @@
   systemd.services."systemd-nspawn@ubuntu-jammy" = {
     enable = true;
     overrideStrategy = "asDropin";
-    wantedBy = [ "machines.target" ];
+    wantedBy = ["machines.target"];
   };
 
   services.udev.extraRules = ''
@@ -95,7 +110,7 @@
 
   services.xserver = {
     enable = true;
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = ["nvidia"];
     displayManager.sddm = {
       enable = true;
     };
@@ -131,17 +146,17 @@
     overrideDevices = true;
     overrideFolders = true;
     devices = {
-      "nkbox" = { id = "WR7JF54-XLCUEQQ-TY2T2AQ-TRRK5U5-MKIU765-ZXDBJHM-APZKZFO-SM6C3QN"; };
-      "nkgalaxy" = { id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE"; };
+      "nkbox" = {id = "WR7JF54-XLCUEQQ-TY2T2AQ-TRRK5U5-MKIU765-ZXDBJHM-APZKZFO-SM6C3QN";};
+      "nkgalaxy" = {id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE";};
     };
     folders = {
       "Obsidian" = {
         path = "/home/nikoof/Documents/nkbrain";
-        devices = [ "nkgalaxy" "nkbox" ];
+        devices = ["nkgalaxy" "nkbox"];
       };
       "KeePass" = {
         path = "/home/nikoof/KeePass";
-        devices = [ "nkgalaxy" "nkbox" ];
+        devices = ["nkgalaxy" "nkbox"];
       };
     };
   };
@@ -161,7 +176,8 @@
     };
   };
 
-  environment.systemPackages = with pkgs; with libsForQt5; [
+  environment.systemPackages = with pkgs;
+  with libsForQt5; [
     libthai
     pyocd
     picoprobe-udev-rules
@@ -203,7 +219,7 @@
   users.users.nikoof = {
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "dialout" "tty" "plugdev" "libvirtd" ];
+    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "libvirtd"];
   };
 
   home-manager = {
@@ -220,4 +236,3 @@
 
   system.stateVersion = "23.05";
 }
-
