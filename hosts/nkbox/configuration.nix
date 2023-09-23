@@ -12,6 +12,8 @@
     ../../modules/locale.nix
     ../../modules/services.nix
 
+    ../../users/nikoof
+
     inputs.home-manager.nixosModules.home-manager
   ];
 
@@ -135,11 +137,6 @@
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd"];
-  };
-
-  home-manager = {
-    useGlobalPkgs = true;
-    users.nikoof = import ../../users/nikoof;
   };
 
   # Syncthing

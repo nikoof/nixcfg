@@ -1,99 +1,107 @@
 {
   config,
+  inputs,
   pkgs,
   ...
 }: {
-  imports = [
-    ./alacritty.nix
-    ./bash.nix
-    ./starship.nix
-    ./zathura.nix
-  ];
+  home-manager.users.nikoof = {
+    imports = [
+      inputs.nixvim.homeManagerModules.nixvim
 
-  home.username = "nikoof";
-  home.homeDirectory = "/home/nikoof";
+      ./alacritty.nix
+      ./bash.nix
+      ./nvim.nix
+      ./starship.nix
+      ./zathura.nix
+    ];
 
-  home.packages = with pkgs; [
-    # Utilities
-    neofetch
-    xclip
-    btop
-    du-dust
+    home.username = "nikoof";
+    home.homeDirectory = "/home/nikoof";
 
-    # Development
-    virt-manager
-    gh
-    vscode
+    programs.nixvim.enable = true;
 
-    # School
-    unstable.zoom-us
-    unstable.ciscoPacketTracer8
+    home.packages = with pkgs; [
+      # Utilities
+      neofetch
+      xclip
+      btop
+      du-dust
 
-    # Media
-    mpv
-    spotify
-    gimp
-    libreoffice
-    qbittorrent
-    syncplay
+      # Development
+      virt-manager
+      gh
+      vscode
 
-    # Gaming
-    heroic
-    bottles
-    local.lunar-client
+      # School
+      unstable.zoom-us
+      unstable.ciscoPacketTracer8
 
-    # Productivity
-    taskwarrior
-    obsidian
-    keepassxc
+      # Media
+      mpv
+      spotify
+      gimp
+      libreoffice
+      qbittorrent
+      syncplay
 
-    # Messaging
-    discord
-    betterdiscordctl
-    unstable.firefox-bin
-    unstable.thunderbird-bin
-    chromium
+      # Gaming
+      heroic
+      bottles
+      local.lunar-client
 
-    # Theming
-    nordic
-    nordzy-icon-theme
-    simp1e-cursors
-  ];
+      # Productivity
+      taskwarrior
+      obsidian
+      keepassxc
 
-  programs.direnv.enable = true;
+      # Messaging
+      discord
+      betterdiscordctl
+      unstable.firefox-bin
+      unstable.thunderbird-bin
+      chromium
 
-  programs.helix = {
-    enable = true;
-    settings = {
-      theme = "nord";
-      editor = {
-        line-number = "relative";
+      # Theming
+      nordic
+      nordzy-icon-theme
+      simp1e-cursors
+    ];
+
+    programs.direnv.enable = true;
+
+    programs.helix = {
+      enable = true;
+      settings = {
+        theme = "nord";
+        editor = {
+          line-number = "relative";
+        };
       };
     };
-  };
 
-  programs.bat = {
-    enable = true;
-    config.theme = "Nord";
-  };
-
-  programs.exa = {
-    enable = true;
-    enableAliases = true;
-    extraOptions = [
-      "--group-directories-first"
-      "--header"
-    ];
-    git = true;
-    icons = true;
-  };
-
-  dconf.settings = {
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
+    programs.bat = {
+      enable = true;
+      config.theme = "Nord";
     };
-  };
 
-  home.stateVersion = "23.05";
+    programs.exa = {
+      enable = true;
+      enableAliases = true;
+      extraOptions = [
+        "--group-directories-first"
+        "--header"
+      ];
+      git = true;
+      icons = true;
+    };
+
+    dconf.settings = {
+      "org/virt-manager/virt-manager/connections" = {
+        autoconnect = ["qemu:///system"];
+        uris = ["qemu:///system"];
+      };
+    };
+
+    home.stateVersion = "23.05";
+  };
 }
