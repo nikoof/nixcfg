@@ -12,23 +12,10 @@
     ../../modules/locale.nix
     ../../modules/services.nix
 
+    ../../users/nikoof
+
     inputs.home-manager.nixosModules.home-manager
   ];
-
-  boot.loader = {
-    systemd-boot = {
-      enable = true;
-      consoleMode = "max";
-    };
-
-    efi.canTouchEfiVariables = true;
-  };
-
-  boot.plymouth = {
-    enable = true;
-    themePackages = with pkgs; [nixos-bgrt-plymouth];
-    theme = "nixos-bgrt";
-  };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModulePackages = with config.boot.kernelPackages; [xone];
@@ -207,24 +194,10 @@
     qemu
   ];
 
-  fonts.fonts = with pkgs; [
-    fira-code
-    nerdfonts
-    corefonts
-    noto-fonts
-    noto-fonts-emoji
-    noto-fonts-cjk-sans
-  ];
-
   users.users.nikoof = {
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "libvirtd"];
-  };
-
-  home-manager = {
-    useGlobalPkgs = true;
-    users.nikoof = import ../../users/nikoof;
   };
 
   programs.gamemode.enable = true;

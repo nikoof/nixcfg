@@ -13,6 +13,8 @@
       url = "github:nix-community/nixvim/nixos-23.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    pre-commit.url = "github:cachix/pre-commit-hooks.nix";
   };
 
   outputs = inputs @ {
@@ -20,6 +22,7 @@
     nixpkgs,
     nixos-hardware,
     flake-utils,
+    pre-commit,
     ...
   }: let
     system = "x86_64-linux";
@@ -53,6 +56,15 @@
         ./hosts/nkideapad/hardware.nix
         ./hosts/nkideapad/configuration.nix
       ];
+    };
+
+    checks.${system} = {
+      pre-commit-check = pre-commit.lib.${system}.run {
+        src = ./.;
+        hooks = {
+          alejandra.enable = true;
+        };
+      };
     };
 
     formatter.${system} = pkgs.alejandra;

@@ -31,32 +31,32 @@
       iconsEnabled = true;
       theme = "nord";
 
-      sections.lualine_c = [ "lsp_progress" ];
+      sections.lualine_c = ["lsp_progress"];
 
       extensions = [
         "fzf"
-	"trouble"
+        "trouble"
       ];
     };
 
     plugins.lsp = {
       enable = true;
       servers = {
-	lua-ls.enable = true;
-	pyright.enable = true;
+        lua-ls.enable = true;
+        pyright.enable = true;
         rnix-lsp.enable = true;
         rust-analyzer.enable = true;
       };
 
       keymaps.lspBuf = {
-	"<leader>r" = "rename";
-	"<leader>a" = "code_action";
+        "<leader>r" = "rename";
+        "<leader>a" = "code_action";
 
-	"gi" = "implementation";
-	"gr" = "references";
-	"gd" = "definition";
-	"gD" = "declaration";
-	"<leader>D" = "type_definition";
+        "gi" = "implementation";
+        "gr" = "references";
+        "gd" = "definition";
+        "gD" = "declaration";
+        "<leader>D" = "type_definition";
 
         "K" = "hover";
       };
@@ -73,30 +73,30 @@
     plugins.nvim-cmp = {
       enable = true;
       sources = [
-        { name = "nvim_lsp"; }
-	{ name = "luasnip"; }
-	{ name = "path"; }
-	{ name = "buffer"; }
+        {name = "nvim_lsp";}
+        {name = "luasnip";}
+        {name = "path";}
+        {name = "buffer";}
       ];
       snippet.expand = "luasnip";
       mapping = {
         "<CR>" = "cmp.mapping.confirm({ select = true })";
         "<Tab>" = {
           action = ''
-            function(fallback)
-	      local luasnip = require('luasnip')
-              if cmp.visible() then
-                cmp.select_next_item()
-              elseif luasnip.expandable() then
-                luasnip.expand()
-              elseif luasnip.expand_or_jumpable() then
-                luasnip.expand_or_jump()
-              else
-                fallback()
-              end
-            end
+                 function(fallback)
+            local luasnip = require('luasnip')
+                   if cmp.visible() then
+                     cmp.select_next_item()
+                   elseif luasnip.expandable() then
+                     luasnip.expand()
+                   elseif luasnip.expand_or_jumpable() then
+                     luasnip.expand_or_jump()
+                   else
+                     fallback()
+                   end
+                 end
           '';
-          modes = [ "i" "s" ];
+          modes = ["i" "s"];
         };
       };
     };
@@ -116,6 +116,5 @@
     extraPlugins = with pkgs; [
       local.vimPlugins.lualine-lsp-progress
     ];
-
   };
 }
