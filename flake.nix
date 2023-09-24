@@ -58,6 +58,10 @@
       ];
     };
 
+    devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
+      inherit (self.checks.${system}.pre-commit-check) shellHook;
+    };
+
     checks.${system} = {
       pre-commit-check = pre-commit.lib.${system}.run {
         src = ./.;
