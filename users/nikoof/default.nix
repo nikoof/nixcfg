@@ -4,6 +4,7 @@
   pkgs,
   ...
 }: {
+  home-manager.useGlobalPkgs = true;
   home-manager.users.nikoof = {
     imports = [
       inputs.nixvim.homeManagerModules.nixvim
