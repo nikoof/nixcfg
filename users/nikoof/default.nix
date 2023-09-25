@@ -7,7 +7,7 @@
   home-manager.useGlobalPkgs = true;
   home-manager.users.nikoof = {
     imports = [
-      inputs.nixvim.homeManagerModules.nixvim
+      # inputs.nixvim.homeManagerModules.nixvim
 
       ./alacritty.nix
       ./bash.nix
@@ -18,8 +18,6 @@
 
     home.username = "nikoof";
     home.homeDirectory = "/home/nikoof";
-
-    programs.nixvim.enable = true;
 
     home.packages = with pkgs; [
       # Utilities
@@ -34,6 +32,10 @@
       vscode
       clang
       python311
+      rust-analyzer
+      rnix-lsp
+      clang-tools
+      pyright
 
       # School
       unstable.zoom-us
