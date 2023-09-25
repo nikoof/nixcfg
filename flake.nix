@@ -37,24 +37,24 @@
       ];
     };
   in rec {
-    nixosConfigurations.nkbox = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.gauss = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit system inputs pkgs;};
       modules = with nixos-hardware.nixosModules; [
         common-pc-ssd
         common-gpu-nvidia-nonprime
-        ./hosts/nkbox/hardware.nix
-        ./hosts/nkbox/configuration.nix
+        ./hosts/gauss/hardware.nix
+        ./hosts/gauss/configuration.nix
       ];
     };
 
-    nixosConfigurations.nkideapad = nixpkgs.lib.nixosSystem {
+    nixosConfigurations.euler = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit system inputs pkgs;};
       modules = with nixos-hardware.nixosModules; [
         common-pc-laptop
         common-pc-laptop-ssd
         common-gpu-nvidia
-        ./hosts/nkideapad/hardware.nix
-        ./hosts/nkideapad/configuration.nix
+        ./hosts/euler/hardware.nix
+        ./hosts/euler/configuration.nix
       ];
     };
 
