@@ -32,6 +32,8 @@
       virt-manager
       gh
       vscode
+      clang
+      python311
 
       # School
       unstable.zoom-us

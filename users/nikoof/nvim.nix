@@ -23,8 +23,76 @@
       updatetime = 300;
     };
 
+    maps = {
+      normal = {
+        # General
+        "<leader>w" = {
+          action = "<cmd>w<cr>";
+          silent = true;
+        };
+        "<leader>q" = {
+          action = "<cmd>confirm q<cr>";
+          silent = false;
+        };
+        "<leader>n" = {
+          action = "<cmd>enew<cr>";
+          silent = true;
+        };
+        "<C-s>" = {
+          action = "<cmd>w!<cr>";
+          silent = true;
+        };
+        "<C-q>" = {
+          action = "<cmd>qa!<cr>";
+          silent = true;
+        };
+        "|" = {
+          action = "<cmd>vsplit<cr>";
+          silent = true;
+        };
+        "\\" = {
+          action = "<cmd>split<cr>";
+          silent = true;
+        };
+
+        # Tabs
+        "]t" = {
+          action = "vim.cmd.tabnext";
+          silent = true;
+        };
+        "[t" = {
+          action = "vim.cmd.tabprevious";
+          silent = true;
+        };
+
+        # Windows
+        "<leader>e" = {
+          action = "<cmd>Neotree toggle<cr>";
+          silent = true;
+        };
+        "<leader>o" = {
+          action = ''
+            function()
+              if vim.bo.filetype == "neo-tree" then
+                vim.cmd.wincmd "p"
+              else
+                vim.cmd.Neotree "focus"
+              end
+            end
+          '';
+          silent = true;
+        };
+      };
+    };
+
     colorschemes.nord.enable = true;
-    plugins.comment-nvim.enable = true;
+
+    plugins.nix.enable = true;
+    plugins.nvim-autopairs.enable = true;
+
+    plugins.comment-nvim = {
+      enable = true;
+    };
 
     plugins.lualine = {
       enable = true;
@@ -53,7 +121,6 @@
         "<leader>a" = "code_action";
 
         "gi" = "implementation";
-        "gr" = "references";
         "gd" = "definition";
         "gD" = "declaration";
         "<leader>D" = "type_definition";
@@ -78,26 +145,69 @@
         {name = "path";}
         {name = "buffer";}
       ];
+
       snippet.expand = "luasnip";
+
       mapping = {
-        "<CR>" = "cmp.mapping.confirm({ select = true })";
+        "<C-n>" = "cmp.mapping.select_next_item()";
+        "<C-p>" = "cmp.mapping.select_prev_item()";
+        "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+        "<C-f>" = "cmp.mapping.scroll_docs(4)";
+        "<CR>" = ''
+          cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Replace,
+            select = true
+          }
+        '';
+
         "<Tab>" = {
           action = ''
-                 function(fallback)
-            local luasnip = require('luasnip')
-                   if cmp.visible() then
-                     cmp.select_next_item()
-                   elseif luasnip.expandable() then
-                     luasnip.expand()
-                   elseif luasnip.expand_or_jumpable() then
-                     luasnip.expand_or_jump()
-                   else
-                     fallback()
-                   end
-                 end
+            function(fallback)
+              local luasnip = require('luasnip')
+              if cmp.visible() then
+                cmp.select_next_item()
+              elseif luasnip.expand_or_locally_jumpable() then
+                luasnip.expand_or_jump()
+              else
+                fallback()
+              end
+            end
           '';
           modes = ["i" "s"];
         };
+
+        "<S-Tab>" = {
+          action = ''
+            function(fallback)
+              local luasnip = require('luasnip')
+              if cmp.visible() then
+                cmp.select_prev_item()
+              elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+              else
+                fallback()
+              end
+            end
+          '';
+          modes = ["i" "s"];
+        };
+      };
+    };
+
+    plugins.telescope = {
+      enable = true;
+      highlightTheme = "nord";
+
+      keymaps = {
+        "gr" = "lsp_references";
+        "<leader>s" = "lsp_document_symbols";
+        "<leader>S" = "lsp_dynamic_workspace_symbols";
+      };
+
+      extensions.fzf-native = {
+        enable = true;
+        caseMode = "smart_case";
+        fuzzy = true;
       };
     };
 
@@ -111,6 +221,11 @@
 
     plugins.treesitter = {
       enable = true;
+    };
+
+    plugins.neo-tree = {
+      enable = true;
+      useDefaultMappings = true;
     };
 
     extraPlugins = with pkgs; [
