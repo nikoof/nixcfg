@@ -11,7 +11,7 @@
 
       ./alacritty.nix
       ./bash.nix
-      ./nvim.nix
+      # ./nvim.nix
       ./starship.nix
       ./zathura.nix
     ];
