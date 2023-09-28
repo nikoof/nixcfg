@@ -11,6 +11,7 @@
 
       ./alacritty.nix
       ./bash.nix
+      ./git.nix
       # ./nvim.nix
       ./starship.nix
       ./zathura.nix
@@ -28,7 +29,6 @@
 
       # Development
       virt-manager
-      gh
       vscode
       clang
       python311
@@ -58,6 +58,7 @@
       taskwarrior
       obsidian
       keepassxc
+      unstable.pynitrokey
 
       # Messaging
       discord
