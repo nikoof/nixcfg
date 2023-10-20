@@ -136,7 +136,8 @@
   users.users.nikoof = {
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd"];
+    shell = "${pkgs.nushell}/bin/nu";
+    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical"];
   };
 
   # Syncthing

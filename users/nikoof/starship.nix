@@ -6,6 +6,7 @@
   programs.starship = {
     enable = true;
     enableBashIntegration = true;
+    enableNushellIntegration = true;
     settings = {
       format = pkgs.lib.concatStrings [
         "[∴ ](bold blue)"

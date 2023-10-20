@@ -13,6 +13,7 @@
       ./bash.nix
       ./git.nix
       # ./nvim.nix
+      ./nushell.nix
       ./starship.nix
       ./zathura.nix
     ];
@@ -48,6 +49,7 @@
       libreoffice
       qbittorrent
       syncplay
+      brasero
 
       # Gaming
       heroic

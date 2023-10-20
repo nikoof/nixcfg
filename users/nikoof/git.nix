@@ -10,6 +10,7 @@
 
     extraConfig = {
       safe = {directory = "/etc/nixos";};
+      push = {autoSetupRemote = true;};
     };
 
     signing = {
