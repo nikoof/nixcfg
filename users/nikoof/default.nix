@@ -37,6 +37,9 @@
       rnix-lsp
       clang-tools
       pyright
+      ghc
+      cabal-install
+      haskell-language-server
 
       # School
       unstable.zoom-us
@@ -60,7 +63,6 @@
       taskwarrior
       obsidian
       keepassxc
-      unstable.pynitrokey
 
       # Messaging
       discord
