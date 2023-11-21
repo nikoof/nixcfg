@@ -65,7 +65,7 @@
       keepassxc
 
       # Messaging
-      discord
+      unstable.discord
       betterdiscordctl
       unstable.firefox-bin
       unstable.thunderbird-bin
