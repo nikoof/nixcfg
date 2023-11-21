@@ -49,7 +49,7 @@
       mpv
       spotify
       gimp
-      libreoffice
+      unstable.libreoffice-qt
       qbittorrent
       syncplay
       brasero
