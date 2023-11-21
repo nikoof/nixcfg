@@ -19,6 +19,14 @@
         })
       ];
     };
+
+    nerdfonts = prev.nerdfonts.override {
+      fonts = ["FiraCode"];
+    };
+
+    noto-fonts = prev.noto-fonts.override {
+      variants = ["Noto Sans" "Noto Serif"];
+    };
   };
 
   unstable-packages = final: prev: {
