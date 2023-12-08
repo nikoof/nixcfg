@@ -198,6 +198,7 @@
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "libvirtd"];
+    shell = "${pkgs.nushell}/bin/nu";
   };
 
   programs.gamemode.enable = true;
