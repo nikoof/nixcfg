@@ -21,7 +21,7 @@
     };
 
     obsidian = prev.obsidian.override {
-      electron = prev.electron_27;
+      electron = prev.electron_26;
     };
 
     nerdfonts = prev.nerdfonts.override {
