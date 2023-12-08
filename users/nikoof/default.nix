@@ -54,13 +54,13 @@
       brasero
 
       # Gaming
-      unstable.heroic
+      heroic
       bottles
       local.lunar-client
 
       # Productivity
       taskwarrior
-      unstable.obsidian
+      obsidian
       keepassxc
 
       # Messaging
