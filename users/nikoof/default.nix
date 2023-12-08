@@ -2,8 +2,7 @@
   config,
   inputs,
   pkgs,
-  ...
-}: {
+  ... }: {
   home-manager.useGlobalPkgs = true;
   home-manager.users.nikoof = {
     imports = [
@@ -55,7 +54,7 @@
       brasero
 
       # Gaming
-      heroic
+      unstable.heroic
       bottles
       local.lunar-client
 
@@ -93,7 +92,7 @@
       config.theme = "Nord";
     };
 
-    programs.exa = {
+    programs.eza = {
       enable = true;
       enableAliases = true;
       extraOptions = [

@@ -20,6 +20,10 @@
       ];
     };
 
+    obsidian = prev.obsidian.override {
+      electron = prev.electron_27;
+    };
+
     nerdfonts = prev.nerdfonts.override {
       fonts = ["FiraCode"];
     };
