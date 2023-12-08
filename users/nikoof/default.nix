@@ -49,7 +49,7 @@
       mpv
       spotify
       gimp
-      unstable.libreoffice-qt
+      libreoffice-qt
       qbittorrent
       syncplay
       brasero
@@ -61,14 +61,13 @@
 
       # Productivity
       taskwarrior
-      obsidian
+      unstable.obsidian
       keepassxc
 
       # Messaging
       unstable.discord
       betterdiscordctl
-      unstable.firefox-bin
-      unstable.thunderbird-bin
+      firefox-bin
       chromium
 
       # Theming

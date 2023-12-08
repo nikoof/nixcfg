@@ -8,6 +8,9 @@
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "electron-24.8.6"
+  ];
 
   environment.sessionVariables = rec {
     XDG_DATA_HOME = "$HOME/.local/share";
