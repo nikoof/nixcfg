@@ -148,18 +148,20 @@
     configDir = "/home/nikoof/.config/syncthing";
     overrideDevices = true;
     overrideFolders = true;
-    devices = {
-      "haskell" = {id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE";};
-      "euler" = {id = "DFBQIQO-4Q5RHSF-TFQAH2X-7IH7URS-EQDBRHT-VAK7HAY-WXQC75W-7SOMIAO";};
-    };
-    folders = {
-      "Obsidian" = {
-        path = "/home/nikoof/Documents/nkbrain";
-        devices = ["haskell" "euler"];
+    settings = {
+      devices = {
+        "haskell" = {id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE";};
+        "euler" = {id = "DFBQIQO-4Q5RHSF-TFQAH2X-7IH7URS-EQDBRHT-VAK7HAY-WXQC75W-7SOMIAO";};
       };
-      "KeePass" = {
-        path = "/home/nikoof/KeePass";
-        devices = ["haskell" "euler"];
+      folders = {
+        "Obsidian" = {
+          path = "/home/nikoof/Documents/nkbrain";
+          devices = ["haskell" "euler"];
+        };
+        "KeePass" = {
+          path = "/home/nikoof/KeePass";
+          devices = ["haskell" "euler"];
+        };
       };
     };
   };
