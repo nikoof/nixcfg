@@ -139,7 +139,7 @@
       };
       folders = {
         "Obsidian" = {
-          path = "/home/nikoof/Documents/nkbrain";
+          path = "/home/nikoof/Documents/nikonomicon";
           devices = ["haskell" "gauss"];
         };
         "KeePass" = {
