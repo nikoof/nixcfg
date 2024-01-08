@@ -57,20 +57,26 @@
   # Video & Audio
   hardware.nvidia = {
     modesetting.enable = true;
-    open = true;
+    open = false;
     nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
   hardware.opengl = {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+
+    extraPackages = with pkgs; [
+      nvidia-vaapi-driver
+    ];
   };
 
   services.xserver = {
     enable = true;
     displayManager.sddm.enable = true;
     desktopManager.plasma5.enable = true;
+    videoDrivers = ["nvidia"];
     xrandrHeads = [
       {
         output = "DP-3";
@@ -115,6 +121,10 @@
   environment.systemPackages = with pkgs; [
     # KDE Apps
     libsForQt5.kdeconnect-kde
+
+    # Video
+    ffmpeg_5-full
+    obs-studio
 
     # System Utilities
     curl

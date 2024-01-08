@@ -2,7 +2,8 @@
   config,
   inputs,
   pkgs,
-  ... }: {
+  ...
+}: {
   home-manager.useGlobalPkgs = true;
   home-manager.users.nikoof = {
     imports = [
@@ -14,6 +15,7 @@
       # ./nvim.nix
       ./nushell.nix
       ./starship.nix
+      ./taskwarrior.nix
       ./zathura.nix
     ];
 
@@ -29,6 +31,7 @@
 
       # Development
       virt-manager
+      neovide
       vscode
       clang
       python311
@@ -52,6 +55,8 @@
       qbittorrent
       syncplay
       brasero
+      kdenlive
+      tenacity
 
       # Gaming
       heroic
