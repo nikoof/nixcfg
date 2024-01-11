@@ -100,8 +100,24 @@
     wireguard-tools
   ];
 
-  # For Pi Pico debug probe (ipw)
-  services.udev.extraRules = ''
-    SUBSYSTEM=="usb", ATTR{idVendor}=="2e8a", ATTR{idProduct}=="000c", MODE:="666"
-  '';
+  services.udev = {
+    packages = [pkgs.nitrokey-udev-rules];
+
+    # For Pi Pico debug probe (ipw)
+    extraRules = ''
+      SUBSYSTEM=="usb", ATTR{idVendor}=="2e8a", ATTR{idProduct}=="000c", MODE:="666"
+    '';
+  };
+
+  security.pam = {
+    u2f = {
+      enable = true;
+      cue = true;
+      authFile = "/etc/Nitrokey/u2f_keys";
+    };
+    services = {
+      login.u2fAuth = true;
+      sudo.u2fAuth = true;
+    };
+  };
 }
