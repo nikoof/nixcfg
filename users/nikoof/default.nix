@@ -42,6 +42,7 @@
       ghc
       cabal-install
       haskell-language-server
+      nil
 
       # School
       unstable.zoom-us
@@ -78,6 +79,9 @@
       nordic
       nordzy-icon-theme
       simp1e-cursors
+
+      ffmpeg_5-full
+      obs-studio
     ];
 
     programs.direnv.enable = true;

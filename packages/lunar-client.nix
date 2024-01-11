@@ -27,7 +27,7 @@
     hash = "sha256-SYEf2x2dpLsMfSVe1gvWX4SVpZjat4M6eaQ9SREzrAI=";
   };
 in
-  appimageTools.wrapType1 rec {
+  appimageTools.wrapType1 {
     inherit name src;
 
     extraInstallCommands = ''

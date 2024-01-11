@@ -6,57 +6,76 @@
   ...
 }: {
   imports = [
-    ../../modules/boot.nix
-    ../../modules/environment.nix
-    ../../modules/fonts.nix
-    ../../modules/locale.nix
-    ../../modules/services.nix
+    inputs.nixos-hardware.nixosModules.common-pc-laptop
+    inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
+    inputs.nixos-hardware.nixosModules.common-gpu-nvidia
 
-    ../../users/nikoof
+    ../../profiles/core.nix
+    ../../profiles/gaming.nix
 
-    inputs.home-manager.nixosModules.home-manager
+    ../../mixins/cups.nix
+    ../../mixins/fonts.nix
+    ../../mixins/pipewire.nix
+    ../../mixins/plasma.nix
+
+    ./services/power.nix
+    ./services/syncthing.nix
+
+    ./containers/ubuntu-jammy.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.extraModulePackages = with config.boot.kernelPackages; [xone];
+  system.stateVersion = "23.05";
+  nixpkgs.hostPlatform = "x86_64-linux";
 
+  boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "vmd" "nvme" "usb_storage" "usbhid" "sd_mod"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-intel"];
+
+  hardware.bluetooth.enable = true;
   networking = {
     hostName = "euler";
-    networkmanager = {
-      enable = true;
+    networkmanager.enable = true;
+    firewall.enable = true;
+    useDHCP = lib.mkDefault true;
+  };
+
+  swapDevices = [{device = "/swap/swapfile";}];
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/c10e2f83-8c02-4c75-99ab-40aaa3b71bb3";
+      fsType = "btrfs";
+      options = ["subvol=@"];
     };
 
-    useDHCP = lib.mkDefault true;
+    "/nix" = {
+      device = "/dev/disk/by-uuid/c10e2f83-8c02-4c75-99ab-40aaa3b71bb3";
+      fsType = "btrfs";
+      options = ["subvol=@nix"];
+    };
 
-    firewall = {
-      enable = true;
-      allowedTCPPortRanges = [
-        {
-          from = 1630;
-          to = 1641;
-        }
-        {
-          from = 1714;
-          to = 1764;
-        }
-      ];
-      allowedUDPPortRanges = [
-        {
-          from = 1630;
-          to = 1641;
-        }
-        {
-          from = 1714;
-          to = 1764;
-        }
-      ];
+    "/home" = {
+      device = "/dev/disk/by-uuid/c10e2f83-8c02-4c75-99ab-40aaa3b71bb3";
+      fsType = "btrfs";
+      options = ["subvol=@home"];
+    };
+
+    "/swap" = {
+      device = "/dev/disk/by-uuid/c10e2f83-8c02-4c75-99ab-40aaa3b71bb3";
+      fsType = "btrfs";
+      options = ["subvol=@swap"];
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/E70B-B6CF";
+      fsType = "vfat";
     };
   };
 
+  hardware.cpu.intel.updateMicrocode = config.hardware.enableRedistributableFirmware;
+  powerManagement.cpuFreqGovernor = "powersave";
+
   hardware.nvidia = {
     modesetting.enable = true;
-    nvidiaSettings = true;
-
     prime = {
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
@@ -67,148 +86,22 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
+
     extraPackages = with pkgs; [
-      vaapiVdpau
+      nvidia-vaapi-driver
     ];
   };
 
-  hardware.bluetooth.enable = true;
+  virtualisation.libvirtd.enable = true;
+  environment.systemPackages = with pkgs; [
+    qemu
+    acpi
+    lm_sensors
+    wireguard-tools
+  ];
 
-  systemd.targets.machines.enable = true;
-  systemd.nspawn."ubuntu-jammy" = {
-    enable = true;
-    execConfig = {
-      Boot = true;
-      ResolvConf = "bind-host";
-    };
-    networkConfig = {
-      Private = false;
-    };
-  };
-  systemd.services."systemd-nspawn@ubuntu-jammy" = {
-    enable = true;
-    overrideStrategy = "asDropin";
-    wantedBy = ["machines.target"];
-  };
-
+  # For Pi Pico debug probe (ipw)
   services.udev.extraRules = ''
     SUBSYSTEM=="usb", ATTR{idVendor}=="2e8a", ATTR{idProduct}=="000c", MODE:="666"
   '';
-
-  services.xserver = {
-    enable = true;
-    videoDrivers = ["nvidia"];
-    displayManager.sddm = {
-      enable = true;
-    };
-    desktopManager.plasma5.enable = true;
-  };
-
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-
-  virtualisation.libvirtd.enable = true;
-
-  services.openssh.enable = true;
-  services.printing.enable = true;
-  services.udisks2.enable = true;
-
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-    openFirewall = true;
-  };
-
-  services.syncthing = {
-    enable = true;
-    user = "nikoof";
-    dataDir = "/home/nikoof/Sync";
-    configDir = "/home/nikoof/.config/syncthing";
-    overrideDevices = true;
-    overrideFolders = true;
-    settings = {
-      devices = {
-        "gauss" = {id = "WR7JF54-XLCUEQQ-TY2T2AQ-TRRK5U5-MKIU765-ZXDBJHM-APZKZFO-SM6C3QN";};
-        "haskell" = {id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE";};
-      };
-      folders = {
-        "Obsidian" = {
-          path = "/home/nikoof/Documents/nikonomicon";
-          devices = ["haskell" "gauss"];
-        };
-        "KeePass" = {
-          path = "/home/nikoof/KeePass";
-          devices = ["haskell" "gauss"];
-        };
-      };
-    };
-  };
-
-  services.thermald.enable = true;
-  services.auto-cpufreq = {
-    enable = true;
-    settings = {
-      battery = {
-        governor = "powersave";
-        turbo = "never";
-      };
-      charger = {
-        governor = "performance";
-        turbo = "auto";
-      };
-    };
-  };
-
-  environment.systemPackages = with pkgs;
-  with libsForQt5; [
-    libthai
-    pyocd
-    picoprobe-udev-rules
-    libusb1
-    curl
-    neovim
-    git
-    stow
-    gnupg
-    pinentry
-    playerctl
-    lxappearance
-    pulseaudio
-    cifs-utils
-    pciutils
-    usbutils
-    hunspellDicts.en_US
-    hunspellDicts.en_GB-ise
-    acpi
-    wireguard-tools
-    lm_sensors
-
-    kde-gtk-config
-    kcalc
-    kdeconnect
-
-    qemu
-  ];
-
-  users.users.nikoof = {
-    description = "Nicolas Bratoveanu";
-    isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "libvirtd"];
-    shell = "${pkgs.nushell}/bin/nu";
-  };
-
-  programs.gamemode.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-  };
-
-  system.stateVersion = "23.05";
 }

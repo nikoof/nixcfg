@@ -6,59 +6,87 @@
   ...
 }: {
   imports = [
-    ../../modules/boot.nix
-    ../../modules/environment.nix
-    ../../modules/fonts.nix
-    ../../modules/locale.nix
-    ../../modules/services.nix
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
+    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
-    ../../users/nikoof
+    ../../profiles/core.nix
+    ../../profiles/gaming.nix
 
-    inputs.home-manager.nixosModules.home-manager
+    ../../mixins/cups.nix
+    ../../mixins/fonts.nix
+    ../../mixins/pipewire.nix
+    ../../mixins/plasma.nix
+
+    ./services/syncthing.nix
   ];
 
-  # Networking
+  system.stateVersion = "23.05";
+  nixpkgs.hostPlatform = "x86_64-linux";
+
   networking = {
     hostName = "gauss";
-    networkmanager = {
-      enable = true;
-    };
-
-    useDHCP = lib.mkDefault true;
+    networkmanager.enable = true;
+    firewall.enable = true;
     tempAddresses = "disabled";
-
-    firewall = {
-      enable = true;
-      allowedTCPPortRanges = [
-        {
-          from = 1630;
-          to = 1641;
-        }
-        {
-          from = 1714;
-          to = 1764;
-        }
-      ];
-      allowedUDPPortRanges = [
-        {
-          from = 1630;
-          to = 1641;
-        }
-        {
-          from = 1714;
-          to = 1764;
-        }
-      ];
-    };
-
     interfaces.enp3s0.wakeOnLan.enable = true;
+    interfaces.enp3s0.useDHCP = true;
   };
 
-  # Video & Audio
+  services.xserver.xrandrHeads = [
+    {
+      output = "DP-3";
+      primary = true;
+    }
+    {
+      output = "HDMI-0";
+      monitorConfig = ''
+        Option "RightOf" "DP-3"
+      '';
+    }
+  ];
+
+  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "sr_mod"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-intel"];
+  boot.extraModulePackages = [];
+
+  swapDevices = [{device = "/swap/swapfile";}];
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/58f4e5f7-20ca-41ba-a073-366ee94fdf3a";
+      fsType = "btrfs";
+      options = ["subvol=@" "compress=zstd:3" "space_cache=v2" "ssd"];
+    };
+
+    "/nix" = {
+      device = "/dev/disk/by-uuid/58f4e5f7-20ca-41ba-a073-366ee94fdf3a";
+      fsType = "btrfs";
+      options = ["subvol=@nix" "compress=zstd:3" "space_cache=v2" "ssd" "noatime"];
+    };
+
+    "/home" = {
+      device = "/dev/disk/by-uuid/00416392-9379-4110-b74d-e9f04dda1e0b";
+      fsType = "btrfs";
+      options = ["subvol=@home" "compress=zstd:3" "space_cache=v2"];
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/D598-27BA";
+      fsType = "vfat";
+    };
+
+    "/swap" = {
+      device = "/dev/disk/by-uuid/58f4e5f7-20ca-41ba-a073-366ee94fdf3a";
+      fsType = "btrfs";
+      options = ["subvol=@swap" "compress=zstd:3" "space_cache=v2" "ssd" "noatime"];
+    };
+  };
+
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  powerManagement.cpuFreqGovernor = "performance";
+
   hardware.nvidia = {
     modesetting.enable = true;
-    open = false;
-    nvidiaSettings = true;
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
@@ -71,110 +99,4 @@
       nvidia-vaapi-driver
     ];
   };
-
-  services.xserver = {
-    enable = true;
-    displayManager.sddm.enable = true;
-    desktopManager.plasma5.enable = true;
-    videoDrivers = ["nvidia"];
-    xrandrHeads = [
-      {
-        output = "DP-3";
-        primary = true;
-      }
-      {
-        output = "HDMI-0";
-        monitorConfig = ''
-          Option "RightOf" "DP-3"
-        '';
-      }
-    ];
-  };
-
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-
-  # Services
-  services.openssh.enable = true;
-  services.printing.enable = true;
-
-  services.avahi = {
-    enable = true;
-    nssmdns = true;
-    openFirewall = true;
-  };
-
-  programs.gamemode.enable = true;
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-  };
-
-  # Packages
-  environment.systemPackages = with pkgs; [
-    # KDE Apps
-    libsForQt5.kdeconnect-kde
-
-    # Video
-    ffmpeg_5-full
-    obs-studio
-
-    # System Utilities
-    curl
-    git
-    gnupg
-    pinentry
-    cifs-utils
-    playerctl
-
-    # Editor
-    neovim
-
-    # Others
-    hunspellDicts.en_US
-    hunspellDicts.en_GB-ise
-  ];
-
-  # Users
-  users.users.nikoof = {
-    description = "Nicolas Bratoveanu";
-    isNormalUser = true;
-    shell = "${pkgs.nushell}/bin/nu";
-    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical"];
-  };
-
-  # Syncthing
-  services.syncthing = {
-    enable = true;
-    user = "nikoof";
-    dataDir = "/home/nikoof/Sync";
-    configDir = "/home/nikoof/.config/syncthing";
-    overrideDevices = true;
-    overrideFolders = true;
-    settings = {
-      devices = {
-        "haskell" = {id = "FY2JIBO-6VYRLZD-YJBAUSF-W5CMUV7-RCXYVMU-NAKKIHT-NNZLTHA-ZHV3SAE";};
-        "euler" = {id = "DFBQIQO-4Q5RHSF-TFQAH2X-7IH7URS-EQDBRHT-VAK7HAY-WXQC75W-7SOMIAO";};
-      };
-      folders = {
-        "Obsidian" = {
-          path = "/home/nikoof/Documents/nikonomicon";
-          devices = ["haskell" "euler"];
-        };
-        "KeePass" = {
-          path = "/home/nikoof/KeePass";
-          devices = ["haskell" "euler"];
-        };
-      };
-    };
-  };
-
-  system.stateVersion = "23.05";
 }

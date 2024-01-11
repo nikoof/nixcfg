@@ -1,8 +1,8 @@
 {
   config,
   inputs,
-  lib,
   pkgs,
+  lib,
   ...
 }: {
   fonts.packages = with pkgs; [

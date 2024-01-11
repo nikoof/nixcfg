@@ -2,6 +2,7 @@
   inputs,
   config,
   lib,
+  pkgs,
   ...
 }: {
   imports = [];
@@ -17,4 +18,9 @@
     xkbVariant = ",std,qwerty";
     xkbOptions = "grp:win_space_toggle,compose:menu";
   };
+
+  environment.systemPackages = with pkgs; [
+    hunspellDicts.en_US
+    hunspellDicts.en_GB-ise
+  ];
 }

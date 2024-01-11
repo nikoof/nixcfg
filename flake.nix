@@ -36,27 +36,16 @@
         unstable-packages
       ];
     };
-  in rec {
-    nixosConfigurations.gauss = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit system inputs pkgs;};
-      modules = with nixos-hardware.nixosModules; [
-        common-pc-ssd
-        common-gpu-nvidia-nonprime
-        ./hosts/gauss/hardware.nix
-        ./hosts/gauss/configuration.nix
-      ];
-    };
 
-    nixosConfigurations.euler = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit system inputs pkgs;};
-      modules = with nixos-hardware.nixosModules; [
-        common-pc-laptop
-        common-pc-laptop-ssd
-        common-gpu-nvidia
-        ./hosts/euler/hardware.nix
-        ./hosts/euler/configuration.nix
+    mkSystem = name: v: (nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs pkgs;};
+      modules = [
+        (v.path or ./hosts/${name}/configuration.nix)
       ];
-    };
+    });
+  in {
+    nixosConfigurations.gauss = mkSystem "gauss" {inherit pkgs;};
+    nixosConfigurations.euler = mkSystem "euler" {inherit pkgs;};
 
     devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
       inherit (self.checks.${system}.pre-commit-check) shellHook;
