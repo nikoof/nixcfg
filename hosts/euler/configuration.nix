@@ -1,9 +1,8 @@
-{
-  inputs,
-  config,
-  pkgs,
-  lib,
-  ...
+{ inputs
+, config
+, pkgs
+, lib
+, ...
 }: {
   imports = [
     inputs.nixos-hardware.nixosModules.common-pc-laptop
@@ -27,9 +26,10 @@
   system.stateVersion = "23.05";
   nixpkgs.hostPlatform = "x86_64-linux";
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "vmd" "nvme" "usb_storage" "usbhid" "sd_mod"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "vmd" "nvme" "usb_storage" "usbhid" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
 
   hardware.bluetooth.enable = true;
   networking = {
@@ -39,30 +39,30 @@
     useDHCP = lib.mkDefault true;
   };
 
-  swapDevices = [{device = "/swap/swapfile";}];
+  swapDevices = [{ device = "/swap/swapfile"; }];
   fileSystems = {
     "/" = {
       device = "/dev/disk/by-uuid/c10e2f83-8c02-4c75-99ab-40aaa3b71bb3";
       fsType = "btrfs";
-      options = ["subvol=@"];
+      options = [ "subvol=@" ];
     };
 
     "/nix" = {
       device = "/dev/disk/by-uuid/c10e2f83-8c02-4c75-99ab-40aaa3b71bb3";
       fsType = "btrfs";
-      options = ["subvol=@nix"];
+      options = [ "subvol=@nix" ];
     };
 
     "/home" = {
       device = "/dev/disk/by-uuid/c10e2f83-8c02-4c75-99ab-40aaa3b71bb3";
       fsType = "btrfs";
-      options = ["subvol=@home"];
+      options = [ "subvol=@home" ];
     };
 
     "/swap" = {
       device = "/dev/disk/by-uuid/c10e2f83-8c02-4c75-99ab-40aaa3b71bb3";
       fsType = "btrfs";
-      options = ["subvol=@swap"];
+      options = [ "subvol=@swap" ];
     };
 
     "/boot" = {
@@ -101,7 +101,7 @@
   ];
 
   services.udev = {
-    packages = [pkgs.nitrokey-udev-rules];
+    packages = [ pkgs.nitrokey-udev-rules ];
 
     # For Pi Pico debug probe (ipw)
     extraRules = ''
