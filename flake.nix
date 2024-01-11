@@ -12,6 +12,7 @@
     nixvim = {
       url = "github:nix-community/nixvim/nixos-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
 
     pre-commit.url = "github:cachix/pre-commit-hooks.nix";
