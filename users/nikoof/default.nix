@@ -52,6 +52,7 @@
       mpv
       spotify
       gimp
+      inkscape
       libreoffice-qt
       qbittorrent
       syncplay
@@ -99,24 +100,6 @@
     programs.bat = {
       enable = true;
       config.theme = "Nord";
-    };
-
-    programs.eza = {
-      enable = true;
-      enableAliases = true;
-      extraOptions = [
-        "--group-directories-first"
-        "--header"
-      ];
-      git = true;
-      icons = true;
-    };
-
-    dconf.settings = {
-      "org/virt-manager/virt-manager/connections" = {
-        autoconnect = ["qemu:///system"];
-        uris = ["qemu:///system"];
-      };
     };
 
     home.stateVersion = "23.05";
