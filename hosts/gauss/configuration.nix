@@ -16,6 +16,7 @@
     ../../mixins/fonts.nix
     ../../mixins/pipewire.nix
     ../../mixins/plasma.nix
+    ../../mixins/gns3.nix
 
     ./services/syncthing.nix
   ];
