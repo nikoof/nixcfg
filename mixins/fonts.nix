@@ -12,5 +12,8 @@
     noto-fonts
     noto-fonts-emoji
     noto-fonts-cjk-sans
+    charis-sil
+    seshat
+    open-sans
   ];
 }
