@@ -18,6 +18,7 @@
     ../../mixins/pipewire.nix
     ../../mixins/plasma.nix
 
+    ../../mixins/networking.nix
     ../../mixins/nitrokey.nix
 
     ./services/power.nix

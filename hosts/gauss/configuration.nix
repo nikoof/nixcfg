@@ -18,6 +18,7 @@
     ../../mixins/plasma.nix
     ../../mixins/gns3.nix
 
+    ../../mixins/networking.nix
     ../../mixins/nitrokey.nix
 
     ./services/syncthing.nix
