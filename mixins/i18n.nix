@@ -14,8 +14,8 @@
   };
 
   services.xserver = {
-    layout = "us,ro,de";
-    xkbVariant = ",std,qwerty";
+    layout = "ro,de";
+    xkbVariant = ",qwerty";
     xkbOptions = "grp:win_space_toggle,compose:menu";
   };
 
