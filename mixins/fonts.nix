@@ -15,5 +15,6 @@
     charis-sil
     seshat
     open-sans
+    gelasio
   ];
 }
