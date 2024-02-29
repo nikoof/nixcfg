@@ -105,6 +105,7 @@
     acpi
     lm_sensors
     wireguard-tools
+    wl-clipboard
   ];
 
   services.udev = {
