@@ -14,6 +14,6 @@
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
     shell = "${pkgs.nushell}/bin/nu";
-    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical"];
+    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical" "cdrom"];
   };
 }
