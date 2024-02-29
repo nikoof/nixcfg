@@ -16,6 +16,7 @@
       ./nushell.nix
       ./starship.nix
       ./taskwarrior.nix
+      ./tmux.nix
       ./zathura.nix
     ];
 
