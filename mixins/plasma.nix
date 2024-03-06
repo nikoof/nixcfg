@@ -22,5 +22,6 @@
     kcalc
     kdeconnect
     redshift-plasma-applet
+    libsForQt5.sddm-kcm
   ];
 }
