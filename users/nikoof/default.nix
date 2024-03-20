@@ -23,6 +23,10 @@
     home.username = "nikoof";
     home.homeDirectory = "/home/nikoof";
 
+    home.sessionVariables = {
+      EDITOR = "nvim";
+    };
+
     home.packages = with pkgs; [
       # Utilities
       neofetch
@@ -37,7 +41,6 @@
       clang
       python311
       rust-analyzer
-      rnix-lsp
       clang-tools
       pyright
       ghc
@@ -70,6 +73,7 @@
       taskwarrior
       obsidian
       keepassxc
+      rnote
 
       # Messaging
       unstable.discord
