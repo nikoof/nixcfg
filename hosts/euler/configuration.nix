@@ -21,6 +21,7 @@
     ../../mixins/networking.nix
     ../../mixins/nitrokey.nix
 
+    ./services/ollama.nix
     ./services/power.nix
     ./services/syncthing.nix
 
