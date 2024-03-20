@@ -16,6 +16,11 @@
     };
 
     pre-commit.url = "github:cachix/pre-commit-hooks.nix";
+
+    pipewire-screenaudio = {
+      url = "github:IceDBorn/pipewire-screenaudio";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {
@@ -53,6 +58,8 @@
 
     devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
       inherit (self.checks.${system}.pre-commit-check) shellHook;
+
+      packages = with pkgs; [lazygit];
     };
 
     checks.${system} = {
