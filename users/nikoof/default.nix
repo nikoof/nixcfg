@@ -29,24 +29,22 @@
 
     home.packages = with pkgs; [
       # Utilities
-      neofetch
       xclip
       btop
       du-dust
 
       # Development
-      virt-manager
       neovide
-      vscode
-      clang
-      python311
       rust-analyzer
+      clang
       clang-tools
+      python311
       pyright
       ghc
       cabal-install
       haskell-language-server
       nil
+      virt-manager
 
       # School
       unstable.zoom-us
@@ -54,18 +52,16 @@
 
       # Media
       mpv
+      ffmpeg_5-full
       spotify
       gimp
-      inkscape
       libreoffice-qt
       qbittorrent
-      syncplay
-      brasero
       kdenlive
       tenacity
+      obs-studio
 
       # Gaming
-      heroic
       bottles
       local.lunar-client
 
@@ -85,9 +81,6 @@
       nordic
       nordzy-icon-theme
       simp1e-cursors
-
-      ffmpeg_5-full
-      obs-studio
     ];
 
     programs.direnv.enable = true;
