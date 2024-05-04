@@ -28,6 +28,7 @@
   };
 
   desktop = {
+    enable = true;
     redshift.enable = true;
     pipewire.enable = true;
 
@@ -49,6 +50,7 @@
   };
 
   security.nitrokey.enable = true;
+  security.nitrokey.enableSSHSupport = true;
   services.openssh.enable = true;
   programs.dconf.enable = true;
   hardware.wacom.enable = true;
