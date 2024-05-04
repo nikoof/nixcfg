@@ -9,19 +9,10 @@
     inputs.nixos-hardware.nixosModules.common-pc-ssd
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
-    ../../profiles/core.nix
-    ../../profiles/gaming.nix
+    ./hardware.nix
+    ../../modules
 
-    ../../mixins/cups.nix
-    ../../mixins/fonts.nix
-    ../../mixins/pipewire.nix
-    ../../mixins/plasma.nix
-    ../../mixins/gns3.nix
-
-    ../../mixins/networking.nix
-    ../../mixins/nitrokey.nix
-
-    ../../mixins/wacom.nix
+    ../../mixins/nikoof.nix
 
     ./services/ollama.nix
     ./services/syncthing.nix
@@ -37,7 +28,32 @@
     tempAddresses = "disabled";
     interfaces.enp3s0.wakeOnLan.enable = true;
     interfaces.enp3s0.useDHCP = true;
+    nftables.enable = true;
   };
+
+  desktop = {
+    redshift.enable = true;
+    pipewire.enable = true;
+
+    printing.enable = true;
+    printing.autodetect = true;
+
+    gaming = {
+      enable = true;
+      steam.enable = true;
+      heroic.enable = true;
+      victoria2Server.openFirewall = true;
+    };
+  };
+
+  apps = {
+    gns3.enable = true;
+  };
+
+  security.nitrokey.enable = true;
+  services.openssh.enable = true;
+  programs.dconf.enable = true;
+  hardware.wacom.enable = true;
 
   services.xserver.xrandrHeads = [
     {
@@ -51,62 +67,4 @@
       '';
     }
   ];
-
-  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "sr_mod"];
-  boot.initrd.kernelModules = [];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [];
-
-  swapDevices = [{device = "/swap/swapfile";}];
-  fileSystems = {
-    "/" = {
-      device = "/dev/disk/by-uuid/58f4e5f7-20ca-41ba-a073-366ee94fdf3a";
-      fsType = "btrfs";
-      options = ["subvol=@" "compress=zstd:3" "space_cache=v2" "ssd"];
-    };
-
-    "/nix" = {
-      device = "/dev/disk/by-uuid/58f4e5f7-20ca-41ba-a073-366ee94fdf3a";
-      fsType = "btrfs";
-      options = ["subvol=@nix" "compress=zstd:3" "space_cache=v2" "ssd" "noatime"];
-    };
-
-    "/home" = {
-      device = "/dev/disk/by-uuid/00416392-9379-4110-b74d-e9f04dda1e0b";
-      fsType = "btrfs";
-      options = ["subvol=@home" "compress=zstd:3" "space_cache=v2"];
-    };
-
-    "/boot" = {
-      device = "/dev/disk/by-uuid/D598-27BA";
-      fsType = "vfat";
-    };
-
-    "/swap" = {
-      device = "/dev/disk/by-uuid/58f4e5f7-20ca-41ba-a073-366ee94fdf3a";
-      fsType = "btrfs";
-      options = ["subvol=@swap" "compress=zstd:3" "space_cache=v2" "ssd" "noatime"];
-    };
-  };
-
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-  powerManagement.cpuFreqGovernor = "performance";
-
-  hardware.nvidia = {
-    modesetting.enable = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-  };
-
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-
-    extraPackages = with pkgs; [
-      nvidia-vaapi-driver
-    ];
-  };
-
-  programs.dconf.enable = true;
 }
