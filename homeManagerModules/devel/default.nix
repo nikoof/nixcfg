@@ -1,12 +1,12 @@
 {
   config,
   inputs,
-  pkgs,
   lib,
+  pkgs,
   ...
 }: {
   imports = [
-    ./gaming.nix
-    ./gns3.nix
+    ./git.nix
+    ./languages.nix
   ];
 }

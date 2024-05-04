@@ -37,6 +37,10 @@
       };
 
       environment.systemPackages = with pkgs; [
+        xclip
+        btop
+        du-dust
+
         kde-gtk-config
         kcalc
         kdeconnect
@@ -45,6 +49,13 @@
 
         hunspellDicts.en_US
         hunspellDicts.en_GB-ise
+
+        firefox-bin
+        chromium
+
+        nordic
+        nordzy-icon-theme
+        simp1e-cursors
       ];
 
       fonts.packages = with pkgs; [

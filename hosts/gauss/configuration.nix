@@ -10,10 +10,6 @@
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
     ./hardware.nix
-    ../../nixosModules
-
-    ../../mixins/nikoof.nix
-
     ./services/ollama.nix
     ./services/syncthing.nix
   ];
@@ -40,14 +36,16 @@
 
     gaming = {
       enable = true;
-      steam.enable = true;
-      heroic.enable = true;
       victoria2Server.openFirewall = true;
     };
   };
 
   apps = {
     gns3.enable = true;
+
+    gaming.bottles.enable = true;
+    gaming.steam.enable = true;
+    gaming.heroic.enable = true;
   };
 
   security.nitrokey.enable = true;

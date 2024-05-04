@@ -46,15 +46,22 @@
       ];
     };
 
-    mkSystem = name: v: (nixpkgs.lib.nixosSystem {
+    mkSystem = name: users: v: (nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs pkgs;};
-      modules = [
-        (v.path or ./hosts/${name}/configuration.nix)
-      ];
+      modules =
+        [
+          self.outputs.nixosModules.default
+          inputs.home-manager.nixosModules.home-manager
+          (v.path or ./hosts/${name}/configuration.nix)
+        ]
+        ++ map (user: ./users/${user}.nix) users;
     });
   in {
-    nixosConfigurations.gauss = mkSystem "gauss" {inherit pkgs;};
-    nixosConfigurations.euler = mkSystem "euler" {inherit pkgs;};
+    nixosModules.default = ./nixosModules;
+    homeManagerModules.default = ./homeManagerModules;
+
+    nixosConfigurations.gauss = mkSystem "gauss" ["nikoof"] {inherit pkgs;};
+    nixosConfigurations.euler = mkSystem "euler" ["nikoof"] {inherit pkgs;};
 
     devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
       inherit (self.checks.${system}.pre-commit-check) shellHook;

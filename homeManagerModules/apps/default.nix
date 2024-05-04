@@ -1,12 +1,13 @@
 {
   config,
   inputs,
-  pkgs,
   lib,
+  pkgs,
   ...
 }: {
   imports = [
-    ./gaming.nix
-    ./gns3.nix
+    ./taskwarrior
+    ./tmux.nix
+    ./zathura.nix
   ];
 }
