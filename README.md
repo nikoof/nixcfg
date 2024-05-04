@@ -1,5 +1,4 @@
 # nixcfg
----
 This has suffered several structural modifications throughout my experience learning Nix. Inspiration mostly from:
 * [colemickens/nixcfg](https://github.com/colemickens/nixcfg)
 * [vimjoyer](https://youtu.be/vYc6IzKvAJQ)
