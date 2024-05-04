@@ -10,7 +10,7 @@
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
     ./hardware.nix
-    ../../modules
+    ../../nixosModules
 
     ../../mixins/nikoof.nix
 
