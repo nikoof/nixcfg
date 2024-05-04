@@ -25,6 +25,6 @@
     SQLITE_HISTORY = "${XDG_CACHE_HOME}/sqlite_history";
     STACK_XDG = "1";
 
-    GTK_IM_MODULE = "xim";
+    FLAKE = "/etc/nixos";
   };
 }
