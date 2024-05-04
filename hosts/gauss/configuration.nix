@@ -107,4 +107,6 @@
       nvidia-vaapi-driver
     ];
   };
+
+  programs.dconf.enable = true;
 }
