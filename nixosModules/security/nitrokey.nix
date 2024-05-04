@@ -10,14 +10,15 @@
     security.nitrokey.enableSSHSupport = lib.mkEnableOption "Enable support for using Nitrokey for SSH authentication";
   };
 
-  config =
-    lib.mkIf config.security.nitrokey.enable {
+  config = lib.mkMerge [
+    (lib.mkIf config.security.nitrokey.enable {
       hardware.nitrokey.enable = true;
 
       environment.systemPackages = with pkgs; [
         pinentry
         pinentry-qt
       ];
+
       security.pam = {
         u2f = {
           enable = true;
@@ -33,12 +34,13 @@
           polkit-1.u2fAuth = true;
         };
       };
-    }
-    // lib.mkIf config.security.nitrokey.enableSSHSupport {
+    })
+    (lib.mkIf config.security.nitrokey.enableSSHSupport {
       programs.mtr.enable = true;
       programs.gnupg.agent = {
         enable = true;
         enableSSHSupport = true;
       };
-    };
+    })
+  ];
 }

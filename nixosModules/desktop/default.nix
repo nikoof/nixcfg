@@ -16,8 +16,8 @@
     desktop.pipewire.enable = lib.mkEnableOption "Enable pipewire audio";
   };
 
-  config =
-    lib.mkIf config.desktop.enable {
+  config = lib.mkMerge [
+    (lib.mkIf config.desktop.enable {
       i18n.defaultLocale = "en_US.UTF-8";
       i18n.extraLocaleSettings = {
         LC_TIME = "en_DK.UTF-8";
@@ -70,8 +70,8 @@
         open-sans
         gelasio
       ];
-    }
-    // lib.mkIf config.desktop.pipewire.enable {
+    })
+    (lib.mkIf config.desktop.pipewire.enable {
       security.rtkit.enable = true;
       services.pipewire = {
         enable = true;
@@ -80,12 +80,13 @@
         pulse.enable = true;
         jack.enable = true;
       };
-    }
-    // lib.mkIf config.desktop.redshift.enable {
+    })
+    (lib.mkIf config.desktop.redshift.enable {
       location.provider = "geoclue2";
       services.redshift = {
         enable = true;
         executable = "/bin/redshift";
       };
-    };
+    })
+  ];
 }
