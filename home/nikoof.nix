@@ -38,6 +38,7 @@
     zathura.enable = true;
     taskwarrior.enable = true;
     tmux.enable = true;
+    nvim.enable = true;
   };
 
   programs.direnv.enable = true;

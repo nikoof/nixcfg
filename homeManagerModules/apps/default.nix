@@ -9,5 +9,6 @@
     ./taskwarrior
     ./tmux.nix
     ./zathura.nix
+    ./nvim
   ];
 }
