@@ -14,6 +14,10 @@
     lib.mkIf config.security.nitrokey.enable {
       hardware.nitrokey.enable = true;
 
+      environment.systemPackages = with pkgs; [
+        pinentry
+        pinentry-qt
+      ];
       security.pam = {
         u2f = {
           enable = true;
