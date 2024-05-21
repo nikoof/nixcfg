@@ -29,13 +29,13 @@
   swapDevices = [{device = "/swap/swapfile";}];
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/58f4e5f7-20ca-41ba-a073-366ee94fdf3a";
+      device = "/dev/disk/by-uuid/7e1430a9-e59e-430a-a367-e2b823588684";
       fsType = "btrfs";
       options = ["subvol=@" "compress=zstd:3" "space_cache=v2" "ssd"];
     };
 
     "/nix" = {
-      device = "/dev/disk/by-uuid/58f4e5f7-20ca-41ba-a073-366ee94fdf3a";
+      device = "/dev/disk/by-uuid/7e1430a9-e59e-430a-a367-e2b823588684";
       fsType = "btrfs";
       options = ["subvol=@nix" "compress=zstd:3" "space_cache=v2" "ssd" "noatime"];
     };
@@ -47,12 +47,12 @@
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/D598-27BA";
+      device = "/dev/disk/by-uuid/2393-1A7C";
       fsType = "vfat";
     };
 
     "/swap" = {
-      device = "/dev/disk/by-uuid/58f4e5f7-20ca-41ba-a073-366ee94fdf3a";
+      device = "/dev/disk/by-uuid/7e1430a9-e59e-430a-a367-e2b823588684";
       fsType = "btrfs";
       options = ["subvol=@swap" "compress=zstd:3" "space_cache=v2" "ssd" "noatime"];
     };

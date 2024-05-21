@@ -14,7 +14,7 @@
     ./services/syncthing.nix
   ];
 
-  system.stateVersion = "23.05";
+  system.stateVersion = "23.11";
   nixpkgs.hostPlatform = "x86_64-linux";
 
   networking = {
@@ -51,6 +51,7 @@
 
   security.nitrokey.enable = true;
   security.nitrokey.enableSSHSupport = true;
+  security.keepassxc.enable = true;
   services.openssh.enable = true;
   programs.dconf.enable = true;
   hardware.wacom.enable = true;
