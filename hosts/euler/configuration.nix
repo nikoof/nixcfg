@@ -66,6 +66,7 @@
 
   security.nitrokey.enable = true;
   security.nitrokey.enableSSHSupport = true;
+  security.keepassxc.enable = true;
   services.openssh.enable = true;
   programs.dconf.enable = true;
   hardware.wacom.enable = true;
