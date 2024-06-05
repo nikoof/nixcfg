@@ -13,6 +13,7 @@
       enable = true;
       settings = {
         colors = {
+          draw_bold_text_with_bright_colors = true;
           primary = {
             background = "#2e3440";
             foreground = "#d8dee9";
@@ -34,10 +35,6 @@
             matches = {
               foreground = "CellBackground";
               background = "#88c0d0";
-            };
-            footer_bar = {
-              background = "#434c5e";
-              foreground = "#d8dee9";
             };
           };
           normal = {
@@ -86,8 +83,6 @@
             instance = "Alacritty";
             general = "Alacritty";
           };
-
-          gtk_theme_variant = null;
         };
 
         scrolling = {
@@ -117,8 +112,6 @@
             style = "Bold Italic";
           };
         };
-
-        draw_bold_text_with_bright_colors = true;
 
         bell = {
           animation = "EaseOutExpo";

@@ -27,6 +27,11 @@
     nftables.enable = true;
   };
 
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = ["856127940c682c75"];
+  };
+
   desktop = {
     enable = true;
     redshift.enable = true;

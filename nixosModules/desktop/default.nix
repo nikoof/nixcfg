@@ -32,8 +32,17 @@
 
       services.xserver = {
         enable = true;
+        desktopManager.plasma6.enable = true;
         displayManager.sddm.enable = true;
-        desktopManager.plasma5.enable = true;
+
+        windowManager.dwm.enable = true;
+        windowManager.dwm.package = pkgs.dwm.override {
+          patches = [./config.patch];
+        };
+      };
+
+      services.xserver.windowManager.i3 = {
+        enable = true;
       };
 
       environment.systemPackages = with pkgs; [

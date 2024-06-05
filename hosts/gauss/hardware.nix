@@ -13,8 +13,10 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    package = config.boot.kernelPackages.nvidia_x11;
   };
+
+  services.xserver.videoDrivers = ["nvidia"];
 
   hardware.opengl = {
     enable = true;
@@ -23,6 +25,7 @@
 
     extraPackages = with pkgs; [
       nvidia-vaapi-driver
+      vaapiVdpau
     ];
   };
 

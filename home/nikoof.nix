@@ -1,6 +1,7 @@
 {
   config,
   inputs,
+  lib,
   pkgs,
   ...
 }: {
@@ -10,6 +11,21 @@
 
   home.username = "nikoof";
   home.homeDirectory = "/home/nikoof";
+
+  # home.file.".fehbg".source = ./moebius.png;
+  # home.file.".local/share/dwm/autostart.sh".text = ''
+  #   feh --bg-scale $XDG_DATA_HOME/dwm/wallpaper.png
+  # '';
+
+  programs.feh.enable = true;
+
+  xsession.windowManager.i3 = {
+    enable = true;
+    config = {
+      modifier = "Mod4";
+      terminal = "alacritty";
+    };
+  };
 
   devel.git.enable = true;
   devel.git.signing = true;

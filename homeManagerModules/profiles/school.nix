@@ -15,7 +15,7 @@ in {
     home.packages = with pkgs; [
       unstable.zoom-us
       unstable.ciscoPacketTracer8
-      libreoffice-qt
+      # libreoffice-qt6-still
     ];
   };
 }

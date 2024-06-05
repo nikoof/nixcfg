@@ -13,6 +13,10 @@
   config = lib.mkIf config.desktop.gaming.enable {
     programs.gamemode.enable = true;
 
+    environment.systemPackages = with pkgs; [
+      mangohud
+    ];
+
     networking.firewall.allowedTCPPortRanges = lib.mkIf config.desktop.gaming.victoria2Server.openFirewall [
       {
         from = 1630;
