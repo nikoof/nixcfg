@@ -6,7 +6,6 @@
   ...
 }: {
   imports = [
-    ./gaming.nix
     ./printing.nix
   ];
 
@@ -32,17 +31,8 @@
 
       services.xserver = {
         enable = true;
-        desktopManager.plasma6.enable = true;
-        displayManager.sddm.enable = true;
-
-        windowManager.dwm.enable = true;
-        windowManager.dwm.package = pkgs.dwm.override {
-          patches = [./config.patch];
-        };
-      };
-
-      services.xserver.windowManager.i3 = {
-        enable = true;
+        displayManager.startx.enable = true;
+        displayManager.lightdm.enable = false;
       };
 
       environment.systemPackages = with pkgs; [
@@ -50,21 +40,14 @@
         btop
         du-dust
 
-        kde-gtk-config
-        kcalc
-        kdeconnect
-        redshift-plasma-applet
-        libsForQt5.sddm-kcm
-
         hunspellDicts.en_US
         hunspellDicts.en_GB-ise
 
+        dolphin
+        gnome.nautilus
+
         firefox-bin
         chromium
-
-        nordic
-        nordzy-icon-theme
-        simp1e-cursors
       ];
 
       fonts.packages = with pkgs; [
@@ -80,6 +63,7 @@
         gelasio
       ];
     })
+
     (lib.mkIf config.desktop.pipewire.enable {
       security.rtkit.enable = true;
       services.pipewire = {
@@ -90,6 +74,7 @@
         jack.enable = true;
       };
     })
+
     (lib.mkIf config.desktop.redshift.enable {
       location.provider = "geoclue2";
       services.redshift = {

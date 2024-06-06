@@ -32,6 +32,8 @@
     joinNetworks = ["856127940c682c75"];
   };
 
+  wm.dwm.enable = true;
+
   desktop = {
     enable = true;
     redshift.enable = true;
@@ -39,12 +41,11 @@
 
     printing.enable = true;
     printing.autodetect = true;
-
-    gaming = {
-      enable = true;
-      victoria2Server.openFirewall = true;
-    };
   };
+
+  qt.enable = true;
+  qt.style = "adwaita-dark";
+  qt.platformTheme = "gnome";
 
   apps = {
     gns3.enable = true;
@@ -52,6 +53,9 @@
     gaming.bottles.enable = true;
     gaming.steam.enable = true;
     gaming.heroic.enable = true;
+    gaming.mangohud.enable = true;
+
+    gaming.victoria2Server.openFirewall = true;
   };
 
   security.nitrokey.enable = true;

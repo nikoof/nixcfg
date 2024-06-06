@@ -12,60 +12,50 @@
     programs.alacritty = {
       enable = true;
       settings = {
-        colors = {
+        colors = with config.colorScheme.palette; {
           draw_bold_text_with_bright_colors = true;
+
           primary = {
-            background = "#2e3440";
-            foreground = "#d8dee9";
-            dim_foreground = "#a5abb6";
+            background = "#${base00}";
+            foreground = "#${base04}";
           };
           cursor = {
-            text = "#2e3440";
-            cursor = "#d8dee9";
+            text = "#${base00}";
+            cursor = "#${base04}";
           };
           vi_mode_cursor = {
-            text = "#2e3440";
-            cursor = "#d8dee9";
+            text = "#${base00}";
+            cursor = "#${base04}";
           };
           selection = {
             text = "CellForeground";
-            background = "#4c566a";
+            background = "#${base03}";
           };
           search = {
             matches = {
               foreground = "CellBackground";
-              background = "#88c0d0";
+              background = "#${base0C}";
             };
           };
           normal = {
-            black = "#3b4252";
-            red = "#bf616a";
-            green = "#a3be8c";
-            yellow = "#ebcb8b";
-            blue = "#81a1c1";
-            magenta = "#b48ead";
-            cyan = "#88c0d0";
-            white = "#e5e9f0";
+            black = "#${base01}";
+            red = "#${base08}";
+            green = "#${base0B}";
+            yellow = "#${base0A}";
+            blue = "#${base0D}";
+            magenta = "#${base0E}";
+            cyan = "#${base0C}";
+            white = "#${base05}";
           };
           bright = {
-            black = "#4c566a";
-            red = "#bf616a";
-            green = "#a3be8c";
-            yellow = "#ebcb8b";
-            blue = "#81a1c1";
-            magenta = "#b48ead";
-            cyan = "#8fbcbb";
-            white = "#eceff4";
-          };
-          dim = {
-            black = "#373e4d";
-            red = "#94545d";
-            green = "#809575";
-            yellow = "#b29e75";
-            blue = "#68809a";
-            magenta = "#8c738c";
-            cyan = "#6d96a5";
-            white = "#aeb3bb";
+            black = "#${base03}";
+            red = "#${base08}";
+            green = "#${base0B}";
+            yellow = "#${base0A}";
+            blue = "#${base0D}";
+            magenta = "#${base0E}";
+            cyan = "#${base07}";
+            white = "#${base06}";
           };
         };
 

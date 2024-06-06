@@ -2,18 +2,21 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nix-colors.url = "github:Misterio77/nix-colors";
+
     pre-commit.url = "github:cachix/pre-commit-hooks.nix";
 
-    pipewire-screenaudio = {
-      url = "github:IceDBorn/pipewire-screenaudio";
+    dwm = {
+      url = "github:nikoof/dwm";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "flake-utils";
     };
   };
 

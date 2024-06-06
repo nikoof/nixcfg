@@ -7,47 +7,48 @@
 }: {
   imports = [
     inputs.self.outputs.homeManagerModules.default
+    inputs.nix-colors.homeManagerModules.default
   ];
 
   home.username = "nikoof";
   home.homeDirectory = "/home/nikoof";
 
-  # home.file.".fehbg".source = ./moebius.png;
-  # home.file.".local/share/dwm/autostart.sh".text = ''
-  #   feh --bg-scale $XDG_DATA_HOME/dwm/wallpaper.png
-  # '';
+  colorScheme = inputs.nix-colors.colorSchemes.kanagawa;
 
-  programs.feh.enable = true;
-
-  xsession.windowManager.i3 = {
+  dconf = {
     enable = true;
-    config = {
-      modifier = "Mod4";
-      terminal = "alacritty";
+    settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
     };
   };
 
-  devel.git.enable = true;
-  devel.git.signing = true;
-  devel.git.github.enable = true;
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome.gnome-themes-extra;
+    };
 
-  terminal.enable = true;
-  terminal.shell.nushell.enable = true;
-  terminal.shell.starship.enable = true;
+    iconTheme = {
+      name = "Adwaita";
+      package = pkgs.gnome.adwaita-icon-theme;
+    };
 
-  devel.languages = {
-    cpp.enable = true;
-    rust.enable = true;
-    haskell.enable = true;
-    nix.enable = true;
-    python.enable = true;
+    cursorTheme = {
+      name = "Simp1e-Adw-Dark";
+      package = pkgs.simp1e-cursors;
+    };
   };
 
-  profiles = {
-    school.enable = true;
-    entertainment.enable = true;
-    media.enable = true;
-    productivity.enable = true;
+  programs.feh.enable = true;
+
+  wm.i3.enable = true;
+
+  wm.dwm = {
+    enable = true;
+    wallpaper = ./moebius.png;
   };
 
   apps = {
@@ -57,10 +58,48 @@
     nvim.enable = true;
   };
 
+  terminal = {
+    enable = true;
+    shell.nushell.enable = true;
+    shell.starship.enable = true;
+  };
+
+  devel.git = {
+    enable = true;
+    signing = true;
+    github.enable = true;
+  };
+
   programs.direnv.enable = true;
+  devel.languages = {
+    cpp.enable = true;
+    rust.enable = true;
+    haskell.enable = true;
+    nix.enable = true;
+    python.enable = true;
+  };
 
   home.packages = with pkgs; [
     virt-manager
+
+    unstable.zoom-us
+    unstable.ciscoPacketTracer8
+    # libreoffice
+
+    obsidian
+    rnote
+
+    mpv
+    spotify
+    unstable.discord
+    betterdiscordctl
+
+    ffmpeg_5-full
+    kdenlive
+    tenacity
+    obs-studio
+    gimp
+    qbittorrent
   ];
 
   home.stateVersion = "23.05";

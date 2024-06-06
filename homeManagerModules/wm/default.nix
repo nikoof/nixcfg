@@ -6,9 +6,7 @@
   ...
 }: {
   imports = [
-    ./devel
-    ./terminal
-    ./apps
-    ./wm
+    ./i3.nix
+    ./dwm.nix
   ];
 }
