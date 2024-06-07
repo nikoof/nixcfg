@@ -16,6 +16,7 @@
   colorScheme = inputs.nix-colors.colorSchemes.nord;
 
   wm.hyprland.enable = true;
+  wm.hyprland.wallpaper = ./wallpapers/alveolar.png;
 
   apps = {
     alacritty.enable = true;
@@ -58,8 +59,9 @@
 
     mpv
     spotify
-    unstable.discord
+    webcord
     betterdiscordctl
+    unstable.discord
 
     ffmpeg_5-full
     kdenlive

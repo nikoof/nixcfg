@@ -52,6 +52,7 @@
 
   desktop = {
     plasma.enable = true;
+    hyprland.enable = true;
 
     printing.enable = true;
     printing.autodetect = true;

@@ -8,9 +8,10 @@
   cfg = config.desktop.hyprland;
 in {
   options.desktop.hyprland = {
+    enable = lib.mkEnableOption "Enable Hyprland";
   };
 
-  config = {
+  config = lib.mkIf cfg.enable {
     programs.hyprland = {
       enable = true;
       package = inputs.hyprland.packages.${pkgs.system}.hyprland;
@@ -18,6 +19,6 @@ in {
     };
 
     programs.hyprlock.enable = true;
-    programs.hypridle.enable = true;
+    services.hypridle.enable = true;
   };
 }
