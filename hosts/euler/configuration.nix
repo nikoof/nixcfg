@@ -12,8 +12,6 @@
 
     ./hardware.nix
 
-    ./services/ollama.nix
-    ./services/power.nix
     ./services/syncthing.nix
 
     ./containers/ubuntu-jammy.nix
@@ -42,36 +40,8 @@
     useDHCP = lib.mkDefault true;
   };
 
-  desktop = {
-    enable = true;
-    redshift.enable = true;
-    pipewire.enable = true;
-
-    printing.enable = true;
-    printing.autodetect = true;
-
-    gaming = {
-      enable = true;
-      victoria2Server.openFirewall = true;
-    };
-  };
-
-  apps = {
-    gns3.enable = true;
-
-    gaming.bottles.enable = true;
-    gaming.steam.enable = true;
-    gaming.heroic.enable = true;
-  };
-
-  security.nitrokey.enable = true;
-  security.nitrokey.enableSSHSupport = true;
-  security.keepassxc.enable = true;
-  services.openssh.enable = true;
-  programs.dconf.enable = true;
-  hardware.wacom.enable = true;
-
   virtualisation.libvirtd.enable = true;
+
   environment.systemPackages = with pkgs; [
     qemu
     acpi
@@ -80,10 +50,54 @@
     wl-clipboard
   ];
 
+  desktop = {
+    plasma.enable = true;
+
+    printing.enable = true;
+    printing.autodetect = true;
+  };
+
+  apps.gns3.enable = true;
+
+  apps.gaming = {
+    bottles.enable = true;
+    steam.enable = true;
+    mangohud.enable = true;
+
+    victoria2Server.openFirewall = true;
+  };
+
+  peripherals.wacom.enable = true;
+  peripherals.nitrokey = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
+  services.openssh.enable = true;
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
+  services.thermald.enable = true;
+  services.auto-cpufreq = {
+    enable = true;
+    settings = {
+      battery = {
+        governor = "powersave";
+        turbo = "never";
+      };
+      charger = {
+        governor = "performance";
+        turbo = "auto";
+      };
+    };
+  };
   services.udev = {
     # For Pi Pico debug probe (ipw)
     extraRules = ''
       SUBSYSTEM=="usb", ATTR{idVendor}=="2e8a", ATTR{idProduct}=="000c", MODE:="666"
     '';
   };
+
+  programs.dconf.enable = true;
 }
