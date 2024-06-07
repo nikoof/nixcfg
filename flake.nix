@@ -12,6 +12,8 @@
     nix-colors.url = "github:Misterio77/nix-colors";
 
     pre-commit.url = "github:cachix/pre-commit-hooks.nix";
+
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
   };
 
   outputs = inputs @ {

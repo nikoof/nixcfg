@@ -57,6 +57,11 @@
     printing.autodetect = true;
   };
 
+  programs.hyprland = {
+    enable = true;
+    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+  };
+
   apps.gns3.enable = true;
 
   apps.gaming = {
