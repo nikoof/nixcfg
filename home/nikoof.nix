@@ -13,7 +13,7 @@
   home.username = "nikoof";
   home.homeDirectory = "/home/nikoof";
 
-  colorScheme = inputs.nix-colors.colorSchemes.kanagawa;
+  colorScheme = inputs.nix-colors.colorSchemes.nord;
 
   apps = {
     alacritty.enable = true;

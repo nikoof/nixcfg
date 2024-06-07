@@ -32,6 +32,8 @@ in {
       seshat
       open-sans
       gelasio
+      alegreya
+      alegreya-sans
     ];
 
     i18n.defaultLocale = "en_US.UTF-8";
