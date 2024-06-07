@@ -9,5 +9,6 @@
     ./apps
     ./devel
     ./shell
+    ./wm
   ];
 }

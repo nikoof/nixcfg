@@ -15,6 +15,8 @@
 
   colorScheme = inputs.nix-colors.colorSchemes.nord;
 
+  wm.hyprland.enable = true;
+
   apps = {
     alacritty.enable = true;
     zathura.enable = true;
