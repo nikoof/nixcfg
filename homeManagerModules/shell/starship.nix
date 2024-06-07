@@ -4,17 +4,17 @@
   lib,
   ...
 }: let
-  cfg = config.terminal.shell.starship;
+  cfg = config.shell.starship;
 in {
-  options = {
-    terminal.shell.starship.enable = lib.mkEnableOption "Enable Starship prompt";
+  options.shell.starship = {
+    enable = lib.mkEnableOption "Enable Starship prompt";
   };
 
   config = lib.mkIf cfg.enable {
     programs.starship = {
       enable = true;
-      enableBashIntegration = lib.mkDefault config.terminal.shell.bash.enable;
-      enableNushellIntegration = lib.mkDefault config.terminal.shell.nushell.enable;
+      enableBashIntegration = lib.mkDefault config.shell.bash.enable;
+      enableNushellIntegration = lib.mkDefault config.shell.nushell.enable;
       settings = {
         format = pkgs.lib.concatStrings [
           "[∴ ](bold blue)"

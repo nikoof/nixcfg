@@ -8,5 +8,6 @@
   imports = [
     ./gaming.nix
     ./gns3.nix
+    ./libreoffice.nix
   ];
 }

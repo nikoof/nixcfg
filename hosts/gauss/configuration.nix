@@ -10,12 +10,22 @@
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
     ./hardware.nix
-    ./services/ollama.nix
     ./services/syncthing.nix
   ];
 
   system.stateVersion = "23.11";
   nixpkgs.hostPlatform = "x86_64-linux";
+  boot.loader = {
+    systemd-boot.enable = true;
+    systemd-boot.consoleMode = "max";
+    efi.canTouchEfiVariables = true;
+  };
+
+  boot.plymouth = {
+    enable = true;
+    themePackages = with pkgs; [nixos-bgrt-plymouth];
+    theme = "nixos-bgrt";
+  };
 
   networking = {
     hostName = "gauss";
@@ -27,43 +37,41 @@
     nftables.enable = true;
   };
 
-  services.zerotierone = {
-    enable = true;
-    joinNetworks = ["856127940c682c75"];
-  };
-
-  wm.dwm.enable = true;
-
   desktop = {
-    enable = true;
-    redshift.enable = true;
-    pipewire.enable = true;
+    plasma.enable = true;
 
     printing.enable = true;
     printing.autodetect = true;
   };
-
-  qt.enable = true;
-  qt.style = "adwaita-dark";
-  qt.platformTheme = "gnome";
 
   apps = {
     gns3.enable = true;
 
     gaming.bottles.enable = true;
     gaming.steam.enable = true;
-    gaming.heroic.enable = true;
     gaming.mangohud.enable = true;
 
     gaming.victoria2Server.openFirewall = true;
   };
 
-  security.nitrokey.enable = true;
-  security.nitrokey.enableSSHSupport = true;
-  security.keepassxc.enable = true;
+  peripherals.wacom.enable = true;
+  peripherals.nitrokey = {
+    enable = true;
+    enableSSHSupport = true;
+  };
+
   services.openssh.enable = true;
+  services.zerotierone = {
+    enable = true;
+    joinNetworks = ["856127940c682c75"];
+  };
+
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
+
   programs.dconf.enable = true;
-  hardware.wacom.enable = true;
 
   services.xserver.xrandrHeads = [
     {

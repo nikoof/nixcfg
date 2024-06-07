@@ -6,9 +6,8 @@
   ...
 }: {
   imports = [
-    ./devel
-    ./terminal
     ./apps
-    ./wm
+    ./devel
+    ./shell
   ];
 }

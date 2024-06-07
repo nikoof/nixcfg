@@ -4,12 +4,14 @@
   pkgs,
   lib,
   ...
-}: {
-  options = {
-    apps.gns3.enable = lib.mkEnableOption "Enable GNS3 with local server";
+}: let
+  cfg = config.apps.gns3;
+in {
+  options.apps.gns3 = {
+    enable = lib.mkEnableOption "Enable GNS3 with local server";
   };
 
-  config = lib.mkIf config.apps.gns3.enable {
+  config = lib.mkIf cfg.enable {
     virtualisation.libvirtd.enable = true;
 
     users.groups.ubridge = {};

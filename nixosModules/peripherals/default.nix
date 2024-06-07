@@ -6,6 +6,7 @@
   ...
 }: {
   imports = [
+    ./nitrokey.nix
     ./wacom.nix
   ];
 }

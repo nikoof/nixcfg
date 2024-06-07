@@ -3,12 +3,14 @@
   pkgs,
   lib,
   ...
-}: {
-  options = {
-    terminal.enable = lib.mkEnableOption "Enable terminal";
+}: let
+  cfg = config.apps.alacritty;
+in {
+  options.apps.alacritty = {
+    enable = lib.mkEnableOption "Enable Alacritty";
   };
 
-  config = lib.mkIf config.terminal.enable {
+  config = lib.mkIf cfg.enable {
     programs.alacritty = {
       enable = true;
       settings = {

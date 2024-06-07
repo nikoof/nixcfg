@@ -5,9 +5,6 @@
   pkgs,
   ...
 }: {
-  imports = [
-  ];
-
   users.users.nikoof = {
     description = "Nicolas Bratoveanu";
     isNormalUser = true;

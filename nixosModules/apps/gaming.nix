@@ -18,7 +18,7 @@ in {
   };
 
   config = {
-    programs.gamemode.enable = cfg.steam.enable;
+    programs.gamemode.enable = lib.mkDefault cfg.steam.enable;
     programs.steam = lib.mkIf cfg.steam.enable {
       enable = true;
       remotePlay.openFirewall = true;

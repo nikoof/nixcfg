@@ -12,12 +12,6 @@
     nix-colors.url = "github:Misterio77/nix-colors";
 
     pre-commit.url = "github:cachix/pre-commit-hooks.nix";
-
-    dwm = {
-      url = "github:nikoof/dwm";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
-    };
   };
 
   outputs = inputs @ {

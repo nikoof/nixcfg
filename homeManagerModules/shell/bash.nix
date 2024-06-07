@@ -3,12 +3,14 @@
   pkgs,
   lib,
   ...
-}: {
-  options = {
-    terminal.shell.bash.enable = lib.mkEnableOption "Enable bash";
+}: let
+  cfg = config.shell.bash;
+in {
+  options.shell.bash = {
+    enable = lib.mkEnableOption "Enable bash";
   };
 
-  config = lib.mkIf config.terminal.shell.bash.enable {
+  config = lib.mkIf cfg.enable {
     programs.bash = {
       enable = true;
       shellAliases = rec {

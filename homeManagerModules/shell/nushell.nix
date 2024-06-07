@@ -3,12 +3,14 @@
   pkgs,
   lib,
   ...
-}: {
-  options = {
-    terminal.shell.nushell.enable = lib.mkEnableOption "Enable nushell";
+}: let
+  cfg = config.shell.nushell;
+in {
+  options.shell.nushell = {
+    enable = lib.mkEnableOption "Enable nushell";
   };
 
-  config = lib.mkIf config.terminal.shell.nushell.enable {
+  config = lib.mkIf cfg.enable {
     programs.nushell = {
       enable = true;
       configFile.text = ''

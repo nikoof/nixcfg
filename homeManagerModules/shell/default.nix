@@ -6,7 +6,8 @@
   ...
 }: {
   imports = [
-    ./i3.nix
-    ./dwm.nix
+    ./bash.nix
+    ./nushell.nix
+    ./starship.nix
   ];
 }

@@ -4,14 +4,16 @@
   config,
   lib,
   ...
-}: {
-  options = {
-    devel.git.enable = lib.mkEnableOption "Enable Git";
-    devel.git.signing = lib.mkEnableOption "Sign commits with Nitrokey";
-    devel.git.github.enable = lib.mkEnableOption "Enable GitHub integration";
+}: let
+  cfg = config.devel.git;
+in {
+  options.devel.git = {
+    enable = lib.mkEnableOption "Enable Git";
+    signing = lib.mkEnableOption "Sign commits with Nitrokey";
+    github.enable = lib.mkEnableOption "Enable GitHub integration";
   };
 
-  config = lib.mkIf config.devel.git.enable {
+  config = lib.mkIf cfg.enable {
     programs.git = {
       enable = true;
       userName = "Nicolas Bratoveanu";
@@ -22,13 +24,13 @@
         push = {autoSetupRemote = true;};
       };
 
-      signing = lib.mkIf config.devel.git.signing {
+      signing = lib.mkIf cfg.signing {
         signByDefault = true;
         key = "94B9F744D3E82C46";
       };
     };
 
-    programs.gh = lib.mkIf config.devel.git.github.enable {
+    programs.gh = lib.mkIf cfg.github.enable {
       enable = true;
       gitCredentialHelper.enable = true;
     };
