@@ -45,8 +45,8 @@
         ++ map (user: ./users/${user}.nix) users;
     });
   in {
-    nixosModules.default = ./nixosModules;
-    homeManagerModules.default = ./homeManagerModules;
+    nixosModules.default = ./nixos-modules;
+    homeManagerModules.default = ./hm-modules;
 
     nixosConfigurations.gauss = mkSystem "gauss" ["nikoof"] {inherit pkgs;};
     nixosConfigurations.euler = mkSystem "euler" ["nikoof"] {inherit pkgs;};
