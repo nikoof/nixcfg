@@ -26,14 +26,6 @@ in {
       playerctl
     ];
 
-    home.sessionVariables = {
-      "GDK_BACKEND" = "wayland";
-      "QT_QPA_PLATFORM" = "wayland";
-      "SDL_VIDEODRIVER" = "wayland";
-      "CLUTTER_BACKEND" = "wayland";
-      "NIXOS_OZONE_WL" = "1";
-    };
-
     programs.rofi.enable = true;
     programs.rofi.package = pkgs.rofi-wayland;
 
@@ -186,6 +178,14 @@ in {
       xwayland = {
         force_zero_scaling = true;
       };
+
+      env = [
+        "GDK_BACKEND, wayland"
+        "QT_QPA_PLATFORM, wayland"
+        "SDL_VIDEODRIVER, wayland"
+        "CLUTTER_BACKEND, wayland"
+        "NIXOS_OZONE_WL, 1"
+      ];
     };
   };
 }
