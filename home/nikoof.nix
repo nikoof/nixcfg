@@ -50,6 +50,8 @@
   home.packages = with pkgs; [
     virt-manager
 
+    chromium
+
     unstable.zoom-us
     unstable.ciscoPacketTracer8
     # libreoffice
