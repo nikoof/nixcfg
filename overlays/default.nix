@@ -24,9 +24,10 @@
       fonts = ["FiraCode"];
     };
 
-    noto-fonts = prev.noto-fonts.override {
-      variants = ["Noto Sans" "Noto Serif"];
-    };
+    # NOTE: overriding noto-fonts forces a rebuild of libreoffice
+    # noto-fonts = prev.noto-fonts.override {
+    #   variants = ["Noto Sans" "Noto Serif"];
+    # };
   };
 
   unstable-packages = final: prev: {

@@ -51,7 +51,9 @@
   ];
 
   desktop = {
+    xdgDirs.enable = true;
     plasma.enable = true;
+
     hyprland.enable = true;
 
     printing.enable = true;

@@ -25,3 +25,5 @@ This has suffered several structural modifications throughout my experience lear
 * `users`
     * user account declarations
 
+# Notes
+- Overriding `noto-fonts` (and probably other font packages) forces a rebuild of `libreoffice`. This does theoretically modify the closure, however it is extremely inconvenient.

@@ -12,6 +12,7 @@
 
   home.username = "nikoof";
   home.homeDirectory = "/home/nikoof";
+  home.preferXdgDirectories = true;
 
   colorScheme = inputs.nix-colors.colorSchemes.nord;
 
@@ -48,19 +49,21 @@
   };
 
   home.packages = with pkgs; [
+    pueue
+
     virt-manager
 
     chromium
 
     unstable.zoom-us
     unstable.ciscoPacketTracer8
-    # libreoffice
+    libreoffice-qt6-still
 
     obsidian
     rnote
 
     mpv
-    spotify
+    unstable.spotify
     webcord
     betterdiscordctl
     unstable.discord

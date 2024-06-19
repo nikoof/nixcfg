@@ -38,6 +38,7 @@
   };
 
   desktop = {
+    xdgDirs.enable = true;
     plasma.enable = true;
 
     printing.enable = true;
@@ -60,6 +61,7 @@
     enableSSHSupport = true;
   };
 
+  services.ratbagd.enable = true;
   services.openssh.enable = true;
   services.zerotierone = {
     enable = true;
