@@ -17,16 +17,47 @@
     ./containers/ubuntu-jammy.nix
   ];
 
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
+    image = ../../home/wallpapers/moebius.png;
+  };
+
+  stylix.opacity = {
+    applications = 1.0;
+    terminal = 0.9;
+    desktop = 1.0;
+    popups = 1.0;
+  };
+
+  stylix.fonts = {
+    sizes = {
+      applications = 12;
+      terminal = 15;
+      desktop = 10;
+      popups = 10;
+    };
+
+    monospace = {
+      package = pkgs.nerdfonts.override {fonts = ["FiraCode"];};
+      name = "FiraCode Nerd Font Mono";
+    };
+
+    sansSerif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Sans";
+    };
+
+    serif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Serif";
+    };
+  };
+
   boot.loader = {
     systemd-boot.enable = true;
     systemd-boot.consoleMode = "max";
     efi.canTouchEfiVariables = true;
-  };
-
-  boot.plymouth = {
-    enable = true;
-    themePackages = with pkgs; [nixos-bgrt-plymouth];
-    theme = "nixos-bgrt";
   };
 
   system.stateVersion = "23.05";
@@ -53,8 +84,6 @@
   desktop = {
     xdgDirs.enable = true;
     plasma.enable = true;
-
-    hyprland.enable = true;
 
     printing.enable = true;
     printing.autodetect = true;

@@ -9,7 +9,6 @@
 in {
   imports = [
     ./plasma.nix
-    ./hyprland.nix
     ./printing.nix
   ];
 

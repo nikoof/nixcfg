@@ -7,17 +7,13 @@
 }: {
   imports = [
     inputs.self.outputs.homeManagerModules.default
-    inputs.nix-colors.homeManagerModules.default
   ];
 
   home.username = "nikoof";
   home.homeDirectory = "/home/nikoof";
   home.preferXdgDirectories = true;
 
-  colorScheme = inputs.nix-colors.colorSchemes.nord;
-
-  wm.hyprland.enable = true;
-  wm.hyprland.wallpaper = ./wallpapers/alveolar.png;
+  programs.btop.enable = true;
 
   apps = {
     alacritty.enable = true;

@@ -36,6 +36,8 @@ in {
 
       sddm-kcm
       redshift-plasma-applet
+
+      libsForQt5.polonium
     ];
   };
 }

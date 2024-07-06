@@ -9,15 +9,10 @@
     };
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nix-colors.url = "github:Misterio77/nix-colors";
 
     pre-commit.url = "github:cachix/pre-commit-hooks.nix";
 
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
-    hyprland-plugins = {
-      url = "github:hyprwm/hyprland-plugins";
-      inputs.hyprland.follows = "hyprland";
-    };
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = inputs @ {
@@ -46,6 +41,7 @@
         [
           self.outputs.nixosModules.default
           inputs.home-manager.nixosModules.home-manager
+          inputs.stylix.nixosModules.stylix
           (v.path or ./hosts/${name}/configuration.nix)
         ]
         ++ map (user: ./users/${user}.nix) users;
