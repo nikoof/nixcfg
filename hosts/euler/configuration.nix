@@ -20,7 +20,7 @@
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
-    image = ../../home/wallpapers/moebius.png;
+    image = ../../wallpapers/moebius.png;
   };
 
   stylix.opacity = {

@@ -13,19 +13,53 @@
     ./services/syncthing.nix
   ];
 
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
+    image = ../../wallpapers/moebius.png;
+  };
+
+  stylix.opacity = {
+    applications = 1.0;
+    terminal = 0.95;
+    desktop = 1.0;
+    popups = 1.0;
+  };
+
+  stylix.fonts = {
+    sizes = {
+      applications = 12;
+      terminal = 12;
+      desktop = 10;
+      popups = 10;
+    };
+
+    monospace = {
+      package = pkgs.nerdfonts.override {fonts = ["FiraCode"];};
+      name = "FiraCode Nerd Font Mono";
+    };
+
+    sansSerif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Sans";
+    };
+
+    serif = {
+      package = pkgs.dejavu_fonts;
+      name = "DejaVu Serif";
+    };
+  };
+
   system.stateVersion = "23.11";
   nixpkgs.hostPlatform = "x86_64-linux";
+
   boot.loader = {
     systemd-boot.enable = true;
     systemd-boot.consoleMode = "max";
     efi.canTouchEfiVariables = true;
   };
 
-  boot.plymouth = {
-    enable = true;
-    themePackages = with pkgs; [nixos-bgrt-plymouth];
-    theme = "nixos-bgrt";
-  };
+  boot.plymouth.enable = true;
 
   networking = {
     hostName = "gauss";
