@@ -31,7 +31,7 @@
 
   devel.git = {
     enable = true;
-    signing = true;
+    signing = false;
     github.enable = true;
   };
 
@@ -70,6 +70,8 @@
     obs-studio
     gimp
     qbittorrent
+
+    local.sam
   ];
 
   home.stateVersion = "23.05";

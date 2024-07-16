@@ -3,4 +3,5 @@
   vimPlugins = {
     lualine-lsp-progress = pkgs.callPackage ./vim-plugins/lualine-lsp-progress.nix {};
   };
+  sam = pkgs.callPackage ./sam.nix {};
 }

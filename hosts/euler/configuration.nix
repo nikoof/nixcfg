@@ -23,6 +23,8 @@
     image = ../../wallpapers/moebius.png;
   };
 
+  stylix.cursor.name = "Breeze";
+
   stylix.opacity = {
     applications = 1.0;
     terminal = 0.9;
@@ -72,6 +74,7 @@
   };
 
   virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   environment.systemPackages = with pkgs; [
     qemu
