@@ -34,6 +34,7 @@ in {
       gelasio
       alegreya
       alegreya-sans
+      cm_unicode
     ];
 
     i18n.defaultLocale = "en_US.UTF-8";

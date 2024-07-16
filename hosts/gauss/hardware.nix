@@ -13,7 +13,7 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    package = config.boot.kernelPackages.nvidia_x11;
+    package = pkgs.unstable.linuxKernel.packages.linux_6_9.nvidia_x11;
   };
 
   services.xserver.videoDrivers = ["nvidia"];
