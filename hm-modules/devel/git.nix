@@ -19,6 +19,8 @@ in {
       userName = "Nicolas Bratoveanu";
       userEmail = "nicolasbratoveanu@proton.me";
 
+      lfs.enable = true;
+
       extraConfig = {
         safe = {directory = "/etc/nixos";};
         push = {autoSetupRemote = true;};
