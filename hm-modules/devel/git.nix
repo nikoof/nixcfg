@@ -30,8 +30,6 @@ in {
         signByDefault = true;
         key = "94B9F744D3E82C46";
       };
-
-      lfs.enable = true;
     };
 
     programs.gh = lib.mkIf cfg.github.enable {
