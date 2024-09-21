@@ -10,6 +10,11 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     pre-commit.url = "github:cachix/pre-commit-hooks.nix";
     stylix.url = "github:danth/stylix";
+
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs @ {

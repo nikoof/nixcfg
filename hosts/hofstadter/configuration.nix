@@ -6,8 +6,10 @@
   ...
 }: {
   imports = [
-    inputs.nixos-hardware.nixosModules.common-pc-ssd
-    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
+    inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
+    inputs.nixos-hardware.nixosModules.common-gpu-nvidia
+
+    inputs.lanzaboote.nixosModules.lanzaboote
 
     ./hardware.nix
   ];
@@ -53,9 +55,14 @@
   nixpkgs.hostPlatform = "x86_64-linux";
 
   boot.loader = {
-    systemd-boot.enable = true;
+    systemd-boot.enable = lib.mkForce false;
     systemd-boot.consoleMode = "max";
     efi.canTouchEfiVariables = true;
+  };
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/etc/secureboot";
   };
 
   boot.plymouth.enable = true;
@@ -83,11 +90,14 @@
     users.nikoof = ./users/nikoof.nix;
   };
 
-  services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.windowManager.xmonad = {
+  services.xserver = {
     enable = true;
-    enableContribAndExtras = true;
-    config = builtins.readFile ./xmonad.hs;
+    displayManager.lightdm.enable = true;
+    windowManager.xmonad = {
+      enable = true;
+      enableContribAndExtras = true;
+      config = builtins.readFile ./xmonad.hs;
+    };
   };
 
   desktop = {
