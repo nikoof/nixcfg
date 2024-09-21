@@ -61,6 +61,7 @@
 
   boot.plymouth.enable = true;
 
+  hardware.bluetooth.enable = true;
   networking = {
     hostName = "gauss";
     networkmanager.enable = true;
@@ -108,6 +109,16 @@
   };
 
   programs.dconf.enable = true;
+
+  services.xserver = {
+    monitorSection = ''
+      Modeline "1440x1080_60.00"  129.00  1440 1528 1680 1920  1080 1083 1087 1120 -hsync +vsync
+    '';
+
+    deviceSection = ''
+      Option "ModeValidation" "AllowNonEdidModes"
+    '';
+  };
 
   services.xserver.xrandrHeads = [
     {

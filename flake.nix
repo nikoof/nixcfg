@@ -7,11 +7,8 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-
     pre-commit.url = "github:cachix/pre-commit-hooks.nix";
-
     stylix.url = "github:danth/stylix";
   };
 
@@ -28,6 +25,18 @@
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
+      config.allowUnsupportedSystem = true;
+      overlays = with overlays; [
+        local-packages
+        modifications
+        unstable-packages
+      ];
+    };
+
+    pkgsArm = import nixpkgs {
+      system = "aarch64-linux";
+      config.allowUnfree = true;
+      config.allowUnsupportedSystem = true;
       overlays = with overlays; [
         local-packages
         modifications
@@ -46,12 +55,30 @@
         ]
         ++ map (user: ./users/${user}.nix) users;
     });
-  in {
+  in rec {
     nixosModules.default = ./nixos-modules;
     homeManagerModules.default = ./hm-modules;
 
     nixosConfigurations.gauss = mkSystem "gauss" ["nikoof"] {inherit pkgs;};
     nixosConfigurations.euler = mkSystem "euler" ["nikoof"] {inherit pkgs;};
+
+    nixosConfigurations.godel = nixpkgs.lib.nixosSystem {
+      specialArgs = {
+        inherit inputs;
+        pkgs = pkgsArm;
+      };
+      modules = [
+        "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+        {
+          nixpkgs.config.allowUnsupportedSystem = true;
+          nixpkgs.hostPlatform.system = "aarch64-linux";
+          nixpkgs.buildPlatform.system = "x86_64-linux";
+        }
+        self.outputs.nixosModules.default
+        ./hosts/godel/configuration.nix
+      ];
+    };
+    images.godel = nixosConfigurations.godel.config.system.build.sdImage;
 
     devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
       inherit (self.checks.${system}.pre-commit-check) shellHook;
