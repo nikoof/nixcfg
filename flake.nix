@@ -44,23 +44,22 @@
       ];
     };
 
-    mkSystem = name: users: v: (nixpkgs.lib.nixosSystem {
+    mkSystem = name: v: (nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs pkgs;};
-      modules =
-        [
-          self.outputs.nixosModules.default
-          inputs.home-manager.nixosModules.home-manager
-          inputs.stylix.nixosModules.stylix
-          (v.path or ./hosts/${name}/configuration.nix)
-        ]
-        ++ map (user: ./users/${user}.nix) users;
+      modules = [
+        self.outputs.nixosModules.default
+        inputs.home-manager.nixosModules.home-manager
+        inputs.stylix.nixosModules.stylix
+        (v.path or ./hosts/${name}/configuration.nix)
+      ];
     });
   in rec {
     nixosModules.default = ./nixos-modules;
     homeManagerModules.default = ./hm-modules;
 
-    nixosConfigurations.gauss = mkSystem "gauss" ["nikoof"] {inherit pkgs;};
-    nixosConfigurations.euler = mkSystem "euler" ["nikoof"] {inherit pkgs;};
+    nixosConfigurations.gauss = mkSystem "gauss" {inherit pkgs;};
+    nixosConfigurations.euler = mkSystem "euler" {inherit pkgs;};
+    nixosConfigurations.hofstadter = mkSystem "hofstadter" {inherit pkgs;};
 
     nixosConfigurations.godel = nixpkgs.lib.nixosSystem {
       specialArgs = {

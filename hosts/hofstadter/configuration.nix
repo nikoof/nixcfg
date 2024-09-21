@@ -10,7 +10,6 @@
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
 
     ./hardware.nix
-    ./services/syncthing.nix
   ];
 
   stylix = {
@@ -50,7 +49,7 @@
     };
   };
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.05";
   nixpkgs.hostPlatform = "x86_64-linux";
 
   boot.loader = {
@@ -63,12 +62,10 @@
 
   hardware.bluetooth.enable = true;
   networking = {
-    hostName = "gauss";
+    hostName = "hofstadter";
     networkmanager.enable = true;
     firewall.enable = true;
     tempAddresses = "disabled";
-    interfaces.enp3s0.wakeOnLan.enable = true;
-    interfaces.enp3s0.useDHCP = true;
     nftables.enable = true;
   };
 
@@ -86,23 +83,21 @@
     users.nikoof = ./users/nikoof.nix;
   };
 
+  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.windowManager.xmonad = {
+    enable = true;
+    enableContribAndExtras = true;
+    config = builtins.readFile ./xmonad.hs;
+  };
+
   desktop = {
     xdgDirs.enable = true;
-    plasma.enable = true;
 
     printing.enable = true;
     printing.autodetect = true;
   };
 
-  apps = {
-    gns3.enable = true;
-
-    gaming.bottles.enable = true;
-    gaming.steam.enable = true;
-    gaming.mangohud.enable = true;
-
-    gaming.victoria2Server.openFirewall = true;
-  };
+  apps.gns3.enable = true;
 
   peripherals.wacom.enable = true;
   peripherals.nitrokey = {
@@ -110,40 +105,7 @@
     enableSSHSupport = true;
   };
 
-  services.ratbagd.enable = true;
   services.openssh.enable = true;
-  services.zerotierone = {
-    enable = true;
-    joinNetworks = ["856127940c682c75"];
-  };
-
-  services.ollama = {
-    enable = true;
-    acceleration = "cuda";
-  };
 
   programs.dconf.enable = true;
-
-  services.xserver = {
-    monitorSection = ''
-      Modeline "1440x1080_60.00"  129.00  1440 1528 1680 1920  1080 1083 1087 1120 -hsync +vsync
-    '';
-
-    deviceSection = ''
-      Option "ModeValidation" "AllowNonEdidModes"
-    '';
-  };
-
-  services.xserver.xrandrHeads = [
-    {
-      output = "DP-3";
-      primary = true;
-    }
-    {
-      output = "HDMI-0";
-      monitorConfig = ''
-        Option "RightOf" "DP-3"
-      '';
-    }
-  ];
 }
