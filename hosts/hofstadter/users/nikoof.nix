@@ -70,5 +70,7 @@
     local.sam
   ];
 
+  wm.xmonad.enable = true;
+
   home.stateVersion = "24.05";
 }

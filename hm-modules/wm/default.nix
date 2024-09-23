@@ -6,9 +6,6 @@
   ...
 }: {
   imports = [
-    ./apps
-    ./devel
-    ./shell
-    ./wm
+    ./xmonad
   ];
 }

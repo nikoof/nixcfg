@@ -1,0 +1,71 @@
+-- Tomorrow Night Scheme
+-- base00: "#1d1f21"
+-- base01: "#282a2e"
+-- base02: "#373b41"
+-- base03: "#969896"
+-- base04: "#b4b7b4"
+-- base05: "#c5c8c6"
+-- base06: "#e0e0e0"
+-- base07: "#ffffff"
+-- base08: "#cc6666"
+-- base09: "#de935f"
+-- base0A: "#f0c674"
+-- base0B: "#b5bd68"
+-- base0C: "#8abeb7"
+-- base0D: "#81a2be"
+-- base0E: "#b294bb"
+-- base0F: "#a3685a"
+
+Config { overrideRedirect = False
+       , font     = "FiraCode Nerd Font Mono 12"
+       , additionalFonts = ["FiraCode Nerd Font Mono 18"]
+       , bgColor  = "#000000"
+       , fgColor  = "#ffffff"
+       , position = TopW L 95
+       , commands = [ Run Weather "EHEH"
+                        [ "--template", "<fn=1>󰙾</fn> EIN <tempC>°C (<fc=#c5c8c6><fn=1></fn> <windKmh> km/h</fc>)"
+                        , "-L", "0"
+                        , "-H", "25"
+                        , "--low"   , "#81a2be"
+                        , "--normal", "#ffffff"
+                        , "--high"  , "#cc6666"
+                        ] 36000
+                    , Run Cpu
+                        [ "-L", "3"
+                        , "-H", "50"
+                        , "--high"  , "#cc6666"
+                        , "--normal", "#b5bd68"
+                        , "--template", "<fn=1></fn> <total>%"
+                        ] 10
+                    , Run Alsa "default" "Master"
+                        [ "--template", "<fn=1></fn> <volumestatus>"
+                        , "--suffix"  , "True"
+                        , "--"
+                        , "--on", ""
+                        ]
+                    , Run Memory ["--template", "<fn=1></fn> <usedratio>%"] 10
+                    , Run Swap ["--template", "<fn=1></fn> <usedratio>%"] 10
+                    , Run Date "%a %Y-%m-%d <fc=#81a2be>%H:%M</fc>" "date" 10
+                    , Run XMonadLog
+                    , Run Battery        
+                        [ "--template" , "<fn=1>󰄌</fn> <acstatus>"
+                        , "--Low"      , "10"        -- units: %
+                        , "--High"     , "80"        -- units: %
+                        , "--low"      , "#cc6666"
+                        , "--normal"   , "#f0c674"
+                        , "--high"     , "#b5bd68"
+
+                        , "--" -- battery specific options
+                                  -- discharging status
+                                  , "-o"	, "<left>% (<timeleft>)"
+                                  -- AC "on" status
+                                  , "-O"	, "<fc=#f0c674>+</fc>"
+                                  -- charged status
+                                  , "-i"	, "<fc=#b5bd68>=</fc>"
+                        ] 50
+                    ]
+       , sepChar  = "%"
+       , alignSep = "}{"
+       , template = "%XMonadLog% }{ [%EHEH%] [%alsa:default:Master%] [%cpu% %memory% %swap%] [%battery%] [%date%] "
+       }
+

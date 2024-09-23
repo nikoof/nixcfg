@@ -16,8 +16,8 @@
 
   stylix = {
     enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
-    image = ../../wallpapers/moebius.png;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/tomorrow-night.yaml";
+    image = ../../wallpapers/moebius-bw.png;
   };
 
   stylix.opacity = {
@@ -65,8 +65,6 @@
     pkiBundle = "/etc/secureboot";
   };
 
-  boot.plymouth.enable = true;
-
   hardware.bluetooth.enable = true;
   networking = {
     hostName = "hofstadter";
@@ -75,11 +73,12 @@
     tempAddresses = "disabled";
     nftables.enable = true;
   };
+  time.hardwareClockInLocalTime = true;
 
   users.users.nikoof = {
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
-    shell = "${pkgs.nushell}/bin/nu";
+    # shell = "${pkgs.nushell}/bin/nu";
     extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical" "cdrom" "ubridge"];
   };
 
@@ -96,7 +95,6 @@
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      config = builtins.readFile ./xmonad.hs;
     };
   };
 
