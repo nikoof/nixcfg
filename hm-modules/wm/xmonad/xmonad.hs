@@ -1,19 +1,25 @@
+import System.Exit
+import qualified Data.Map as M
+
 import XMonad
+
 import XMonad.Util.EZConfig
 import XMonad.Util.Loggers
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
+
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
+
 import XMonad.Layout.Spacing
 import XMonad.Layout.Renamed
 import qualified XMonad.StackSet as W
-import qualified Data.Map as M
-import System.Exit
+
+import Graphics.X11.ExtraTypes.XF86
 
 main :: IO ()
 main = xmonad
@@ -32,7 +38,8 @@ base16Colors =
      "#8abeb7", "#81a2be", "#b294bb", "#a3685a"]
 
 myConfig = def
-    { terminal    = "alacritty"
+    { workspaces  = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    , terminal    = "alacritty"
     , modMask     = mod4Mask
     , keys        = myKeys
     , layoutHook  = renamed [KeepWordsRight 1]
@@ -81,7 +88,15 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask,               xK_d     ), spawn "discord")
     , ((modMask,               xK_n     ), spawn "neovide")
 
-    , ((modMask,               xK_space ), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
+    -- media keys
+    , ((noModMask, xF86XK_PowerDown        ), spawn "sudo systemctl suspend")
+    , ((noModMask, xF86XK_AudioRaiseVolume ), spawn "amixer sset Master 5%+")
+    , ((noModMask, xF86XK_AudioLowerVolume ), spawn "amixer sset Master 5%-")
+    , ((noModMask, xF86XK_AudioMute        ), spawn "amixer sset Master toggle")
+    , ((noModMask, xF86XK_MonBrightnessUp  ), spawn "brightnessctl set +10%")
+    , ((noModMask, xF86XK_MonBrightnessDown), spawn "brightnessctl set 10%-")
+
+    , ((modMask,               xK_period), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
     , ((modMask .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf) -- %!  Reset the layouts on the current workspace to default
     , ((modMask,               xK_p     ), refresh) -- %! Resize viewed windows to the correct size
 

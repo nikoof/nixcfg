@@ -5,8 +5,7 @@
 -- base03: "#969896"
 -- base04: "#b4b7b4"
 -- base05: "#c5c8c6"
--- base06: "#e0e0e0"
--- base07: "#ffffff"
+-- base06: "#e0e0e0" -- base07: "#ffffff"
 -- base08: "#cc6666"
 -- base09: "#de935f"
 -- base0A: "#f0c674"
@@ -43,6 +42,11 @@ Config { overrideRedirect = False
                         , "--"
                         , "--on", ""
                         ]
+                    , Run Brightness
+                        ["--template", "<fn=1>󰃠</fn> <percent>%"
+                        , "-D", "intel_backlight"
+                        ] 10
+                    , Run Kbd [("ro", "ro"), ("de(qwerty)", "de")]
                     , Run Memory ["--template", "<fn=1></fn> <usedratio>%"] 10
                     , Run Swap ["--template", "<fn=1></fn> <usedratio>%"] 10
                     , Run Date "%a %Y-%m-%d <fc=#81a2be>%H:%M</fc>" "date" 10
@@ -59,13 +63,13 @@ Config { overrideRedirect = False
                                   -- discharging status
                                   , "-o"	, "<left>% (<timeleft>)"
                                   -- AC "on" status
-                                  , "-O"	, "<fc=#f0c674>+</fc>"
+                                  , "-O"	, "<fc=#f0c674>+<left>%</fc>"
                                   -- charged status
-                                  , "-i"	, "<fc=#b5bd68>=</fc>"
+                                  , "-i"	, "<fc=#b5bd68>=<left>%</fc>"
                         ] 50
                     ]
        , sepChar  = "%"
        , alignSep = "}{"
-       , template = "%XMonadLog% }{ [%EHEH%] [%alsa:default:Master%] [%cpu% %memory% %swap%] [%battery%] [%date%] "
+       , template = "%XMonadLog% }{ [%EHEH%] [%alsa:default:Master%] [%bright%] [%cpu% %memory% %swap%] [%battery%] [<fn=1>󰌓</fn> %kbd%] [%date%] "
        }
 

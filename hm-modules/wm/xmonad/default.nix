@@ -17,7 +17,13 @@ in {
       mpv
       dmenu
       trayer
+
+      zip
+      unzip
+      unrar
+
       alsa-utils
+      brightnessctl
     ];
 
     programs.xmobar = {

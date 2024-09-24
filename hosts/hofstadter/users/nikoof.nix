@@ -45,24 +45,19 @@
   };
 
   home.packages = with pkgs; [
-    pueue
-
-    virt-manager
+    # Uni stuff
+    # mathematica
 
     chromium
-
     libreoffice-qt6-still
-
     obsidian
     rnote
 
-    mpv
     unstable.spotify
     unstable.discord
 
+    mpv
     ffmpeg_5-full
-    kdenlive
-    tenacity
     obs-studio
     gimp
     qbittorrent

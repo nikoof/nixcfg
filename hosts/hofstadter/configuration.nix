@@ -68,17 +68,29 @@
   hardware.bluetooth.enable = true;
   networking = {
     hostName = "hofstadter";
-    networkmanager.enable = true;
-    firewall.enable = true;
     tempAddresses = "disabled";
+    firewall.enable = true;
     nftables.enable = true;
   };
+
+  services.strongswan.enable = true;
+  services.strongswan.ca = {
+    strongswan = {
+      auto = "add";
+      cacert = "/run/keys/strongswanCert.pem";
+      crluri = "http://crl2.strongswan.org/strongswan.crl";
+    };
+  };
+  networking.networkmanager = {
+    enable = true;
+    enableStrongSwan = true;
+  };
+
   time.hardwareClockInLocalTime = true;
 
   users.users.nikoof = {
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
-    # shell = "${pkgs.nushell}/bin/nu";
     extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical" "cdrom" "ubridge"];
   };
 
