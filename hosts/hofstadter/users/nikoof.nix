@@ -44,6 +44,27 @@
     python.enable = true;
   };
 
+  programs.vscode = {
+    enable = true;
+    package =
+      pkgs.vscode.fhsWithPackages
+      (ps:
+        with ps; [
+          rustup
+          zlib
+          openssl
+          pkg-config
+          icu
+          dotnetCorePackages.runtime_8_0
+          openjdk
+        ]);
+
+    userSettings = {
+      "editor.fontLigatures" = true;
+      "workbench.iconTheme" = "file-icons";
+    };
+  };
+
   home.packages = with pkgs; [
     # Uni stuff
     # mathematica

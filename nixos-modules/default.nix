@@ -33,6 +33,8 @@
       nvd
     ];
 
+    programs.nix-ld.enable = true;
+
     environment.variables = {
       FLAKE = "/etc/nixos";
     };

@@ -74,13 +74,6 @@
   };
 
   services.strongswan.enable = true;
-  services.strongswan.ca = {
-    strongswan = {
-      auto = "add";
-      cacert = "/run/keys/strongswanCert.pem";
-      crluri = "http://crl2.strongswan.org/strongswan.crl";
-    };
-  };
   networking.networkmanager = {
     enable = true;
     enableStrongSwan = true;
@@ -103,7 +96,10 @@
 
   services.xserver = {
     enable = true;
-    displayManager.lightdm.enable = true;
+    displayManager.lightdm = {
+      enable = true;
+      greeters.slick.enable = true;
+    };
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;

@@ -17,6 +17,8 @@ import XMonad.Hooks.StatusBar.PP
 
 import XMonad.Layout.Spacing
 import XMonad.Layout.Renamed
+import XMonad.Layout.NoBorders
+
 import qualified XMonad.StackSet as W
 
 import Graphics.X11.ExtraTypes.XF86
@@ -42,8 +44,8 @@ myConfig = def
     , terminal    = "alacritty"
     , modMask     = mod4Mask
     , keys        = myKeys
-    , layoutHook  = renamed [KeepWordsRight 1]
-                  $ spacingRaw False (Border 2 0 0 0) True (Border 0 0 0 0) False
+    , layoutHook  = smartBorders . avoidStruts . renamed [KeepWordsRight 1]
+                  . spacingRaw False (Border 2 0 0 0) True (Border 0 0 0 0) False
                   $ myLayoutHook
     , startupHook = myStartupHook
 
@@ -60,9 +62,9 @@ myLayoutHook = tiled ||| Full
 
 myStartupHook :: X ()
 myStartupHook = do
-  spawnOnce "trayer --edge top --align right --SetDockType true \
-            \--SetPartialStrut true --expand true --width 5 \
-            \--transparent true --alpha 0 --tint 0xFF000000 --height 17"
+  -- spawnOnce "trayer --edge top --align right --SetDockType true \
+  --           \--SetPartialStrut true --expand true --width 3 \
+  --           \--transparent true --alpha 0 --tint 0xFF000000 --height 17"
   spawnOnce "keepassxc"
 
 myManageHook :: ManageHook
@@ -88,6 +90,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask,               xK_d     ), spawn "discord")
     , ((modMask,               xK_n     ), spawn "neovide")
 
+    -- meme
+    , ((modMask .|. mod1Mask,  xK_s     ), spawn "xscreensaver-command -select 252")
+    , ((modMask .|. mod1Mask,  xK_n     ), spawn "mpv ~/videos/memes/chad.mp4")
+    , ((modMask .|. mod1Mask,  xK_m     ), spawn "mpv ~/videos/memes/monke.mp4")
+    , ((modMask .|. mod1Mask,  xK_t     ), spawn "mpv ~/videos/memes/terry.webm")
+    , ((modMask .|. mod1Mask,  xK_g     ), spawn "mpv ~/videos/memes/gamblecore.webm")
+    , ((modMask .|. mod1Mask,  xK_h     ), spawn "mpv ~/videos/memes/chip-stayin-alive.webm")
+
     -- media keys
     , ((noModMask, xF86XK_PowerDown        ), spawn "sudo systemctl suspend")
     , ((noModMask, xF86XK_AudioRaiseVolume ), spawn "amixer sset Master 5%+")
@@ -96,8 +106,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((noModMask, xF86XK_MonBrightnessUp  ), spawn "brightnessctl set +10%")
     , ((noModMask, xF86XK_MonBrightnessDown), spawn "brightnessctl set 10%-")
 
-    , ((modMask,               xK_period), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
-    , ((modMask .|. shiftMask, xK_space ), setLayout $ XMonad.layoutHook conf) -- %!  Reset the layouts on the current workspace to default
+    , ((modMask,               xK_semicolon), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
+    , ((modMask .|. shiftMask, xK_semicolon), setLayout $ XMonad.layoutHook conf) -- %!  Reset the layouts on the current workspace to default
     , ((modMask,               xK_p     ), refresh) -- %! Resize viewed windows to the correct size
 
     -- move focus up or down the window stack
@@ -145,7 +155,7 @@ myXmobarPP = def
     , ppExtras          = [logTitles formatFocused formatUnfocused]
     }
   where
-    ppWindow = xmobarRaw . (\w -> if null w then "" else w) . shorten 40
+    ppWindow = xmobarRaw . (\w -> if null w then "" else w) . shorten 30
     formatFocused   = wrap (base !! 0x07 $ "[") (base !! 0x07 $ "]") . (base !! 0x0E) . ppWindow
     formatUnfocused = wrap (base !! 0x03 $ "[") (base !! 0x03 $ "]") . (base !! 0x0D) . ppWindow
 
