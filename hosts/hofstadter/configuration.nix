@@ -79,8 +79,6 @@
     enableStrongSwan = true;
   };
 
-  time.hardwareClockInLocalTime = true;
-
   users.users.nikoof = {
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
