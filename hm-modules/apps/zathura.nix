@@ -23,6 +23,9 @@ in {
         selection-clipboard = "clipboard";
         selection-notification = false;
       };
+      extraConfig = ''
+        set database "sqlite"
+      '';
     };
   };
 }

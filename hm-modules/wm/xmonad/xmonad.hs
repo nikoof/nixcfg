@@ -76,14 +76,16 @@ myManageHook = composeAll
     , isDialog               --> doFloat
     ]
 
-dmenuCmd = "dmenu_run -fn 'FiraCode Nerd Font Mono-12' -nb '#000000' -nf '#ffffff' -sb '#b294bb' -sf '#1d1f21'"
+dmenuParams = "-fn 'FiraCode Nerd Font Mono-12' -nb '#000000' -nf '#ffffff' -sb '#b294bb' -sf '#1d1f21'"
 scrotCmd = "sleep 0.2; scrot -zfs -F '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f && rm $f'"
 
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- launching and killing programs
     [ ((modMask,               xK_Return), spawn $ XMonad.terminal conf)
-    , ((modMask,               xK_r     ), spawn dmenuCmd)
+    , ((modMask,               xK_r     ), spawn $ "dmenu_run " <> dmenuParams)
+    , ((modMask .|. shiftMask, xK_n     ), spawn $ "DMENU_BLUETOOTH_LAUNCHER=dmenu-nk dmenu-bluetooth --connected-icon \983217 -l 10 -i")
+    , ((modMask,               xK_e     ), spawn "BEMOJI_PICKER_CMD=\"dmenu-nk -i -l 20\" bemoji")
     , ((modMask .|. shiftMask, xK_s     ), unGrab *> spawn scrotCmd)
     , ((modMask,               xK_w     ), kill)
     , ((modMask,               xK_b     ), spawn "firefox")

@@ -12,19 +12,36 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs; [
-      scrot
-      mpv
-      dmenu
-      trayer
+    home.packages = let
+      dmenu-nk = pkgs.writeShellScriptBin "dmenu-nk" ''
+        ${pkgs.dmenu}/bin/dmenu -fn "FiraCode Nerd Font Mono-12" \
+        -nb "#000000" -nf "#ffffff" -sb "#b294bb" -sf "#1d1f21" "$@"
+      '';
+    in
+      with pkgs; [
+        trayer
+        scrot
 
-      zip
-      unzip
-      unrar
+        mpv
+        sxiv
 
-      alsa-utils
-      brightnessctl
-    ];
+        dmenu
+        dmenu-nk
+        dmenu-bluetooth
+        networkmanager_dmenu
+        bemoji
+
+        zip
+        unzip
+        unrar
+
+        alsa-utils
+        brightnessctl
+      ];
+
+    home.sessionVariables = {
+      "_JAVA_AWT_WM_NONREPARENTING" = 1;
+    };
 
     programs.xmobar = {
       enable = true;

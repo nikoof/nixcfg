@@ -11,10 +11,14 @@ in {
     enable = lib.mkEnableOption "Enable Wacom tablet support";
   };
 
-  config = lib.mkIf cfg.enable {
-    services.xserver.wacom.enable = true;
-    environment.systemPackages = with pkgs; [
-      wacomtablet
-    ];
-  };
+  config = lib.mkMerge [
+    (lib.mkIf cfg.enable {
+      services.xserver.wacom.enable = true;
+    })
+    (lib.mkIf config.desktop.plasma.enable {
+      environment.systemPackages = with pkgs; [
+        kdePackages.wacomtablet
+      ];
+    })
+  ];
 }

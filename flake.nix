@@ -9,7 +9,7 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     pre-commit.url = "github:cachix/pre-commit-hooks.nix";
-    stylix.url = "github:danth/stylix";
+    stylix.url = "github:danth/stylix/release-24.05";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote";

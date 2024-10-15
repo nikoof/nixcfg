@@ -11,6 +11,7 @@ in {
     enable = lib.mkEnableOption "Enable Git";
     signing = lib.mkEnableOption "Sign commits with Nitrokey";
     github.enable = lib.mkEnableOption "Enable GitHub integration";
+    lazygit.enable = lib.mkEnableOption "Enable lazygit frontend";
   };
 
   config = lib.mkIf cfg.enable {
@@ -35,6 +36,10 @@ in {
     programs.gh = lib.mkIf cfg.github.enable {
       enable = true;
       gitCredentialHelper.enable = true;
+    };
+
+    programs.lazygit = lib.mkIf cfg.lazygit.enable {
+      enable = true;
     };
   };
 }

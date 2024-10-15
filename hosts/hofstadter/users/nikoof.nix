@@ -33,6 +33,7 @@
     enable = true;
     signing = false;
     github.enable = true;
+    lazygit.enable = true;
   };
 
   programs.direnv.enable = true;
@@ -67,7 +68,7 @@
 
   home.packages = with pkgs; [
     # Uni stuff
-    # mathematica
+    # mathematica # this is now packaged as a unified app that is not in nixpkgs yet
 
     chromium
     libreoffice-qt6-still
