@@ -24,6 +24,7 @@ in {
 
         mpv
         sxiv
+        zbar
 
         dmenu
         dmenu-nk

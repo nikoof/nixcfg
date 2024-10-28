@@ -14,6 +14,8 @@
   home.preferXdgDirectories = true;
 
   programs.btop.enable = true;
+  programs.fzf.enable = true;
+  programs.autorandr.enable = true;
 
   apps = {
     alacritty.enable = true;

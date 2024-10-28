@@ -121,5 +121,12 @@
 
   services.openssh.enable = true;
 
+  services.syncthing = {
+    enable = true;
+    user = "nikoof";
+    dataDir = "/home/nikoof/Sync";
+    configDir = "/home/nikoof/.config/syncthing";
+  };
+
   programs.dconf.enable = true;
 }
