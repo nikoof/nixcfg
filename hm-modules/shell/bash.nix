@@ -13,9 +13,13 @@ in {
   config = lib.mkIf cfg.enable {
     programs.bash = {
       enable = true;
-      shellAliases = rec {
-        ip = "ip --color=auto";
+      shellAliases = {
         zathura = "zathura --fork";
+        ":q" = "exit";
+        nvi = "nvim";
+        nivm = "nvim";
+        nim = "nvim";
+        nvmi = "nvim";
       };
 
       initExtra = ''
@@ -26,8 +30,6 @@ in {
         mvr() {
           rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 --remove-source-files "$@"
         }
-
-        task
       '';
     };
   };

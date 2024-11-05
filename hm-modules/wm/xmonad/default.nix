@@ -55,7 +55,24 @@ in {
       config = ./xmonad.hs;
     };
 
-    services.picom.enable = true;
+    services.picom = {
+      enable = true;
+      backend = "glx";
+      settings = {
+        blur = {
+          background = true;
+          method = "dual_kawase";
+        };
+      };
+    };
+
+    xsession = {
+      enable = true;
+      initExtra = ''
+        xset r rate 200 50
+        setxkbmap -option caps:swapescape
+      '';
+    };
 
     services.xscreensaver = {
       enable = true;

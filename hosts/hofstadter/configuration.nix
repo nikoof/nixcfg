@@ -12,7 +12,10 @@
     inputs.lanzaboote.nixosModules.lanzaboote
 
     ./hardware.nix
+    ./containers/arch.nix
   ];
+
+  nix.settings.cores = 16;
 
   stylix = {
     enable = true;
@@ -22,7 +25,7 @@
 
   stylix.opacity = {
     applications = 1.0;
-    terminal = 0.95;
+    terminal = 0.8;
     desktop = 1.0;
     popups = 1.0;
   };
@@ -126,6 +129,14 @@
     user = "nikoof";
     dataDir = "/home/nikoof/Sync";
     configDir = "/home/nikoof/.config/syncthing";
+  };
+
+  services.chrony = {
+    enable = true;
+  };
+
+  systemd.oomd = {
+    enable = true;
   };
 
   programs.dconf.enable = true;

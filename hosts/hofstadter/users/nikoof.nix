@@ -86,6 +86,8 @@
     gimp
     qbittorrent
 
+    anki-bin
+
     local.sam
   ];
 
