@@ -20,7 +20,10 @@ in {
     in
       with pkgs; [
         trayer
+
         scrot
+        xcolor
+        xdragon
 
         mpv
         sxiv
@@ -58,6 +61,10 @@ in {
     services.picom = {
       enable = true;
       backend = "glx";
+      shadowExclude = [
+        "class_g = 'firefox' && argb"
+        "window_type *= 'menu'"
+      ];
       settings = {
         blur = {
           background = true;

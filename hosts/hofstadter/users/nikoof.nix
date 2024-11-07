@@ -84,7 +84,9 @@
     ffmpeg_5-full
     obs-studio
     gimp
-    qbittorrent
+    unstable.qbittorrent
+
+    texliveMedium
 
     anki-bin
 
