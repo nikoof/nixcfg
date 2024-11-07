@@ -18,7 +18,7 @@
     services.printing.enable = true;
     services.avahi = lib.mkIf config.desktop.printing.autodetect {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
       openFirewall = true;
     };
   };

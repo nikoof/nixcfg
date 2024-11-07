@@ -43,10 +43,10 @@ in {
       LC_COLLATE = "C.UTF-8";
     };
 
-    services.xserver = {
+    services.xserver.xkb = {
       layout = "ro,de";
-      xkbVariant = ",qwerty";
-      xkbOptions = "grp:win_space_toggle,compose:menu";
+      variant = ",qwerty";
+      options = "grp:win_space_toggle,compose:menu";
     };
 
     security.rtkit.enable = true;
