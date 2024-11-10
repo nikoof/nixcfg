@@ -122,6 +122,11 @@
     enableSSHSupport = true;
   };
 
+  services.ollama = {
+    enable = true;
+    acceleration = "cuda";
+  };
+
   services.openssh.enable = true;
 
   services.syncthing = {
@@ -137,6 +142,11 @@
 
   systemd.oomd = {
     enable = true;
+  };
+
+  programs.bash = {
+    enableCompletion = true;
+    enableLsColors = true;
   };
 
   programs.dconf.enable = true;

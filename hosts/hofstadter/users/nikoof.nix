@@ -12,6 +12,9 @@
   home.username = "nikoof";
   home.homeDirectory = "/home/nikoof";
   home.preferXdgDirectories = true;
+  home.stateVersion = "24.05";
+
+  wm.xmonad.enable = true;
 
   programs.btop.enable = true;
   programs.fzf.enable = true;
@@ -26,8 +29,8 @@
   };
 
   shell = {
+    enable = true;
     bash.enable = true;
-    nushell.enable = true;
     starship.enable = true;
   };
 
@@ -68,7 +71,15 @@
     };
   };
 
-  home.packages = with pkgs; [
+  home.packages = with pkgs; let
+    tex = texlive.combine {
+      inherit
+        (texlive)
+        scheme-medium
+        typewriter
+        ;
+    };
+  in [
     # Uni stuff
     # mathematica # this is now packaged as a unified app that is not in nixpkgs yet
 
@@ -86,14 +97,9 @@
     gimp
     unstable.qbittorrent
 
-    texliveMedium
-
     anki-bin
+    tex
 
     local.sam
   ];
-
-  wm.xmonad.enable = true;
-
-  home.stateVersion = "24.05";
 }
