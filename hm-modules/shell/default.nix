@@ -8,6 +8,7 @@
   cfg = config.shell;
 in {
   imports = [
+    ./bash.nix
     ./nushell.nix
     ./starship.nix
   ];

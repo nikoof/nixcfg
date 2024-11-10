@@ -13,10 +13,11 @@ in {
 
   config = lib.mkIf cfg.enable {
     home.packages = let
-      dmenu-nk = pkgs.writeShellScriptBin "dmenu-nk" ''
-        ${pkgs.dmenu}/bin/dmenu -fn "FiraCode Nerd Font Mono-12" \
-        -nb "#000000" -nf "#ffffff" -sb "#b294bb" -sf "#1d1f21" "$@"
-      '';
+      dmenu-nk = with config.lib.stylix.colors;
+        pkgs.writeShellScriptBin "dmenu-nk" ''
+          ${pkgs.dmenu}/bin/dmenu -fn "FiraCode Nerd Font Mono-12" \
+          -nb "#${base00}" -nf "#${base07}" -sb "#${base0E}" -sf "#${base00}" "$@"
+        '';
     in
       with pkgs; [
         trayer

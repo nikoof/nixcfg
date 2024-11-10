@@ -21,6 +21,9 @@
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/tomorrow-night.yaml";
     image = ../../wallpapers/moebius-bw.png;
+    override = {
+      base00 = "000000";
+    };
   };
 
   stylix.opacity = {
