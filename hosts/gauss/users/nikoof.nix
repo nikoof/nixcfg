@@ -13,6 +13,14 @@
   home.homeDirectory = "/home/nikoof";
   home.preferXdgDirectories = true;
 
+  xsession = {
+    enable = true;
+    initExtra = ''
+      xset r rate 200 50
+      setxkbmap -option caps:swapescape
+    '';
+  };
+
   programs.btop.enable = true;
 
   apps = {
@@ -64,7 +72,7 @@
     betterdiscordctl
     unstable.discord
 
-    ffmpeg_5-full
+    ffmpeg_6-full
     kdenlive
     tenacity
     obs-studio

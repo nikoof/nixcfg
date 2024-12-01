@@ -7,22 +7,19 @@
 }: {
   boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" "sr_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
   hardware.nvidia = {
+    open = true;
     modesetting.enable = true;
-    package = pkgs.unstable.linuxKernel.packages.linux_6_9.nvidia_x11;
   };
 
   services.xserver.videoDrivers = ["nvidia"];
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-
     extraPackages = with pkgs; [
       nvidia-vaapi-driver
       vaapiVdpau

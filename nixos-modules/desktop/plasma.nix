@@ -15,11 +15,10 @@ in {
 
   config = lib.mkIf cfg.enable {
     desktop.common.redshift.enable = lib.mkDefault true;
-    services.xserver = {
-      enable = true;
-      displayManager.sddm.enable = true;
-      desktopManager.plasma6.enable = true;
-    };
+
+    services.xserver.enable = true;
+    services.displayManager.sddm.enable = true;
+    services.desktopManager.plasma6.enable = true;
 
     environment.plasma6.excludePackages = with pkgs;
     with kdePackages; [
@@ -37,7 +36,7 @@ in {
       sddm-kcm
       redshift-plasma-applet
 
-      libsForQt5.polonium
+      # libsForQt5.polonium
     ];
   };
 }

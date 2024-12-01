@@ -33,6 +33,8 @@
       nh
       nix-output-monitor
       nvd
+      nixd
+      deadnix
     ];
 
     programs.nix-ld.enable = true;

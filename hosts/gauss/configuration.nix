@@ -13,10 +13,13 @@
     ./services/syncthing.nix
   ];
 
+  services.flatpak.enable = true;
+  security.allowUserNamespaces = true;
+
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/nord.yaml";
-    image = ../../wallpapers/moebius.png;
+    image = ../../wallpapers/moebius-bw.png;
   };
 
   stylix.opacity = {
