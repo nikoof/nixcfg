@@ -21,6 +21,10 @@ in {
     programs.eza = {
       enable = true;
       enableBashIntegration = true;
+      extraOptions = [
+        "--group-directories-first"
+        "--header"
+      ];
     };
 
     home.shellAliases = {

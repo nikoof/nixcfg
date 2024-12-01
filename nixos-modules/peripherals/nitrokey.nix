@@ -27,9 +27,11 @@ in {
       security.pam = {
         u2f = {
           enable = true;
-          cue = true;
-          control = "sufficient";
-          authFile = "/etc/Nitrokey/u2f_keys";
+          settings = {
+            cue = true;
+            control = "sufficient";
+            authFile = "/etc/Nitrokey/u2f_keys";
+          };
         };
 
         services = {

@@ -23,7 +23,7 @@
   apps = {
     alacritty.enable = true;
     zathura.enable = true;
-    taskwarrior.enable = true;
+    # taskwarrior.enable = true;
     tmux.enable = true;
     nvim.enable = true;
   };
@@ -77,6 +77,9 @@
         (texlive)
         scheme-medium
         typewriter
+        pgfplots
+        flagderiv
+        lipsum
         ;
     };
   in [
@@ -92,7 +95,7 @@
     unstable.discord
 
     mpv
-    ffmpeg_5-full
+    ffmpeg_6-full
     obs-studio
     gimp
     unstable.qbittorrent

@@ -79,6 +79,16 @@
     nftables.enable = true;
   };
 
+  # Temporarily added for GEWISxNavara Hackathon
+  # networking.firewall.allowedTCPPorts = [ 8000 ];
+  # networking.firewall.allowedUDPPorts = [ 8000 ];
+  #
+  # virtualisation.docker.enable = true;
+  # environment.systemPackages = with pkgs; [
+  #   docker-compose
+  # ];
+  # programs.adb.enable = true;
+
   services.strongswan.enable = true;
   networking.networkmanager = {
     enable = true;
@@ -88,7 +98,7 @@
   users.users.nikoof = {
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical" "cdrom" "ubridge"];
+    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical" "cdrom" "ubridge" "adbusers" "kvm"];
   };
 
   home-manager = {
@@ -148,7 +158,7 @@
   };
 
   programs.bash = {
-    enableCompletion = true;
+    completion.enable = true;
     enableLsColors = true;
   };
 

@@ -35,6 +35,7 @@
   powerManagement.cpuFreqGovernor = "powersave";
 
   hardware.nvidia = {
+    open = true;
     modesetting.enable = true;
     prime = {
       intelBusId = "PCI:0:2:0";
@@ -44,11 +45,8 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-
     extraPackages = with pkgs; [
       vaapiVdpau
       nvidia-vaapi-driver
