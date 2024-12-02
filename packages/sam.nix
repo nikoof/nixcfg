@@ -6,7 +6,7 @@
   SDL,
 }:
 stdenv.mkDerivation {
-  pname = "SAM";
+  pname = "sam";
   version = "raiku";
 
   src = fetchFromGitHub {

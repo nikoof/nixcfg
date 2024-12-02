@@ -108,13 +108,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
         };
       in {
-        packages = thesePkgs;
-        apps = builtins.mapAttrs (name: value:
-          flake-utils.lib.mkApp {
-            drv = value;
-            exePath = "${value}/bin/${value.meta.mainProgram}";
-          })
-        thesePkgs;
+        legacyPackages = thesePkgs;
       }
     );
 }
