@@ -30,6 +30,7 @@ stdenv.mkDerivation {
     cp ./sam $out/bin/sam
   '';
 
+  exePath = "/bin/sam";
   meta = {
     description = "C version of sam with dynamic memory allocation";
     mainProgram = "sam";

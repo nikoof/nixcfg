@@ -102,9 +102,13 @@
 
       formatter.${system} = pkgs.alejandra;
     }
-    // flake-utils.lib.eachDefaultSystem (system: {
-      legacyPackages = (import ./packages) {
-        pkgs = nixpkgs.legacyPackages.${system};
-      };
-    });
+    // flake-utils.lib.eachDefaultSystem (
+      system: let
+        thesePkgs = (import ./packages) {
+          pkgs = nixpkgs.legacyPackages.${system};
+        };
+      in {
+        packages = thesePkgs;
+      }
+    );
 }
