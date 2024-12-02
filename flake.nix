@@ -103,7 +103,7 @@
       formatter.${system} = pkgs.alejandra;
     }
     // flake-utils.lib.eachDefaultSystem (system: {
-      packages = (import ./packages) {
+      legacyPackages = (import ./packages) {
         pkgs = nixpkgs.legacyPackages.${system};
       };
     });
