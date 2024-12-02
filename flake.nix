@@ -109,6 +109,12 @@
         };
       in {
         packages = thesePkgs;
+        apps = builtins.mapAttrs (name: value:
+          flake-utils.lib.mkApp {
+            drv = value;
+            exePath = "/bin/${value.meta.mainProgram}";
+          })
+        thesePkgs;
       }
     );
 }
