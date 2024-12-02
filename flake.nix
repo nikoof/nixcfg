@@ -112,7 +112,7 @@
         apps = builtins.mapAttrs (name: value:
           flake-utils.lib.mkApp {
             drv = value;
-            exePath = "/bin/${value.meta.mainProgram}";
+            exePath = "${value}/bin/${value.meta.mainProgram}";
           })
         thesePkgs;
       }
