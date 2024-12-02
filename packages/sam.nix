@@ -29,4 +29,9 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     cp ./sam $out/bin/sam
   '';
+
+  meta = {
+    description = "C version of sam with dynamic memory allocation";
+    mainProgram = "sam";
+  };
 }
