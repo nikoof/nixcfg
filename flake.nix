@@ -58,47 +58,53 @@
         (v.path or ./hosts/${name}/configuration.nix)
       ];
     });
-  in rec {
-    nixosModules.default = ./nixos-modules;
-    homeManagerModules.default = ./hm-modules;
+  in
+    rec {
+      nixosModules.default = ./nixos-modules;
+      homeManagerModules.default = ./hm-modules;
 
-    nixosConfigurations.gauss = mkSystem "gauss" {inherit pkgs;};
-    nixosConfigurations.euler = mkSystem "euler" {inherit pkgs;};
-    nixosConfigurations.hofstadter = mkSystem "hofstadter" {inherit pkgs;};
+      nixosConfigurations.gauss = mkSystem "gauss" {inherit pkgs;};
+      nixosConfigurations.euler = mkSystem "euler" {inherit pkgs;};
+      nixosConfigurations.hofstadter = mkSystem "hofstadter" {inherit pkgs;};
 
-    nixosConfigurations.godel = nixpkgs.lib.nixosSystem {
-      specialArgs = {
-        inherit inputs;
-        pkgs = pkgsArm;
+      nixosConfigurations.godel = nixpkgs.lib.nixosSystem {
+        specialArgs = {
+          inherit inputs;
+          pkgs = pkgsArm;
+        };
+        modules = [
+          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
+          {
+            nixpkgs.config.allowUnsupportedSystem = true;
+            nixpkgs.hostPlatform.system = "aarch64-linux";
+            nixpkgs.buildPlatform.system = "x86_64-linux";
+          }
+          self.outputs.nixosModules.default
+          ./hosts/godel/configuration.nix
+        ];
       };
-      modules = [
-        "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-        {
-          nixpkgs.config.allowUnsupportedSystem = true;
-          nixpkgs.hostPlatform.system = "aarch64-linux";
-          nixpkgs.buildPlatform.system = "x86_64-linux";
-        }
-        self.outputs.nixosModules.default
-        ./hosts/godel/configuration.nix
-      ];
-    };
-    images.godel = nixosConfigurations.godel.config.system.build.sdImage;
+      images.godel = nixosConfigurations.godel.config.system.build.sdImage;
 
-    devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
-      inherit (self.checks.${system}.pre-commit-check) shellHook;
+      devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
+        inherit (self.checks.${system}.pre-commit-check) shellHook;
 
-      packages = with pkgs; [lazygit];
-    };
+        packages = with pkgs; [lazygit];
+      };
 
-    checks.${system} = {
-      pre-commit-check = pre-commit.lib.${system}.run {
-        src = ./.;
-        hooks = {
-          alejandra.enable = true;
+      checks.${system} = {
+        pre-commit-check = pre-commit.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            alejandra.enable = true;
+          };
         };
       };
-    };
 
-    formatter.${system} = pkgs.alejandra;
-  };
+      formatter.${system} = pkgs.alejandra;
+    }
+    // flake-utils.lib.eachDefaultSystem (system: {
+      packages = (import ./packages) {
+        pkgs = nixpkgs.legacyPackages.${system};
+      };
+    });
 }

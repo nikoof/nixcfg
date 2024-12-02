@@ -7,18 +7,23 @@
 }:
 stdenv.mkDerivation {
   pname = "SAM";
-  version = "0.69.0";
+  version = "raiku";
 
   src = fetchFromGitHub {
-    owner = "s-macke";
+    owner = "gitRaiku";
     repo = "SAM";
-    rev = "2cb53fbdbba78f2943e5ab6d4569d5e0a056e3ad";
-    sha256 = "sha256-0xDbowVyYz0Y7NtxpSH0ao1KVhuOQ6JWTY6qBv+gkho=";
+    rev = "74bb8d401368961be268a47e2aa2664f8639daba";
+    sha256 = "sha256-8R+pWHxnFblfVLohyByO8uGav2EIL42HgPBQ51YncHE=";
   };
 
   buildInputs = [
     SDL
   ];
+
+  buildPhase = ''
+    mkdir -p .obj
+    make
+  '';
 
   installPhase = ''
     mkdir -p $out/bin
