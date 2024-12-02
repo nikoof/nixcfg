@@ -108,7 +108,7 @@
           pkgs = nixpkgs.legacyPackages.${system};
         };
       in {
-        legacyPackages = thesePkgs;
+        packages = thesePkgs;
       }
     );
 }
