@@ -89,6 +89,10 @@
   # ];
   # programs.adb.enable = true;
 
+  environment.systemPackages = with pkgs; [
+    # nvtopPackages.full
+  ];
+
   services.strongswan.enable = true;
   networking.networkmanager = {
     enable = true;
@@ -154,6 +158,10 @@
   };
 
   systemd.oomd = {
+    enable = true;
+  };
+
+  services.protonmail-bridge = {
     enable = true;
   };
 

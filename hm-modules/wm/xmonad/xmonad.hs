@@ -105,6 +105,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. mod1Mask,  xK_t     ), spawn "mpv ~/videos/memes/terry.webm")
     , ((modMask .|. mod1Mask,  xK_g     ), spawn "mpv ~/videos/memes/gamblecore.webm")
     , ((modMask .|. mod1Mask,  xK_h     ), spawn "mpv ~/videos/memes/chip-stayin-alive.webm")
+    , ((modMask .|. mod1Mask,  xK_u     ), spawn "mpv ~/videos/memes/gilgamesh.mp4")
 
     -- media keys
     , ((noModMask, xF86XK_PowerDown        ), spawn "sudo systemctl suspend")

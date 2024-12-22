@@ -3,10 +3,12 @@
   lib,
   pkgs,
   modulesPath,
+  inputs,
   ...
 }: {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.nixos-hardware.nixosModules.common-gpu-intel
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod"];
@@ -45,11 +47,22 @@
     package = config.boot.kernelPackages.nvidiaPackages.stable;
   };
 
+  hardware.intelgpu = {
+    vaapiDriver = "intel-media-driver";
+    enableHybridCodec = true;
+  };
+
+  environment.sessionVariables = {LIBVA_DRIVER_NAME = "iHD";};
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-      vaapiVdpau
+      intel-vaapi-driver
+      intel-media-driver
+      vpl-gpu-rt
       nvidia-vaapi-driver
+      vaapiVdpau
     ];
   };
+
+  services.thermald.enable = true;
 }

@@ -59,14 +59,55 @@ in {
       config = ./xmonad.hs;
     };
 
+    services.dunst = {
+      enable = true;
+      iconTheme = config.gtk.iconTheme;
+      settings = {
+        urgency_low.frame_color = lib.mkForce "#${config.lib.stylix.colors.base02}";
+        global = {
+          origin = "top-right";
+          offset = "2x25";
+          frame_width = 3;
+          gap_size = 3;
+          progress_bar = true;
+          font = lib.mkForce "FiraCode Nerd Font Mono 10";
+        };
+      };
+    };
+
     services.picom = {
       enable = true;
       backend = "glx";
       shadowExclude = [
         "class_g = 'firefox' && argb"
         "window_type *= 'menu'"
+        "class_g ~= 'xdg-desktop-portal' && _NET_FRAME_EXTENTS@:c && window_type = 'dialog'"
+        "class_g ~= 'xdg-desktop-portal' && window_type = 'menu'"
+        "_NET_FRAME_EXTENTS@:c && WM_WINDOW_ROLE@:s = 'Popup'"
+        "class_i = 'Firefox' && window_type = 'utility'"
+        "class_i = 'Firefox' && window_type = 'popup_menu'"
+        "class_i = 'Thunderbird' && window_type = 'utility'"
+        "class_i = 'Thunderbird' && window_type = 'popup_menu'"
       ];
+
+      settings.blur-background-exclude = [
+        "class_g ~= 'xdg-desktop-portal' && _NET_FRAME_EXTENTS@:c && window_type = 'dialog'"
+        "class_g ~= 'xdg-desktop-portal' && window_type = 'menu'"
+        "_NET_FRAME_EXTENTS@:c && WM_WINDOW_ROLE@:s = 'Popup'"
+        "class_i = 'Firefox' && window_type = 'utility'"
+        "class_i = 'Firefox' && window_type = 'popup_menu'"
+        "class_i = 'Thunderbird' && window_type = 'utility'"
+        "class_i = 'Thunderbird' && window_type = 'popup_menu'"
+      ];
+
       settings = {
+        wintypes = {
+          menu = {
+            shadow = false;
+            blur-background = false;
+          };
+        };
+        vsync = true;
         blur = {
           background = true;
           method = "dual_kawase";
@@ -109,22 +150,13 @@ in {
       "xscreensaver-auth.dateFormat" = "%H:%M, %Y-%m-%d (%a)";
     };
 
-    #  base00: "#1d1f21"
-    #  base01: "#282a2e"
-    #  base02: "#373b41"
-    #  base03: "#969896"
-    #  base04: "#b4b7b4"
-    #  base05: "#c5c8c6"
-    #  base06: "#e0e0e0"
-    #  base07: "#ffffff"
-    #  base08: "#cc6666"
-    #  base09: "#de935f"
-    #  base0A: "#f0c674"
-    #  base0B: "#b5bd68"
-    #  base0C: "#8abeb7"
-    #  base0D: "#81a2be"
-    #  base0E: "#b294bb"
-    #  base0F: "#a3685a"
+    gtk = {
+      enable = true;
+      iconTheme = {
+        package = pkgs.papirus-icon-theme;
+        name = "Papirus";
+      };
+    };
 
     qt = {
       enable = true;

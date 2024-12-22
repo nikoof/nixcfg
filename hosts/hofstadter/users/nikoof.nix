@@ -76,6 +76,7 @@
       inherit
         (texlive)
         scheme-medium
+        biblatex
         typewriter
         pgfplots
         flagderiv
@@ -89,7 +90,13 @@
     chromium
     libreoffice-qt6-still
     obsidian
+    graphviz
+    zotero
     rnote
+    thunderbird
+
+    easyeffects
+    helvum
 
     unstable.spotify
     unstable.discord
@@ -101,8 +108,13 @@
     unstable.qbittorrent
 
     anki-bin
+    biber
+    dot2tex
     tex
 
     local.sam
+
+    unstable.ciscoPacketTracer8
+    neomutt
   ];
 }

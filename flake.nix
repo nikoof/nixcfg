@@ -88,7 +88,8 @@
       devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
         inherit (self.checks.${system}.pre-commit-check) shellHook;
 
-        packages = with pkgs; [lazygit];
+        packages = with pkgs; [lazygit coq_8_17 local.coq-waterproof];
+        # COQPATH = map (p: "${p}/lib/coq/${pkgs.coq.version}/user-contrib/") [pkgs.local.coq-waterproof];
       };
 
       checks.${system} = {
