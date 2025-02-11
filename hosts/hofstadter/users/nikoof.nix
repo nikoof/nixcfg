@@ -43,7 +43,7 @@
 
   programs.direnv.enable = true;
   devel.languages = {
-    cpp.enable = true;
+    cpp.enable = false;
     rust.enable = true;
     haskell.enable = true;
     nix.enable = true;
@@ -81,6 +81,8 @@
         pgfplots
         flagderiv
         lipsum
+        import
+        esint
         ;
     };
   in [
@@ -99,7 +101,7 @@
     helvum
 
     unstable.spotify
-    unstable.discord
+    vesktop
 
     mpv
     ffmpeg_6-full

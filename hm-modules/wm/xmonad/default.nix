@@ -41,6 +41,7 @@ in {
         unrar
 
         alsa-utils
+        playerctl
         brightnessctl
       ];
 

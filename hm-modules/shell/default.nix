@@ -27,6 +27,14 @@ in {
       ];
     };
 
+    programs.zoxide = {
+      enable = true;
+      enableBashIntegration = true;
+      options = [
+        "--cmd cd"
+      ];
+    };
+
     home.shellAliases = {
       cpr = "rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1";
       mvr = "rsync --archive -hh --partial --info=stats1,progress2 --modify-window=1 --remove-source-files";
@@ -38,6 +46,8 @@ in {
       nvmi = "nvim";
 
       zathura = "zathura --fork";
+
+      nob = "./nob";
     };
   };
 }

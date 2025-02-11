@@ -79,24 +79,27 @@
     nftables.enable = true;
   };
 
-  # Temporarily added for GEWISxNavara Hackathon
-  # networking.firewall.allowedTCPPorts = [ 8000 ];
-  # networking.firewall.allowedUDPPorts = [ 8000 ];
-  #
-  # virtualisation.docker.enable = true;
-  # environment.systemPackages = with pkgs; [
-  #   docker-compose
-  # ];
-  # programs.adb.enable = true;
+  networking.firewall.allowedTCPPorts = [47121 51820];
+  networking.firewall.allowedUDPPorts = [47121 51820];
 
   environment.systemPackages = with pkgs; [
     # nvtopPackages.full
+    cifs-utils
+    eduvpn-client
   ];
 
-  services.strongswan.enable = true;
   networking.networkmanager = {
     enable = true;
-    enableStrongSwan = true;
+  };
+
+  # For mount.cifs, required unless domain name resolution is not needed.
+  fileSystems."/home/nikoof/share/misc" = {
+    device = "//10.10.0.1/misc";
+    fsType = "cifs";
+    options = let
+      # this line prevents hanging on network split
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+    in ["${automount_opts},credentials=/etc/nixos/smb-secrets,uid=1000,gid=100"];
   };
 
   users.users.nikoof = {
@@ -161,9 +164,8 @@
     enable = true;
   };
 
-  services.protonmail-bridge = {
-    enable = true;
-  };
+  services.protonmail-bridge.enable = true;
+  services.gnome.gnome-keyring.enable = true;
 
   programs.bash = {
     completion.enable = true;
@@ -171,4 +173,12 @@
   };
 
   programs.dconf.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-gtk
+    ];
+    config.common.default = "*";
+  };
 }
