@@ -87,8 +87,6 @@
 
       devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
         inherit (self.checks.${system}.pre-commit-check) shellHook;
-
-        packages = with pkgs; [lazygit];
       };
 
       checks.${system} = {

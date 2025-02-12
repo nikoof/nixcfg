@@ -41,7 +41,12 @@
     lazygit.enable = true;
   };
 
-  programs.direnv.enable = true;
+  programs.direnv = {
+    enable = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
+  };
+
   devel.languages = {
     cpp.enable = false;
     rust.enable = true;
