@@ -127,6 +127,58 @@
     };
   };
 
+  services.autorandr = {
+    enable = true;
+    profiles = let
+      fingerprint = {
+        DP-1-1 = "00ffffffffffff004c2d2c0d46415a420b1e010380341d782a5295a556549d250e5054bb8c00b30081c0810081809500a9c001010101023a801871382d40582c450009252100001e000000fd0032481e5111000a202020202020000000fc00433234463339300a2020202020000000ff0048345a4e3330393033370a2020017202031af14690041f131203230907078301000066030c00100080011d00bc52d01e20b828554009252100001e8c0ad090204031200c4055000925210000188c0ad08a20e02d10103e96000925210000180000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c9";
+        DP-1-2 = "00ffffffffffff004c2d2c0d46415a420b1e010380341d782a5295a556549d250e5054bb8c00b30081c0810081809500a9c001010101023a801871382d40582c450009252100001e000000fd0032481e5111000a202020202020000000fc00433234463339300a2020202020000000ff0048345a4e3330383232370a2020017202031af14690041f131203230907078301000066030c00100080011d00bc52d01e20b828554009252100001e8c0ad090204031200c4055000925210000188c0ad08a20e02d10103e96000925210000180000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000c9";
+        eDP-1 = "00ffffffffffff0006afa33d00000000001f010495221378036e8593585892281e505400000001010101010101010101010101010101963780c8703826406c30aa0058c2100000180f2580c8703826406c30aa0058c21000001800000000000000000000000000000000000000000002001040ff0f3c7d0f13287d2020200049";
+      };
+    in {
+      "mobile" = {
+        inherit fingerprint;
+        config = {
+          eDP-1 = {
+            enable = true;
+            crtc = 0;
+            mode = "1920x1080";
+            position = "0x0";
+            primary = true;
+            rate = "60.04";
+          };
+        };
+      };
+      "docked" = {
+        inherit fingerprint;
+        config = {
+          eDP1.enable = false;
+          DP-1-2 = {
+            enable = true;
+            crtc = 0;
+            mode = "1920x1080";
+            position = "0x0";
+            primary = true;
+            rate = "60.00";
+          };
+          DP-1-1 = {
+            enable = true;
+            crtc = 2;
+            mode = "1920x1080";
+            position = "1920x0";
+            rate = "60.00";
+          };
+        };
+      };
+      # "triple" = {
+      #   inherit fingerprint;
+      #   config = {
+      #     inherit eDP-1 DP-1-1 DP-1-2;
+      #   };
+      # };
+    };
+  };
+
   desktop = {
     xdgDirs.enable = true;
 
@@ -180,5 +232,17 @@
       xdg-desktop-portal-gtk
     ];
     config.common.default = "*";
+  };
+
+  services.udev = {
+    # BBC micro:bit for Tock development
+    extraRules = ''
+      ACTION!="add|change", GOTO="openocd_rules_end"
+      SUBSYSTEM!="usb|tty|hidraw", GOTO="openocd_rules_end"
+
+      ATTRS{product}=="*CMSIS-DAP*", MODE="664", GROUP="plugdev"
+
+      LABEL="openocd_rules_end"
+    '';
   };
 }

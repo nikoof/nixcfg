@@ -3,6 +3,7 @@ import Graphics.X11.ExtraTypes.XF86
 import System.Exit
 import System.Random (randomRIO)
 import XMonad
+import XMonad.Actions.PhysicalScreens
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
@@ -23,11 +24,9 @@ main =
   xmonad
     . ewmhFullscreen
     . ewmh
-    . withEasySB (statusBarProp "xmobar" (pure myXmobarPP)) toggleStrutsKey
+    . dynamicSBs myStatusBarSpawner
+    . docks
     $ myConfig
-  where
-    toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
-    toggleStrutsKey XConfig {modMask = m} = (m .|. shiftMask, xK_b)
 
 base16Colors :: [String]
 base16Colors =
@@ -153,6 +152,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
       ((modMask, xK_k), windows W.focusUp), -- %! Move focus to the previous window
       ((modMask, xK_m), windows W.focusMaster), -- %! Move focus to the master window
 
+      -- move between heads
+      ((modMask, xK_comma), onPrevNeighbour def W.view),
+      ((modMask, xK_period), onNextNeighbour def W.view),
+      ((modMask .|. shiftMask, xK_comma), onPrevNeighbour def W.shift),
+      ((modMask .|. shiftMask, xK_period), onNextNeighbour def W.shift),
+
       -- modifying the window order
       ((modMask .|. shiftMask, xK_m), windows W.swapMaster), -- %! Swap the focused window and the master window
       ((modMask .|. shiftMask, xK_j), windows W.swapDown), -- %! Swap the focused window with the next window
@@ -166,8 +171,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
       ((modMask, xK_t), withFocused $ windows . W.sink), -- %! Push window back into tiling
 
       -- increase or decrease number of windows in the master area
-      ((modMask, xK_comma), sendMessage (IncMasterN 1)), -- %! Increment the number of windows in the master area
-      ((modMask, xK_period), sendMessage (IncMasterN (-1))), -- %! Deincrement the number of windows in the master area
+      -- ((modMask .|. shiftMask, xK_comma), sendMessage (IncMasterN 1)), -- %! Increment the number of windows in the master area
+      -- ((modMask .|. shiftMask, xK_period), sendMessage (IncMasterN (-1))), -- %! Deincrement the number of windows in the master area
 
       -- quit, or restart
       ((modMask .|. shiftMask, xK_q), io exitSuccess) -- %! Quit xmonad
@@ -180,8 +185,14 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
           (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
       ]
 
-myXmobarPP :: PP
-myXmobarPP =
+myStatusBarSpawner :: Applicative f => ScreenId -> f StatusBarConfig
+myStatusBarSpawner (S s) = do
+                    pure $ statusBarProp
+                          ("xmobar -x " ++ show s)
+                          (pure $ myXmobarPP (S s))
+
+myXmobarPP :: ScreenId -> PP
+myXmobarPP s =
   def
     { ppSep = base !! 0x0E $ " • ",
       ppTitleSanitize = ppWindow,

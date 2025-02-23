@@ -94,6 +94,8 @@
     # Uni stuff
     # mathematica # this is now packaged as a unified app that is not in nixpkgs yet
 
+    logisim-evolution # 2IC30
+
     chromium
     libreoffice-qt6-still
     obsidian
