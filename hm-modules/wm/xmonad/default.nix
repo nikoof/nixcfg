@@ -164,5 +164,44 @@ in {
       style.name = "Adwaita-Dark";
       style.package = pkgs.adwaita-qt;
     };
+
+    xdg.mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "application/pdf" = ["zathura.desktop"];
+
+        "x-scheme-handler/http" = ["firefox.desktop"];
+        "x-scheme-handler/https" = ["firefox.desktop"];
+        "x-scheme-handler/chrome" = ["firefox.desktop"];
+        "text/html" = ["firefox.desktop"];
+        "application/x-extension-htm" = ["firefox.desktop"];
+        "application/x-extension-html" = ["firefox.desktop"];
+        "application/x-extension-shtml" = ["firefox.desktop"];
+        "application/xhtml+xml" = ["firefox.desktop"];
+        "application/x-extension-xhtml" = ["firefox.desktop"];
+        "application/x-extension-xht" = ["firefox.desktop"];
+        "x-scheme-handler/settings" = ["io.elementary.switchboard.desktop"];
+        "x-scheme-handler/mailto" = ["userapp-Thunderbird-IVBPY2.desktop"];
+        "message/rfc822" = ["userapp-Thunderbird-IVBPY2.desktop"];
+        "x-scheme-handler/mid" = ["userapp-Thunderbird-IVBPY2.desktop"];
+        "x-scheme-handler/discord" = ["vesktop.desktop"];
+      };
+
+      associations.added = {
+        "x-scheme-handler/http" = ["firefox.desktop;"];
+        "x-scheme-handler/https" = ["firefox.desktop;"];
+        "x-scheme-handler/chrome" = ["firefox.desktop;"];
+        "text/html" = ["firefox.desktop;"];
+        "application/x-extension-htm" = ["firefox.desktop;"];
+        "application/x-extension-html" = ["firefox.desktop;"];
+        "application/x-extension-shtml" = ["firefox.desktop;"];
+        "application/xhtml+xml" = ["firefox.desktop;"];
+        "application/x-extension-xhtml" = ["firefox.desktop;"];
+        "application/x-extension-xht" = ["firefox.desktop;"];
+        "x-scheme-handler/settings" = ["io.elementary.switchboard.desktop;"];
+        "x-scheme-handler/mailto" = ["userapp-Thunderbird-IVBPY2.desktop;"];
+        "x-scheme-handler/mid" = ["userapp-Thunderbird-IVBPY2.desktop;"];
+      };
+    };
   };
 }

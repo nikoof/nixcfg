@@ -78,6 +78,8 @@ myStartupHook = do
   --           \--SetPartialStrut true --expand true --width 3 \
   --           \--transparent true --alpha 0 --tint 0xFF000000 --height 17"
   spawnOnce "keepassxc"
+  spawnOnce "source ~/.xsession"
+  spawnOnce "autorandr -c"
 
 myManageHook :: ManageHook
 myManageHook =
@@ -112,7 +114,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
     [ ((modMask, xK_Return), spawn $ XMonad.terminal conf),
       ((modMask, xK_r), spawn dmenuRunCmd),
       ((modMask .|. shiftMask, xK_n), spawn dmenuBluetoothCmd),
-      ((modMask, xK_e), spawn dmenuEmojiCmd),
+      ((modMask .|. shiftMask, xK_e), spawn dmenuEmojiCmd),
       ((modMask .|. shiftMask, xK_s), unGrab *> spawn scrotCmd),
       ((modMask, xK_o), spawn randomBiaoqingCmd),
       ((modMask .|. shiftMask, xK_o), spawn selectBiaoqingCmd),
@@ -121,6 +123,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
       ((modMask, xK_b), spawn "firefox"),
       ((modMask, xK_d), spawn "vesktop"),
       ((modMask, xK_n), spawn "neovide"),
+      ((modMask, xK_e), spawn "alacritty -e nnn"),
       -- meme
       ((modMask .|. mod1Mask, xK_s), spawn "xscreensaver-command -select 252"),
       ((modMask .|. mod1Mask, xK_n), spawn "mpv ~/videos/memes/chad.mp4"),
@@ -175,7 +178,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
       -- ((modMask .|. shiftMask, xK_period), sendMessage (IncMasterN (-1))), -- %! Deincrement the number of windows in the master area
 
       -- quit, or restart
-      ((modMask .|. shiftMask, xK_q), io exitSuccess) -- %! Quit xmonad
+      ((modMask .|. shiftMask, xK_q), io exitSuccess), -- %! Quit xmonad
+      ((modMask .|. shiftMask, xK_r), spawn "xmonad --restart")
     ]
       ++
       -- mod-[1..9] %! Switch to workspace N

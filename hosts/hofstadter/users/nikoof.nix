@@ -76,6 +76,17 @@
     };
   };
 
+  programs.nnn = {
+    enable = true;
+  };
+
+  programs.ncspot = {
+    enable = true;
+    settings = {
+      use_nerdfont = true;
+    };
+  };
+
   home.packages = with pkgs; let
     tex = texlive.combine {
       inherit
@@ -107,7 +118,6 @@
     easyeffects
     helvum
 
-    unstable.spotify
     vesktop
 
     mpv
