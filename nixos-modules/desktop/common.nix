@@ -43,10 +43,14 @@ in {
       LC_COLLATE = "C.UTF-8";
     };
 
+    services.xserver = {
+      autoRepeatDelay = 200;
+      autoRepeatInterval = 50;
+    };
     services.xserver.xkb = {
-      layout = "ro,de";
-      variant = ",qwerty";
-      options = "grp:win_space_toggle,compose:menu";
+      layout = "ro";
+      variant = "";
+      options = "grp:win_space_toggle,compose:menu,caps:swapescape";
     };
 
     security.rtkit.enable = true;

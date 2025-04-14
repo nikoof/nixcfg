@@ -17,18 +17,51 @@
   boot.extraModulePackages = [];
   hardware.firmware = [pkgs.linux-firmware];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/334da67a-d7cc-4da4-a6ad-3e3ab561cceb";
-    fsType = "ext4";
+  swapDevices = [{device = "/swap/swapfile";}];
+  fileSystems = {
+    "/" = {
+      device = "/dev/disk/by-uuid/6f441c28-49bc-41ea-a9ce-f35af86cc43a";
+      fsType = "btrfs";
+      options = ["subvol=@" "compress=zstd:3" "space_cache=v2" "ssd"];
+    };
+
+    "/nix" = {
+      device = "/dev/disk/by-uuid/6f441c28-49bc-41ea-a9ce-f35af86cc43a";
+      fsType = "btrfs";
+      options = ["subvol=@nix" "compress=zstd:3" "space_cache=v2" "ssd" "noatime"];
+    };
+
+    "/home" = {
+      device = "/dev/disk/by-uuid/6f441c28-49bc-41ea-a9ce-f35af86cc43a";
+      fsType = "btrfs";
+      options = ["subvol=@home" "compress=zstd:3" "space_cache=v2" "ssd"];
+    };
+
+    "/boot" = {
+      device = "/dev/disk/by-uuid/965B-EF50";
+      fsType = "vfat";
+      options = ["fmask=0022" "dmask=0022"];
+    };
+
+    "/swap" = {
+      device = "/dev/disk/by-uuid/6f441c28-49bc-41ea-a9ce-f35af86cc43a";
+      fsType = "btrfs";
+      options = ["subvol=@swap" "compress=zstd:3" "space_cache=v2" "ssd" "noatime"];
+    };
   };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/965B-EF50";
-    fsType = "vfat";
-    options = ["fmask=0022" "dmask=0022"];
-  };
+  # fileSystems."/" = {
+  #   device = "/dev/disk/by-uuid/334da67a-d7cc-4da4-a6ad-3e3ab561cceb";
+  #   fsType = "ext4";
+  # };
 
-  swapDevices = [{device = "/.swapfile";}];
+  # fileSystems."/boot" = {
+  #   device = "/dev/disk/by-uuid/965B-EF50";
+  #   fsType = "vfat";
+  #   options = ["fmask=0022" "dmask=0022"];
+  # };
+
+  # swapDevices = [{device = "/.swapfile";}];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 

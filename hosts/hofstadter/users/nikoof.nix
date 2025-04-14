@@ -48,7 +48,7 @@
   };
 
   devel.languages = {
-    cpp.enable = false;
+    cpp.enable = true;
     rust.enable = true;
     haskell.enable = true;
     nix.enable = true;
@@ -101,6 +101,25 @@
         esint
         ;
     };
+
+    brainrot = pkgs.writeShellScriptBin "brainrot" ''
+      FILE="/home/nikoof/videos/memes/1-hour-brainrot.webm"
+      if [ ! -z $1 ]; then
+        FILE=$1
+      fi
+      DUR=$(${pkgs.ffmpeg_6-full}/bin/ffmpeg -i $FILE 2>&1 | ${pkgs.ripgrep}/bin/rg -i DURATION | tail -1)
+      HOUR=$(echo $DUR | cut -d ':' -f2)
+      MINUTE=$(echo $DUR | cut -d ':' -f3)
+      SECOND=$(echo $DUR | cut -d ':' -f4 | cut -d '.' -f1)
+      LEN=$((HOUR * 60 * 60 + MINUTE * 60 + SECOND))
+      R=$(shuf -i 0-$LEN -n1)
+
+      echo "# mpv EDL v0" > /tmp/brainrot.edl
+      echo "$FILE,$R,$LEN" >> /tmp/brainrot.edl
+      echo "$FILE,0,$R" >> /tmp/brainrot.edl
+
+      ${pkgs.mpv}/bin/mpv --loop /tmp/brainrot.edl
+    '';
   in [
     # Uni stuff
     # mathematica # this is now packaged as a unified app that is not in nixpkgs yet
@@ -118,7 +137,12 @@
     easyeffects
     helvum
 
-    vesktop
+    brainrot
+
+    # vesktop
+    discord
+    signal-desktop
+    iamb
 
     mpv
     ffmpeg_6-full
@@ -135,5 +159,7 @@
 
     unstable.ciscoPacketTracer8
     neomutt
+
+    asm-lsp
   ];
 }

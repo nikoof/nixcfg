@@ -21,8 +21,8 @@ in {
         nil
       ]
       ++ lib.lists.optionals cfg.cpp.enable [
-        clang
-        clang-tools
+        gcc
+        gdb
       ]
       ++ lib.lists.optionals cfg.rust.enable [
         cargo

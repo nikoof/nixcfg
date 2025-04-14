@@ -116,14 +116,6 @@ in {
       };
     };
 
-    xsession = {
-      enable = true;
-      initExtra = ''
-        xset r rate 200 50
-        setxkbmap -option caps:swapescape
-      '';
-    };
-
     services.xscreensaver = {
       enable = true;
       settings = {

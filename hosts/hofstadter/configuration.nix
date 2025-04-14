@@ -80,12 +80,18 @@
   };
 
   networking.firewall.allowedTCPPorts = [47121 51820];
-  networking.firewall.allowedUDPPorts = [47121 51820];
+  networking.firewall.allowedUDPPorts = [67 47121 51820];
 
   environment.systemPackages = with pkgs; [
+    man-pages
+    man-pages-posix
+    man-db
     # nvtopPackages.full
     cifs-utils
     eduvpn-client
+
+    python312Packages.rns
+    local.python3Packages.nomadnet
   ];
 
   networking.networkmanager = {
@@ -105,7 +111,7 @@
   users.users.nikoof = {
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical" "cdrom" "ubridge" "adbusers" "kvm"];
+    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical" "cdrom" "ubridge" "adbusers" "kvm" "docker"];
   };
 
   home-manager = {
@@ -119,7 +125,7 @@
     enable = true;
     displayManager.lightdm = {
       enable = true;
-      greeters.slick.enable = true;
+      greeters.enso.enable = true;
     };
     windowManager.xmonad = {
       enable = true;

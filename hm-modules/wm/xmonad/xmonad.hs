@@ -77,9 +77,8 @@ myStartupHook = do
   -- spawnOnce "trayer --edge top --align right --SetDockType true \
   --           \--SetPartialStrut true --expand true --width 3 \
   --           \--transparent true --alpha 0 --tint 0xFF000000 --height 17"
+  spawnOnce "picom"
   spawnOnce "keepassxc"
-  spawnOnce "source ~/.xsession"
-  spawnOnce "autorandr -c"
 
 myManageHook :: ManageHook
 myManageHook =
@@ -121,7 +120,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
       ((modMask .|. shiftMask, xK_c), spawn xcolorCmd),
       ((modMask, xK_w), kill),
       ((modMask, xK_b), spawn "firefox"),
-      ((modMask, xK_d), spawn "vesktop"),
+      ((modMask, xK_d), spawn "discord"),
       ((modMask, xK_n), spawn "neovide"),
       ((modMask, xK_e), spawn "alacritty -e nnn"),
       -- meme
@@ -132,13 +131,15 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
       ((modMask .|. mod1Mask, xK_g), spawn "mpv ~/videos/memes/gamblecore.webm"),
       ((modMask .|. mod1Mask, xK_h), spawn "mpv ~/videos/memes/chip-stayin-alive.webm"),
       ((modMask .|. mod1Mask, xK_u), spawn "mpv ~/videos/memes/gilgamesh.mp4"),
+      ((modMask .|. mod1Mask, xK_r), spawn "mpv ~/videos/memes/rat-microwave-dance.mp4"),
+      ((modMask .|. mod1Mask, xK_b), spawn "brainrot"),
       -- media keys
       ((noModMask, xF86XK_PowerDown), spawn "sudo systemctl suspend"),
       ((noModMask, xF86XK_AudioRaiseVolume), spawn "amixer sset Master 5%+"),
       ((noModMask, xF86XK_AudioLowerVolume), spawn "amixer sset Master 5%-"),
       ((noModMask, xF86XK_AudioMute), spawn "amixer sset Master toggle"),
-      ((noModMask, xF86XK_AudioPlay), spawn "playerctl play"),
-      ((noModMask, xF86XK_AudioPause), spawn "playerctl pause"),
+      ((noModMask, xF86XK_AudioPlay), spawn "playerctl play-pause"),
+      -- ((noModMask, xF86XK_AudioPause), spawn "playerctl pause"),
       ((noModMask, xF86XK_AudioStop), spawn "playerctl stop"),
       ((noModMask, xF86XK_AudioNext), spawn "playerctl next"),
       ((noModMask, xF86XK_AudioPrev), spawn "playerctl previous"),
@@ -160,7 +161,6 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
       ((modMask, xK_period), onNextNeighbour def W.view),
       ((modMask .|. shiftMask, xK_comma), onPrevNeighbour def W.shift),
       ((modMask .|. shiftMask, xK_period), onNextNeighbour def W.shift),
-
       -- modifying the window order
       ((modMask .|. shiftMask, xK_m), windows W.swapMaster), -- %! Swap the focused window and the master window
       ((modMask .|. shiftMask, xK_j), windows W.swapDown), -- %! Swap the focused window with the next window
@@ -189,11 +189,12 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
           (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]
       ]
 
-myStatusBarSpawner :: Applicative f => ScreenId -> f StatusBarConfig
+myStatusBarSpawner :: (Applicative f) => ScreenId -> f StatusBarConfig
 myStatusBarSpawner (S s) = do
-                    pure $ statusBarProp
-                          ("xmobar -x " ++ show s)
-                          (pure $ myXmobarPP (S s))
+  pure $
+    statusBarProp
+      ("xmobar -x " ++ show s)
+      (pure $ myXmobarPP (S s))
 
 myXmobarPP :: ScreenId -> PP
 myXmobarPP s =
