@@ -121,28 +121,19 @@
       ${pkgs.mpv}/bin/mpv --loop /tmp/brainrot.edl
     '';
   in [
-    # Uni stuff
-    # mathematica # this is now packaged as a unified app that is not in nixpkgs yet
-
-    logisim-evolution # 2IC30
+    obsidian
+    zotero
+    rnote
 
     chromium
     libreoffice-qt6-still
-    obsidian
-    graphviz
-    zotero
-    rnote
     thunderbird
 
     easyeffects
     helvum
 
-    brainrot
-
-    # vesktop
     discord
     signal-desktop
-    iamb
 
     mpv
     ffmpeg_6-full
@@ -152,14 +143,11 @@
 
     anki-bin
     biber
+    graphviz
     dot2tex
     tex
 
     local.sam
-
-    unstable.ciscoPacketTracer8
-    neomutt
-
-    asm-lsp
+    brainrot
   ];
 }

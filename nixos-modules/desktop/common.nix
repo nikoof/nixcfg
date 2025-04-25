@@ -45,7 +45,7 @@ in {
 
     services.xserver = {
       autoRepeatDelay = 200;
-      autoRepeatInterval = 50;
+      autoRepeatInterval = 20;
     };
     services.xserver.xkb = {
       layout = "ro";

@@ -13,6 +13,7 @@
 
     ./hardware.nix
     ./containers/arch.nix
+    ./containers/ubuntu.nix
   ];
 
   nix.settings.cores = 16;
@@ -92,6 +93,8 @@
 
     python312Packages.rns
     local.python3Packages.nomadnet
+
+    virt-viewer
   ];
 
   networking.networkmanager = {
@@ -252,6 +255,9 @@
     '';
   };
 
+  virtualisation.libvirtd = {
+    enable = true;
+  };
   virtualisation.docker = {
     enable = true;
   };
