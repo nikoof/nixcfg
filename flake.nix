@@ -59,31 +59,11 @@
       ];
     });
   in
-    rec {
+    {
       nixosModules.default = ./nixos-modules;
       homeManagerModules.default = ./hm-modules;
 
-      nixosConfigurations.gauss = mkSystem "gauss" {inherit pkgs;};
-      nixosConfigurations.euler = mkSystem "euler" {inherit pkgs;};
       nixosConfigurations.hofstadter = mkSystem "hofstadter" {inherit pkgs;};
-
-      nixosConfigurations.godel = nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit inputs;
-          pkgs = pkgsArm;
-        };
-        modules = [
-          "${nixpkgs}/nixos/modules/installer/sd-card/sd-image-aarch64.nix"
-          {
-            nixpkgs.config.allowUnsupportedSystem = true;
-            nixpkgs.hostPlatform.system = "aarch64-linux";
-            nixpkgs.buildPlatform.system = "x86_64-linux";
-          }
-          self.outputs.nixosModules.default
-          ./hosts/godel/configuration.nix
-        ];
-      };
-      images.godel = nixosConfigurations.godel.config.system.build.sdImage;
 
       devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
         inherit (self.checks.${system}.pre-commit-check) shellHook;
