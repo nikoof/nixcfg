@@ -16,6 +16,9 @@ in {
       xclip
       btop
       du-dust
+      curl
+      wget
+      ripgrep
 
       firefox
       keepassxc
@@ -48,8 +51,8 @@ in {
       autoRepeatInterval = 20;
     };
     services.xserver.xkb = {
-      layout = "ro";
-      variant = "";
+      layout = "ro,us";
+      variant = ",colemak_dh";
       options = "grp:win_space_toggle,compose:menu,caps:swapescape";
     };
 

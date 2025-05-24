@@ -25,6 +25,8 @@
     override = {
       base00 = "000000";
     };
+
+    targets.plymouth.enable = false;
   };
 
   stylix.opacity = {
@@ -72,6 +74,16 @@
     pkiBundle = "/etc/secureboot";
   };
 
+  boot.plymouth = {
+    enable = true;
+    theme = "cubes";
+    themePackages = with pkgs; [
+      (adi1090x-plymouth-themes.override {
+        selected_themes = ["cubes"];
+      })
+    ];
+  };
+
   hardware.bluetooth.enable = true;
   networking = {
     hostName = "hofstadter";
@@ -92,9 +104,11 @@
     eduvpn-client
 
     python312Packages.rns
-    local.python3Packages.nomadnet
+    python312Packages.nomadnet
+    # local.python3Packages.nomadnet
 
     virt-viewer
+    virt-manager
   ];
 
   networking.networkmanager = {
@@ -102,7 +116,7 @@
   };
 
   # For mount.cifs, required unless domain name resolution is not needed.
-  fileSystems."/home/nikoof/share/misc" = {
+  fileSystems."/home/nikoof/remote/nkwrt/misc" = {
     device = "//10.10.0.1/misc";
     fsType = "cifs";
     options = let
@@ -196,6 +210,7 @@
   };
 
   apps.gns3.enable = true;
+  apps.gaming.steam.enable = true;
 
   peripherals.wacom.enable = true;
   peripherals.nitrokey = {
@@ -206,6 +221,7 @@
   services.ollama = {
     enable = true;
     acceleration = "cuda";
+    package = pkgs.unstable.ollama-cuda;
   };
 
   services.openssh.enable = true;
@@ -245,6 +261,9 @@
 
   services.udev = {
     # BBC micro:bit for Tock development
+    packages = with pkgs; [
+      android-udev-rules
+    ];
     extraRules = ''
       ACTION!="add|change", GOTO="openocd_rules_end"
       SUBSYSTEM!="usb|tty|hidraw", GOTO="openocd_rules_end"

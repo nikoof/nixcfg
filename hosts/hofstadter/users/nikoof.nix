@@ -121,6 +121,9 @@
       ${pkgs.mpv}/bin/mpv --loop /tmp/brainrot.edl
     '';
   in [
+    rclone
+    rclone-browser
+
     obsidian
     zotero
     rnote
@@ -128,6 +131,7 @@
     chromium
     libreoffice-qt6-still
     thunderbird
+    unstable.spotify
 
     easyeffects
     helvum

@@ -15,13 +15,13 @@ in {
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
       hardware.nitrokey.enable = true;
+      # services.pcscd.enable = true;
+      services.dbus.packages = [pkgs.gcr];
 
-      # TODO: Install based on DE
       environment.systemPackages = with pkgs; [
-        pinentry
-        pinentry-qt
-
         python3Packages.pynitrokey
+        pinentry
+        pinentry-gtk2
       ];
 
       security.pam = {
@@ -45,6 +45,7 @@ in {
       programs.gnupg.agent = {
         enable = true;
         enableSSHSupport = true;
+        pinentryPackage = pkgs.pinentry-gtk2;
       };
     })
   ];
