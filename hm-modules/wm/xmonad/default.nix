@@ -151,11 +151,11 @@ in {
       };
     };
 
-    qt = {
-      enable = true;
-      style.name = "Adwaita-Dark";
-      style.package = pkgs.adwaita-qt;
-    };
+    # qt = {
+    #   enable = true;
+    #   style.name = lib.mkForce "Adwaita-Dark";
+    #   style.package = pkgs.adwaita-qt;
+    # };
 
     xdg.mimeApps = {
       enable = true;

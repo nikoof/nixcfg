@@ -43,8 +43,9 @@
 
     programs.nix-ld.enable = true;
 
-    environment.variables = {
+    environment.variables = rec {
       FLAKE = "/etc/nixos";
+      NH_FLAKE = FLAKE;
     };
   };
 }

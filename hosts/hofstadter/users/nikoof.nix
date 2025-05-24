@@ -70,7 +70,7 @@
           openjdk
         ]);
 
-    userSettings = {
+    profiles.default.userSettings = {
       "editor.fontLigatures" = true;
       "workbench.iconTheme" = "file-icons";
     };
@@ -127,6 +127,8 @@
     obsidian
     zotero
     rnote
+    presenterm
+    mprocs
 
     chromium
     libreoffice-qt6-still

@@ -1,15 +1,15 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     pre-commit.url = "github:cachix/pre-commit-hooks.nix";
-    stylix.url = "github:danth/stylix/release-24.05";
+    stylix.url = "github:danth/stylix/release-25.05";
 
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
@@ -50,6 +50,7 @@
     };
 
     mkSystem = name: v: (nixpkgs.lib.nixosSystem {
+      # FIXME: fix passing specialArgs.pkgs here; this triggers a warning in 25.05
       specialArgs = {inherit inputs pkgs;};
       modules = [
         self.outputs.nixosModules.default

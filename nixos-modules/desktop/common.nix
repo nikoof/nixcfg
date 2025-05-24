@@ -26,7 +26,7 @@ in {
 
     fonts.packages = with pkgs; [
       fira-code
-      (nerdfonts.override {fonts = ["FiraCode"];})
+      nerd-fonts.fira-code
       corefonts
       noto-fonts
       noto-fonts-emoji
