@@ -124,11 +124,20 @@
     rclone
     rclone-browser
 
+    # TODO: factor these out into a module
+    uutils-coreutils-noprefix
+    fd
+    presenterm
+    mprocs
+    xh
+    fselect
+    ripgrep
+    ripgrep-all
+    tokei
+
     obsidian
     zotero
     rnote
-    presenterm
-    mprocs
 
     chromium
     libreoffice-qt6-still

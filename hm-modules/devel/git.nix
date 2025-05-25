@@ -21,6 +21,7 @@ in {
       userEmail = "nicolasbratoveanu@proton.me";
 
       lfs.enable = true;
+      delta.enable = true;
 
       extraConfig = {
         safe = {directory = "/etc/nixos";};
