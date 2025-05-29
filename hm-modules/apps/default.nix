@@ -7,6 +7,7 @@
 }: {
   imports = [
     ./alacritty.nix
+    ./kitty.nix
     ./taskwarrior
     ./tmux.nix
     ./zathura.nix

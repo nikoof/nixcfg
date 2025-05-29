@@ -9,6 +9,10 @@
 in {
   options.wm.xmonad = {
     enable = lib.mkEnableOption "Enable xmonad environment";
+    terminal = lib.mkPackageOption pkgs "Terminal package to use" {
+      default = null;
+      nullable = false;
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -57,7 +61,9 @@ in {
     xsession.windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      config = ./xmonad.hs;
+      config = pkgs.replaceVars ./xmonad.hs {
+        terminal = "${cfg.terminal}/bin/${cfg.terminal.meta.mainProgram}";
+      };
     };
 
     services.dunst = {

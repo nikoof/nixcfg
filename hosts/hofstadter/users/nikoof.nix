@@ -14,14 +14,18 @@
   home.preferXdgDirectories = true;
   home.stateVersion = "24.05";
 
-  wm.xmonad.enable = true;
+  wm.xmonad = {
+    enable = true;
+    terminal = pkgs.kitty;
+  };
 
   programs.btop.enable = true;
   programs.fzf.enable = true;
   programs.autorandr.enable = true;
 
   apps = {
-    alacritty.enable = true;
+    # alacritty.enable = true;
+    kitty.enable = true;
     zathura.enable = true;
     # taskwarrior.enable = true;
     tmux.enable = true;
@@ -31,6 +35,7 @@
   shell = {
     enable = true;
     bash.enable = true;
+    fish.enable = true;
     starship.enable = true;
   };
 
@@ -43,7 +48,6 @@
 
   programs.direnv = {
     enable = true;
-    enableBashIntegration = true;
     nix-direnv.enable = true;
   };
 
@@ -121,6 +125,8 @@
       ${pkgs.mpv}/bin/mpv --loop /tmp/brainrot.edl
     '';
   in [
+    unityhub
+
     rclone
     rclone-browser
 

@@ -16,6 +16,7 @@ import XMonad.Layout.Spacing
 import XMonad.StackSet qualified as W
 import XMonad.Util.EZConfig
 import XMonad.Util.Loggers
+import XMonad.Util.NamedScratchpad
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
 
@@ -48,10 +49,14 @@ base16Colors =
     "#a3685a"
   ]
 
+scratchpads =
+  [ NS "keepass" "keepassxc" (title =? "KeePassXC") defaultFloating
+  ]
+
 myConfig =
   def
     { workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
-      terminal = "alacritty",
+      terminal = "@terminal@",
       modMask = mod4Mask,
       keys = myKeys,
       layoutHook =
@@ -87,7 +92,8 @@ myManageHook =
       className =? "discord" --> doShift "3",
       className =? "spotify" --> doShift "5",
       className =? "Gimp" --> doShift "7" <+> doFloat,
-      isDialog --> doFloat
+      isDialog --> doFloat,
+      namedScratchpadManageHook scratchpads
     ]
 
 dmenuParams = "-fn 'FiraCode Nerd Font Mono-12' -nb '#000000' -nf '#ffffff' -sb '#b294bb' -sf '#1d1f21'"
@@ -122,7 +128,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
       ((modMask, xK_b), spawn "firefox"),
       ((modMask, xK_d), spawn "discord"),
       ((modMask, xK_n), spawn "neovide"),
-      ((modMask, xK_e), spawn "alacritty -e nnn"),
+      ((modMask, xK_e), spawn $ XMonad.terminal conf <> " -e nnn"),
+      -- scratchpads
+      ((modMask, xK_k), namedScratchpadAction scratchpads "htop"),
       -- meme
       ((modMask .|. mod1Mask, xK_s), spawn "xscreensaver-command -select 252"),
       ((modMask .|. mod1Mask, xK_n), spawn "mpv ~/videos/memes/chad.mp4"),

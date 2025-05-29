@@ -11,6 +11,7 @@
     execConfig = {
       Boot = true;
       ResolvConf = "bind-host";
+      PrivateUsers = false;
     };
 
     networkConfig = {
@@ -25,6 +26,10 @@
         "/dev/nvidia-modeset"
         "/dev/nvidia-uvm"
         "/dev/nvidia-uvm-tools"
+        "/dev/video0"
+        "/dev/video1"
+        "/dev/media0"
+        "/dev/v4l"
         "/dev/input"
         "/dev/shm"
       ];
@@ -47,6 +52,10 @@
         "/dev/nvidia-modeset"
         "/dev/nvidia-uvm"
         "/dev/nvidia-uvm-tools"
+        "/dev/video0"
+        "/dev/video1"
+        "/dev/media0"
+        "/dev/v4l"
         "block-loop rwm"
       ];
     };

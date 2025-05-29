@@ -15,6 +15,7 @@ in {
       enable = true;
       enableBashIntegration = lib.mkDefault config.shell.bash.enable;
       enableNushellIntegration = lib.mkDefault config.shell.nushell.enable;
+      enableFishIntegration = lib.mkDefault config.shell.fish.enable;
       settings = {
         format = pkgs.lib.concatStrings [
           "[∴ ](bold blue)"
@@ -54,8 +55,8 @@ in {
 
         character = {
           format = "$symbol ";
-          success_symbol = "[⟶](bold green)";
-          error_symbol = "[⟶](bold red)";
+          success_symbol = "[~>](bold green)";
+          error_symbol = "[~>](bold red)";
         };
 
         cmd_duration = {

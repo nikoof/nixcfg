@@ -50,9 +50,12 @@
     };
 
     mkSystem = name: v: (nixpkgs.lib.nixosSystem {
-      # FIXME: fix passing specialArgs.pkgs here; this triggers a warning in 25.05
-      specialArgs = {inherit inputs pkgs;};
+      specialArgs = {inherit inputs;};
       modules = [
+        # INFO: This does not currently work with stylix, as it adds overlays to nixpkgs.
+        # inputs.nixpkgs.nixosModules.readOnlyPkgs
+
+        {nixpkgs.pkgs = pkgs;}
         self.outputs.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
         inputs.stylix.nixosModules.stylix
@@ -64,7 +67,7 @@
       nixosModules.default = ./nixos-modules;
       homeManagerModules.default = ./hm-modules;
 
-      nixosConfigurations.hofstadter = mkSystem "hofstadter" {inherit pkgs;};
+      nixosConfigurations.hofstadter = mkSystem "hofstadter" {};
 
       devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
         inherit (self.checks.${system}.pre-commit-check) shellHook;

@@ -9,6 +9,7 @@
 in {
   imports = [
     ./bash.nix
+    ./fish.nix
     ./nushell.nix
     ./starship.nix
   ];
@@ -20,7 +21,8 @@ in {
   config = lib.mkIf cfg.enable {
     programs.eza = {
       enable = true;
-      enableBashIntegration = true;
+      enableBashIntegration = lib.mkDefault config.shell.bash.enable;
+      enableFishIntegration = lib.mkDefault config.shell.fish.enable;
       extraOptions = [
         "--group-directories-first"
         "--header"
@@ -29,7 +31,8 @@ in {
 
     programs.zoxide = {
       enable = true;
-      enableBashIntegration = true;
+      enableBashIntegration = lib.mkDefault config.shell.bash.enable;
+      enableFishIntegration = lib.mkDefault config.shell.fish.enable;
       options = [
         "--cmd cd"
       ];

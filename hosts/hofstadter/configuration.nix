@@ -27,6 +27,12 @@
     };
 
     targets.plymouth.enable = false;
+
+    # INFO: these two targets add overlays to nixpkgs, which causes errors when using readOnlyPkgs.
+    # However, due to how this is done in stylix, it is not possible to prevent it by simply disabling the targets.
+
+    # targets.gnome-text-editor.enable = false;
+    # targets.nixos-icons.enable = false;
   };
 
   stylix.opacity = {
@@ -39,7 +45,7 @@
   stylix.fonts = {
     sizes = {
       applications = 10;
-      terminal = 12;
+      terminal = 14;
       desktop = 10;
       popups = 10;
     };
@@ -88,12 +94,21 @@
   networking = {
     hostName = "hofstadter";
     tempAddresses = "disabled";
-    firewall.enable = true;
-    nftables.enable = true;
+    firewall.enable = false;
+    nftables.enable = false;
   };
 
-  networking.firewall.allowedTCPPorts = [47121 51820];
-  networking.firewall.allowedUDPPorts = [67 47121 51820];
+  networking.firewall.allowedTCPPorts = [
+    49150 # ROS2
+    47121
+    51820
+  ];
+  networking.firewall.allowedUDPPorts = [
+    49150 # ROS2
+    67
+    47121
+    51820
+  ];
 
   environment.systemPackages = with pkgs; [
     man-pages
@@ -138,6 +153,7 @@
     users.nikoof = ./users/nikoof.nix;
   };
 
+  services.xscreensaver.enable = true;
   services.xserver = {
     enable = true;
     displayManager.lightdm = {
