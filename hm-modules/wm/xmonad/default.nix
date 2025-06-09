@@ -47,6 +47,8 @@ in {
         alsa-utils
         playerctl
         brightnessctl
+
+        local.boomer
       ];
 
     home.sessionVariables = {

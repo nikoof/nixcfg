@@ -112,6 +112,8 @@ selectBiaoqingCmd = "sxiv -o ~/images/biaoqing | xargs xclip -selection clipboar
 
 randomBiaoqingCmd = "find ~/images/biaoqing -type f | shuf | head -n 1 | xargs xclip -selection clipboard -target image/png -i"
 
+boomerCmd = "boomer"
+
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {XMonad.modMask = modMask}) =
   M.fromList $
@@ -124,6 +126,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
       ((modMask, xK_o), spawn randomBiaoqingCmd),
       ((modMask .|. shiftMask, xK_o), spawn selectBiaoqingCmd),
       ((modMask .|. shiftMask, xK_c), spawn xcolorCmd),
+      ((modMask, xK_z), spawn boomerCmd),
       ((modMask, xK_w), kill),
       ((modMask, xK_b), spawn "firefox"),
       ((modMask, xK_d), spawn "discord"),
