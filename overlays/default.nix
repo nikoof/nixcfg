@@ -20,6 +20,9 @@
       ];
     };
 
+    # FIXME: remove this once the nh search fix hits nixpkgs
+    nh = inputs.nh.packages.${prev.system}.default;
+
     # NOTE: overriding noto-fonts forces a rebuild of libreoffice
     # noto-fonts = prev.noto-fonts.override {
     #   variants = ["Noto Sans" "Noto Serif"];

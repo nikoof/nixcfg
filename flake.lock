@@ -397,6 +397,26 @@
         "type": "github"
       }
     },
+    "nh": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1749409404,
+        "narHash": "sha256-v02NsZ589zzPq5xsCxyrG1/ZkFbbMkUthly50QdmYKo=",
+        "owner": "nix-community",
+        "repo": "nh",
+        "rev": "003dd72d3234361c93d5be7ec9766c88e0dd1052",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nh",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "locked": {
         "lastModified": 1747900541,
@@ -553,6 +573,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",
+        "nh": "nh",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
