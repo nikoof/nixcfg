@@ -16,7 +16,7 @@
     ./containers/ubuntu.nix
   ];
 
-  nix.settings.cores = 16;
+  nix.settings.cores = 12;
 
   stylix = {
     enable = true;
