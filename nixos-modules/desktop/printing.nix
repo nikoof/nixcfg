@@ -16,6 +16,10 @@
 
   config = lib.mkIf config.desktop.printing.enable {
     services.printing.enable = true;
+    services.printing.drivers = [
+      pkgs.postscript-lexmark
+      pkgs.lexmark-aex
+    ];
     services.avahi = lib.mkIf config.desktop.printing.autodetect {
       enable = true;
       nssmdns4 = true;
