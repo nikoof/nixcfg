@@ -21,7 +21,7 @@ buildNimPackage {
   nimbleFile = "boomer.nimble";
   lockFile = ./lock.json;
   nimFlags =
-    # None of these actually work properly
+    # NOTE: None of these actually work properly
     # See: https://github.com/tsoding/boomer/issues/109
     lib.optional false [
       "-d:live"
@@ -29,13 +29,15 @@ buildNimPackage {
       "-d:select"
     ];
 
-  # See: https://github.com/tsoding/boomer/issues/26#issuecomment-1820374229
+  # INFO: See https://github.com/tsoding/boomer/issues/26#issuecomment-1820374229
   patchPhase = ''
     find . -type f -name "*.nim" -exec sed -i 's/TXShmSegmentInfo/PXShmSegmentInfo/g' {} +
   '';
 
-  meta = {
+  meta = with lib; {
     description = "Zoomer application for Linux";
+    homepage = "https://github.com/tsoding/boomer";
+    license = licenses.mit;
     mainProgram = "boomer";
   };
 }

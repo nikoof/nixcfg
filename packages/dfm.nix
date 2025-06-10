@@ -29,4 +29,11 @@ stdenv.mkDerivation {
     wrapProgram $out/bin/dfm \
       --prefix PATH : ${lib.makeBinPath [dmenu]}
   '';
+
+  meta = with lib; {
+    description = "Manage files using dmenu";
+    homepage = "https://github.com/amarz45/dfm";
+    platforms = platforms.all;
+    mainProgram = "dfm";
+  };
 }

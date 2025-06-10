@@ -1,5 +1,4 @@
 {
-  callPackage,
   lib,
   stdenv,
   fetchFromGitHub,
@@ -16,9 +15,7 @@ stdenv.mkDerivation {
     sha256 = "sha256-8R+pWHxnFblfVLohyByO8uGav2EIL42HgPBQ51YncHE=";
   };
 
-  buildInputs = [
-    SDL
-  ];
+  buildInputs = [SDL];
 
   buildPhase = ''
     mkdir -p .obj
@@ -30,8 +27,12 @@ stdenv.mkDerivation {
     cp ./sam $out/bin/sam
   '';
 
-  meta = {
+  meta = with lib; {
     description = "C version of sam with dynamic memory allocation";
+    homepage = "https://github.com/gitRaiku/SAM";
+    # License should technically be
+    # license = licenses.unfreeRedistributable; # see https://github.com/s-macke/SAM#license
+    platforms = platforms.all;
     mainProgram = "sam";
   };
 }

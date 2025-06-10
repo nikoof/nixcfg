@@ -1,4 +1,5 @@
 {
+  lib,
   buildPythonPackage,
   fetchPypi,
   jupyterlab,
@@ -19,4 +20,11 @@ buildPythonPackage rec {
   propagatedBuildInputs = [
     jupyterlab
   ];
+
+  meta = with lib; {
+    description = "Vim notebook cell bindings for JupyterLab";
+    homepage = "https://jupyterlab-contrib.github.io/jupyterlab-vim.html";
+    license = licenses.mit;
+    platforms = platforms.all;
+  };
 }
