@@ -50,6 +50,7 @@ stdenv.mkDerivation {
   meta = with lib; {
     description = "Romaji to kana input utility";
     homepage = "https://github.com/gitRaiku/r2k";
+    license = licenses.eupl12;
     platforms = platforms.linux;
     mainProgram = "r2k";
   };
