@@ -12,7 +12,21 @@
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod"];
-  boot.initrd.kernelModules = [];
+  specialisation = {
+    passthrough-dgpu = {
+      configuration = {
+        boot.initrd.kernelModules = [
+          "vfio_pci"
+          "vfio"
+          "vfio_iommu_type1"
+        ];
+        boot.kernelParams = [
+          "intel_iommu=on"
+          "vfio-pci.ids=10de:25bc"
+        ];
+      };
+    };
+  };
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
   hardware.firmware = [pkgs.linux-firmware];

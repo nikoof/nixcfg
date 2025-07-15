@@ -23,6 +23,7 @@ in {
       ++ lib.lists.optionals cfg.cpp.enable [
         gcc
         gdb
+        clang-tools
       ]
       ++ lib.lists.optionals cfg.rust.enable [
         cargo

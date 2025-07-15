@@ -159,16 +159,19 @@ in {
       };
     };
 
-    # qt = {
-    #   enable = true;
-    #   style.name = lib.mkForce "Adwaita-Dark";
-    #   style.package = pkgs.adwaita-qt;
-    # };
+    qt = {
+      enable = true;
+      style.name = lib.mkForce "Adwaita-Dark";
+      style.package = pkgs.adwaita-qt;
+    };
 
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
         "application/pdf" = ["zathura.desktop"];
+        "image/png" = ["sxiv.desktop"];
+        "image/jpeg" = ["sxiv.desktop"];
+        "image/gif" = ["sxiv.desktop"];
 
         "x-scheme-handler/http" = ["firefox.desktop"];
         "x-scheme-handler/https" = ["firefox.desktop"];

@@ -11,6 +11,11 @@
     pre-commit.url = "github:cachix/pre-commit-hooks.nix";
     stylix.url = "github:danth/stylix/release-25.05";
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     lanzaboote = {
       url = "github:nix-community/lanzaboote";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -25,7 +30,6 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    nixos-hardware,
     flake-utils,
     pre-commit,
     ...
@@ -64,6 +68,8 @@
         self.outputs.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
         inputs.stylix.nixosModules.stylix
+        inputs.agenix.nixosModules.default
+        ./secrets
         (v.path or ./hosts/${name}/configuration.nix)
       ];
     });
@@ -73,9 +79,25 @@
       homeManagerModules.default = ./hm-modules;
 
       nixosConfigurations.hofstadter = mkSystem "hofstadter" {};
+      nixosConfigurations.mandelbrot = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          inputs.agenix.nixosModules.default
+          ./secrets
+          ./hosts/mandelbrot/configuration.nix
+        ];
+      };
+
+      images = {
+        mandelbrot = self.nixosConfigurations.mandelbrot.config.system.build.sdImage;
+      };
 
       devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
         inherit (self.checks.${system}.pre-commit-check) shellHook;
+
+        packages = [
+          inputs.agenix.packages.${system}.default
+        ];
       };
 
       checks.${system} = {

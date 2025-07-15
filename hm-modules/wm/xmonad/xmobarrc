@@ -17,6 +17,7 @@
 -- base0F: "#a3685a"
 
 Config { overrideRedirect = False
+       , lowerOnStart = True
        , font     = "FiraCode Nerd Font Mono 12"
        , additionalFonts = ["FiraCode Nerd Font Mono 18"]
        , bgColor  = "#000000"

@@ -130,6 +130,8 @@
     rclone
     rclone-browser
 
+    gajim
+
     # TODO: factor these out into a module
     uutils-coreutils-noprefix
     fd
@@ -170,5 +172,10 @@
 
     local.sam
     brainrot
+
+    q-text-as-data
+
+    tenacity
+    kdePackages.kdenlive
   ];
 }

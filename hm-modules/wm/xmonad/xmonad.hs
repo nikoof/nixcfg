@@ -3,6 +3,7 @@ import Graphics.X11.ExtraTypes.XF86
 import System.Exit
 import System.Random (randomRIO)
 import XMonad
+import XMonad.Actions.NoBorders
 import XMonad.Actions.PhysicalScreens
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -19,6 +20,19 @@ import XMonad.Util.Loggers
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Ungrab
+
+toggleFull =
+  withFocused
+    ( \windowId -> do
+        floats <- gets (W.floating . windowset)
+        if windowId `M.member` floats
+          then do
+            withFocused $ toggleBorder
+            withFocused $ windows . W.sink
+          else do
+            withFocused $ toggleBorder
+            withFocused $ windows . (flip W.float $ W.RationalRect 0 0 1 1)
+    )
 
 main :: IO ()
 main =
@@ -180,7 +194,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) =
       -- resizing the master/slave ratio
       ((modMask, xK_h), sendMessage Shrink), -- %! Shrink the master area
       ((modMask, xK_l), sendMessage Expand), -- %! Expand the master area
-
+      ((modMask, xK_f), toggleFull),
       -- floating layer support
       ((modMask, xK_t), withFocused $ windows . W.sink), -- %! Push window back into tiling
 
