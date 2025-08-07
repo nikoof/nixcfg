@@ -125,12 +125,8 @@
       ${pkgs.mpv}/bin/mpv --loop /tmp/brainrot.edl
     '';
   in [
-    unityhub
-
     rclone
     rclone-browser
-
-    gajim
 
     # TODO: factor these out into a module
     uutils-coreutils-noprefix
@@ -139,6 +135,7 @@
     mprocs
     xh
     fselect
+    q-text-as-data
     ripgrep
     ripgrep-all
     tokei
@@ -154,8 +151,11 @@
 
     easyeffects
     helvum
+    carla
+    dragonfly-reverb
 
     discord
+    gajim
     signal-desktop
 
     mpv
@@ -169,11 +169,10 @@
     graphviz
     dot2tex
     tex
+    typst
 
     local.sam
     brainrot
-
-    q-text-as-data
 
     tenacity
     kdePackages.kdenlive
