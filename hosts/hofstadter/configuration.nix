@@ -94,40 +94,44 @@
   hardware.bluetooth.enable = true;
   networking = {
     hostName = "hofstadter";
-    tempAddresses = "disabled";
-    firewall.enable = false;
+    nameservers = [
+      "9.9.9.9"
+      "149.122.122.122"
+    ];
+
+    tempAddresses = "default";
+
+    firewall.enable = true;
     nftables.enable = false;
   };
 
-  networking.firewall.allowedTCPPorts = [41488];
-  networking.firewall.allowedUDPPorts = [41488];
+  networking.firewall.allowedTCPPorts = [];
+  networking.firewall.allowedUDPPorts = [];
+  services.resolved = {
+    enable = true;
+    dnsovertls = "opportunistic";
+    extraConfig = ''
+      MulticastDNS=yes
+    '';
+  };
 
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages."${system}".default
 
-    carla
-    oxefmsynth
-    dragonfly-reverb
-    wineWowPackages.full
-    winetricks
-
     man-pages
     man-pages-posix
     man-db
-    # nvtopPackages.full
+
+    nvtopPackages.full
+
     cifs-utils
     eduvpn-client
-
-    python312Packages.rns
-    python312Packages.nomadnet
-    # local.python3Packages.nomadnet
-
-    virt-viewer
-    virt-manager
   ];
 
   networking.networkmanager = {
     enable = true;
+    wifi.macAddress = "random";
+    ethernet.macAddress = "preserve";
   };
 
   # For mount.cifs, required unless domain name resolution is not needed.
@@ -153,11 +157,7 @@
     users.nikoof = ./users/nikoof.nix;
   };
 
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    openFirewall = true;
-  };
+  services.udisks2.enable = true;
 
   services.xscreensaver.enable = true;
   services.xserver = {
