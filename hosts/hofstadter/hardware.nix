@@ -12,21 +12,7 @@
   ];
 
   boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod"];
-  specialisation = {
-    passthrough-dgpu = {
-      configuration = {
-        boot.initrd.kernelModules = [
-          "vfio_pci"
-          "vfio"
-          "vfio_iommu_type1"
-        ];
-        boot.kernelParams = [
-          "intel_iommu=on"
-          "vfio-pci.ids=10de:25bc"
-        ];
-      };
-    };
-  };
+
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
   hardware.firmware = [pkgs.linux-firmware];
@@ -86,12 +72,30 @@
   hardware.nvidia = {
     open = true;
     modesetting.enable = true;
+
     prime = {
       intelBusId = "PCI:0:2:0";
       nvidiaBusId = "PCI:1:0:0";
+
+      sync.enable = false;
+      offload.enable = true;
     };
 
     package = config.boot.kernelPackages.nvidiaPackages.stable;
+  };
+
+  specialisation.passthrough = {
+    configuration = {
+      boot.initrd.kernelModules = [
+        "vfio_pci"
+        "vfio"
+        "vfio_iommu_type1"
+      ];
+      boot.kernelParams = [
+        "intel_iommu=on"
+        "vfio-pci.ids=10de:25bc"
+      ];
+    };
   };
 
   hardware.intelgpu = {
