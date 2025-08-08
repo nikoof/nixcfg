@@ -124,7 +124,6 @@ myStartupHook :: X ()
 myStartupHook = do
   checkKeymap <*> myKeys $ myConfig
   spawnOnce "picom"
-  spawnOnce "keepassxc"
 
 myManageHook :: ManageHook
 myManageHook =
@@ -168,7 +167,7 @@ myKeys conf =
         ("M-b u", spawn "mpv ~/videos/memes/gilgamesh.mp4"),
         ("M-b r", spawn "mpv ~/videos/memes/rat-microwave-dance.mp4"),
         ("M-b b", spawn "brainrot"),
-        -- Apps <M-a>
+        -- Apps <M-a> (mostly)
         ("M-w", kill),
         ("M-a b", spawn "firefox"),
         ("M-a d", spawn "discord"),
