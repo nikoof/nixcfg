@@ -92,13 +92,24 @@
         mandelbrot = self.nixosConfigurations.mandelbrot.config.system.build.sdImage;
       };
 
-      devShell.${system} = nixpkgs.legacyPackages.${system}.mkShell {
-        inherit (self.checks.${system}.pre-commit-check) shellHook;
+      devShell.${system} = let
+        xmonadGhc = pkgs.haskellPackages.ghcWithPackages (hp:
+          with hp; [
+            xmonad
+            xmonad-contrib
+            xmonad-extras
+          ]);
+      in
+        nixpkgs.legacyPackages.${system}.mkShell {
+          inherit (self.checks.${system}.pre-commit-check) shellHook;
 
-        packages = [
-          inputs.agenix.packages.${system}.default
-        ];
-      };
+          packages = [
+            inputs.agenix.packages.${system}.default
+
+            pkgs.haskell-language-server
+            xmonadGhc
+          ];
+        };
 
       checks.${system} = {
         pre-commit-check = pre-commit.lib.${system}.run {

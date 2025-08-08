@@ -14,6 +14,7 @@ import XMonad.Hooks.StatusBar.PP
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
+import XMonad.Layout.ThreeColumns
 import XMonad.StackSet qualified as W
 import XMonad.Util.EZConfig
 import XMonad.Util.Loggers
@@ -84,7 +85,7 @@ myConfig =
       focusedBorderColor = base16Colors !! 0xE
     }
 
-myLayoutHook = tiled ||| Full
+myLayoutHook = tiled ||| Full ||| ThreeColMid 1 (3 / 100) (1 / 2)
   where
     tiled = renamed [Replace "MasterStack"] $ Tall nmaster delta ratio
     nmaster = 1

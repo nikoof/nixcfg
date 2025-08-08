@@ -87,3 +87,4 @@ Config { overrideRedirect = False
        , template = "%XMonadLog% }{ [%EHEH%] [%alsa:default:Master%] [%bright%] [%cpu% %memory%] [%battery%] [%wlp0s20f3wi%] [<fn=1>󰌓</fn> %kbd%] [%date%]"
        }
 
+-- vim: set syntax=haskell:

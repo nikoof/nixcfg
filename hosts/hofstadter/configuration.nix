@@ -157,20 +157,7 @@
     users.nikoof = ./users/nikoof.nix;
   };
 
-  services.udisks2.enable = true;
-
-  services.xscreensaver.enable = true;
-  services.xserver = {
-    enable = true;
-    displayManager.lightdm = {
-      enable = true;
-      greeters.enso.enable = true;
-    };
-    windowManager.xmonad = {
-      enable = true;
-      enableContribAndExtras = true;
-    };
-  };
+  wm.xmonad.enable = true;
 
   services.autorandr = {
     enable = false; # DISABLED
@@ -269,16 +256,6 @@
   programs.bash = {
     completion.enable = true;
     enableLsColors = true;
-  };
-
-  programs.dconf.enable = true;
-
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
-    ];
-    config.common.default = "*";
   };
 
   services.udev = {

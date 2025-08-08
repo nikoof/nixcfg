@@ -124,33 +124,6 @@ in {
       };
     };
 
-    services.xscreensaver = {
-      enable = true;
-      settings = {
-        fadeTicks = 20;
-        mode = "blank";
-        timeout = "00:15:00";
-        lock = true;
-        lockTimeout = "00:05:00";
-        dpmsEnabled = true;
-        dpmsStandby = "00:30:00";
-        dpmsSuspend = "00:45:00";
-        dpmsOff = "01:00:00";
-        dialogTheme = "Borderless Black";
-      };
-    };
-
-    xresources.properties = {
-      "xscreensaver-auth.borderlessblack.Dialog.headingFont" = "-*-firacode nerd font mono-bold-r-*-*-12-*-*-*-*-*-*-*";
-      "xscreensaver-auth.borderlessblack.Dialog.bodyFont" = "-*-firacode nerd font mono-medium-r-*-*-12-*-*-*-*-*-*-*";
-      "xscreensaver-auth.borderlessblack.Dialog.labelFont" = "-*-firacode nerd font mono-medium-r-*-*-12-*-*-*-*-*-*-*";
-      "xscreensaver-auth.borderlessblack.Dialog.unameFont" = "-*-firacode nerd font mono-medium-r-*-*-12-*-*-*-*-*-*-*";
-      "xscreensaver-auth.borderlessblack.Dialog.buttonFont" = "-*-firacode nerd font mono-bold-r-*-*-12-*-*-*-*-*-*-*";
-      "xscreensaver-auth.borderlessblack.Dialog.dateFont" = "-*-firacode nerd font mono-medium-r-*-*-12-*-*-*-*-*-*-*";
-      "xscreensaver-auth.borderlessblack.passwd.passwdFont" = "-*-firacode nerd font mono-bold-r-*-*-12-*-*-*-*-*-*-*";
-      "xscreensaver-auth.dateFormat" = "%H:%M, %Y-%m-%d (%a)";
-    };
-
     gtk = {
       enable = true;
       iconTheme = {

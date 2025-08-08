@@ -1,0 +1,57 @@
+{
+  config,
+  inputs,
+  lib,
+  pkgs,
+  ...
+}: let
+  cfg = config.wm.xmonad;
+in {
+  options.wm.xmonad = {
+    enable = lib.mkEnableOption "Enable xmonad config";
+  };
+
+  config = lib.mkIf cfg.enable {
+    # WM
+    services.xserver = {
+      enable = true;
+      windowManager.xmonad = {
+        enable = true;
+        enableContribAndExtras = true;
+      };
+
+      displayManager.lightdm = {
+        enable = true;
+        greeters.enso.enable = true;
+      };
+    };
+
+    environment.variables = {
+      "_JAVA_AWT_WM_NONREPARENTING" = 1; # Fix AWT apps not being tiled
+    };
+
+    # Locker
+    programs.i3lock = {
+      enable = true;
+      u2fSupport = config.peripherals.nitrokey.enable;
+    };
+
+    programs.xss-lock = {
+      enable = true;
+      lockerCommand = "${pkgs.i3lock}/bin/i3lock";
+    };
+
+    # Utilities
+    services.udisks2.enable = true;
+
+    # Other glue
+    programs.dconf.enable = true;
+    xdg.portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gtk
+      ];
+      config.common.default = "*";
+    };
+  };
+}
