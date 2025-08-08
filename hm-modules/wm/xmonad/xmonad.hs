@@ -46,22 +46,22 @@ main =
 
 base16Colors :: [String]
 base16Colors =
-  [ "#1d1f21",
-    "#282a2e",
-    "#373b41",
-    "#969896",
-    "#b4b7b4",
-    "#c5c8c6",
-    "#e0e0e0",
-    "#ffffff",
-    "#cc6666",
-    "#de935f",
-    "#f0c674",
-    "#b5bd68",
-    "#8abeb7",
-    "#81a2be",
-    "#b294bb",
-    "#a3685a"
+  [ "#@base00@",
+    "#@base01@",
+    "#@base02@",
+    "#@base03@",
+    "#@base04@",
+    "#@base05@",
+    "#@base06@",
+    "#@base07@",
+    "#@base08@",
+    "#@base09@",
+    "#@base0A@",
+    "#@base0B@",
+    "#@base0C@",
+    "#@base0D@",
+    "#@base0E@",
+    "#@base0F@"
   ]
 
 scratchpads =

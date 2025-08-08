@@ -6,6 +6,11 @@
   ...
 }: let
   cfg = config.wm.xmonad;
+  toColorAttr = n: {
+    name = "base${lib.fixedWidthString 2 "0" (lib.toHexString n)}";
+    value = 0;
+  };
+  colors = with builtins; intersectAttrs (listToAttrs (genList toColorAttr 16)) config.lib.stylix.colors;
 in {
   options.wm.xmonad = {
     enable = lib.mkEnableOption "Enable xmonad environment";
@@ -51,29 +56,18 @@ in {
         local.boomer
       ];
 
-    home.sessionVariables = {
-      "_JAVA_AWT_WM_NONREPARENTING" = 1;
-    };
-
     programs.xmobar = {
       enable = true;
-      extraConfig = with builtins;
-      with lib; let
-        toColorAttr = n: {
-          name = "base${fixedWidthString 2 "0" (toHexString n)}";
-          value = 0;
-        };
-        colors = intersectAttrs (listToAttrs (genList toColorAttr 16)) config.lib.stylix.colors;
-      in
-        builtins.readFile (pkgs.replaceVars ./xmobarrc colors);
+      extraConfig = builtins.readFile (pkgs.replaceVars ./xmobarrc colors);
     };
 
     xsession.windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      config = pkgs.replaceVars ./xmonad.hs {
-        terminal = "${cfg.terminal}/bin/${cfg.terminal.meta.mainProgram}";
-      };
+      config = pkgs.replaceVars ./xmonad.hs ({
+          terminal = "${cfg.terminal}/bin/${cfg.terminal.meta.mainProgram}";
+        }
+        // colors);
     };
 
     services.dunst = {
