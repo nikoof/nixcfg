@@ -68,6 +68,10 @@ in {
           terminal = "${cfg.terminal}/bin/${cfg.terminal.meta.mainProgram}";
         }
         // colors);
+      libFiles = {
+        # NOTE: This is cloned and owned because it's simpler to get HLS to see it this way.
+        "XMonad/Layout/ThreeColumnStable.hs" = ./XMonad/Layout/ThreeColumnStable.hs;
+      };
     };
 
     services.dunst = {
