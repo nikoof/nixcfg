@@ -2,6 +2,9 @@
 
 import Control.Monad
 import Data.Map qualified as M
+import Data.Monoid
+import Graphics.X11.Xlib
+import Graphics.X11.Xlib.Extras
 import System.Exit
 import XMonad
 import XMonad.Actions.NoBorders
@@ -10,6 +13,7 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.Rescreen
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Layout.BinarySpacePartition
@@ -20,10 +24,12 @@ import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumnStable
 import XMonad.Layout.ThreeColumns
 import XMonad.Operations
+import XMonad.Prelude qualified as P
 import XMonad.StackSet qualified as W
 import XMonad.Util.EZConfig
 import XMonad.Util.Loggers
 import XMonad.Util.NamedScratchpad
+import XMonad.Util.Run (safeSpawn)
 import XMonad.Util.SpawnOnce
 import XMonad.Util.Types
 
@@ -51,11 +57,15 @@ base16Colors =
 main :: IO ()
 main =
   xmonad
+    . addAfterRescreenHook myAfterRescreenHook
+    . addRandrChangeHook myRandrChangeHook
     . ewmhFullscreen
     . ewmh
     . dynamicSBs myStatusBarSpawner
     . docks
     $ myConfig
+
+wallpaperCmd = "feh --no-fehbg --bg-center @wallpaperPath@ @wallpaperPath@"
 
 myConfig = myConfig' `additionalKeysP` myKeys myConfig'
   where
@@ -112,9 +122,8 @@ myLayoutHook = masterStack ||| threeCol ||| full ||| bsp
           activeTextColor = base16Colors !! 0x07,
           inactiveTextColor = base16Colors !! 0x03,
           urgentTextColor = base16Colors !! 0x02,
-          -- XXX: Xmonad refuses to use this font because fuck you
           fontName = "xft:FiraCode Nerd Font Mono:size=11:antialias=true",
-          decoHeight = 20,
+          decoHeight = 24,
           decoWidth = 0,
           windowTitleAddons = [],
           windowTitleIcons = []
@@ -124,6 +133,7 @@ myStartupHook :: X ()
 myStartupHook = do
   checkKeymap <*> myKeys $ myConfig
   spawnOnce "picom"
+  spawnOnce wallpaperCmd
 
 myManageHook :: ManageHook
 myManageHook =
@@ -135,6 +145,12 @@ myManageHook =
       isDialog --> doFloat,
       namedScratchpadManageHook myScratchpads
     ]
+
+myAfterRescreenHook :: X ()
+myAfterRescreenHook = spawn wallpaperCmd
+
+myRandrChangeHook :: X ()
+myRandrChangeHook = spawn "autorandr --change"
 
 myKeys :: XConfig l -> [(String, X ())]
 myKeys conf =

@@ -161,7 +161,7 @@
     mpv
     ffmpeg_6-full
     obs-studio
-    gimp
+    gimp3
     unstable.qbittorrent
 
     anki-bin
