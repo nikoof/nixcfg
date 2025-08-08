@@ -57,7 +57,15 @@ in {
 
     programs.xmobar = {
       enable = true;
-      extraConfig = builtins.readFile ./xmobarrc;
+      extraConfig = with builtins;
+      with lib; let
+        toColorAttr = n: {
+          name = "base${fixedWidthString 2 "0" (toHexString n)}";
+          value = 0;
+        };
+        colors = intersectAttrs (listToAttrs (genList toColorAttr 16)) config.lib.stylix.colors;
+      in
+        builtins.readFile (pkgs.replaceVars ./xmobarrc colors);
     };
 
     xsession.windowManager.xmonad = {
