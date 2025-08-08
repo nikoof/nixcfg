@@ -12,9 +12,11 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
+import XMonad.Layout.BinarySpacePartition
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
+import XMonad.Layout.Tabbed
 import XMonad.Layout.ThreeColumnStable
 import XMonad.Layout.ThreeColumns
 import XMonad.Operations
@@ -63,8 +65,7 @@ myConfig = myConfig' `additionalKeysP` myKeys myConfig'
           terminal = "@terminal@",
           modMask = mod4Mask,
           layoutHook =
-            smartBorders
-              . avoidStruts
+            avoidStruts
               . renamed [KeepWordsRight 1]
               . spacingRaw False (Border 2 0 0 0) True (Border 0 0 0 0) False
               $ myLayoutHook,
@@ -87,13 +88,37 @@ myScratchpads =
       (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))
   ]
 
-myLayoutHook = masterStack ||| threeCol ||| Full
+myLayoutHook = masterStack ||| threeCol ||| full ||| bsp
   where
-    masterStack = renamed [Replace "MasterStack"] $ Tall nmaster delta ratio
+    masterStack = smartBorders . renamed [Replace "MasterStack"] $ Tall nmaster delta ratio
     threeCol = renamed [Replace "ThreeCol"] $ emptyTCS delta ratio
+    full = noBorders . renamed [Replace "i3"] $ tabbed shrinkText tabTheme
+    bsp = smartBorders . renamed [Replace "BSP"] $ emptyBSP
+
     nmaster = 1
     ratio = 1 / 2
     delta = 3 / 100
+    tabTheme =
+      Theme
+        { activeColor = base16Colors !! 0x01,
+          inactiveColor = base16Colors !! 0x00,
+          urgentColor = base16Colors !! 0x08,
+          activeBorderColor = base16Colors !! 0x0e,
+          inactiveBorderColor = base16Colors !! 0x02,
+          urgentBorderColor = base16Colors !! 0x02,
+          activeBorderWidth = 1,
+          inactiveBorderWidth = 1,
+          urgentBorderWidth = 1,
+          activeTextColor = base16Colors !! 0x07,
+          inactiveTextColor = base16Colors !! 0x03,
+          urgentTextColor = base16Colors !! 0x02,
+          -- XXX: Xmonad refuses to use this font because fuck you
+          fontName = "xft:FiraCode Nerd Font Mono:size=11:antialias=true",
+          decoHeight = 20,
+          decoWidth = 0,
+          windowTitleAddons = [],
+          windowTitleIcons = []
+        }
 
 myStartupHook :: X ()
 myStartupHook = do
@@ -167,6 +192,14 @@ myKeys conf =
         ("M-h", sendMessage Shrink),
         ("M-l", sendMessage Expand),
         ("M-f", toggleFull),
+        -- ThreeColumnStable
+        ("M-S-h", sendMessage $ MoveWindow Prev True),
+        ("M-S-l", sendMessage $ MoveWindow Next True),
+        ("M-C-h", sendMessage $ MoveColumn Prev True),
+        ("M-C-l", sendMessage $ MoveColumn Next True),
+        ("M-M1-h", sendMessage $ RotateColumns Prev True),
+        ("M-M1-l", sendMessage $ RotateColumns Next True),
+        ("M-S-t", sendMessage TidyColumns),
         -- Layouts
         ("M-;", sendMessage NextLayout),
         -- Heads
