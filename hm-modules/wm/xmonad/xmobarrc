@@ -21,6 +21,7 @@ Config { overrideRedirect = False
                         , ("overcast","󰖐")
                         , ("partly cloudy", "󰖕")
                         , ("mostly cloudy", "󰖗")
+                        , ("mist", "󰖑")
                         , ("considerable cloudiness", "󰖖")]
                         [ "--template", "<fn=1><skyConditionS></fn> <tempC>°C (<fc=#@base05@><fn=1></fn> <windKmh> km/h</fc>)"
                         , "-L", "10"

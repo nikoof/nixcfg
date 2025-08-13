@@ -144,6 +144,8 @@
     zotero
     rnote
 
+    zbar
+
     chromium
     libreoffice-qt6-still
     thunderbird
