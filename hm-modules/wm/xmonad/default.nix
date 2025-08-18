@@ -45,16 +45,14 @@ in {
         networkmanager_dmenu
         bemoji
 
-        zip
-        unzip
-        unrar
-
         alsa-utils
         playerctl
         brightnessctl
 
         local.boomer
       ];
+
+    programs.autorandr.enable = true;
 
     programs.xmobar = {
       enable = true;

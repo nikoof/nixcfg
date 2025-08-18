@@ -8,5 +8,6 @@
   imports = [
     ./nitrokey.nix
     ./wacom.nix
+    ./lexmark.nix
   ];
 }

@@ -8,8 +8,8 @@
   cfg = config.peripherals.nitrokey;
 in {
   options.peripherals.nitrokey = {
-    enable = lib.mkEnableOption "Enable nitrokey support";
-    enableSSHSupport = lib.mkEnableOption "Enable support for using Nitrokey for SSH authentication";
+    enable = lib.mkEnableOption "Enable Nitrokey support.";
+    enableSSHSupport = lib.mkEnableOption "Enable using Nitrokey for SSH authentication.";
   };
 
   config = lib.mkMerge [

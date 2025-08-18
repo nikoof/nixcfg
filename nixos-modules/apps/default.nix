@@ -7,7 +7,7 @@
 }: {
   imports = [
     ./gaming.nix
+    ./util.nix
     ./gns3.nix
-    ./libreoffice.nix
   ];
 }

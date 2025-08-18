@@ -10,6 +10,7 @@ in {
     enable = lib.mkEnableOption "Enable Starship prompt";
   };
 
+  # TODO: remove bloat
   config = lib.mkIf cfg.enable {
     programs.starship = {
       enable = true;

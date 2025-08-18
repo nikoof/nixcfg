@@ -31,8 +31,8 @@ in {
         rust-analyzer
       ]
       ++ lib.lists.optionals cfg.python.enable [
-        python311
-        pyright
+        python314
+        basedpyright
       ]
       ++ lib.lists.optionals cfg.haskell.enable [
         ghc

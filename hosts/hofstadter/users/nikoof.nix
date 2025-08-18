@@ -9,28 +9,11 @@
     inputs.self.outputs.homeManagerModules.default
   ];
 
+  # ------------------[General]-------------------
   home.username = "nikoof";
   home.homeDirectory = "/home/nikoof";
   home.preferXdgDirectories = true;
   home.stateVersion = "24.05";
-
-  wm.xmonad = {
-    enable = true;
-    terminal = pkgs.kitty;
-  };
-
-  programs.btop.enable = true;
-  programs.fzf.enable = true;
-  programs.autorandr.enable = true;
-
-  apps = {
-    # alacritty.enable = true;
-    kitty.enable = true;
-    zathura.enable = true;
-    # taskwarrior.enable = true;
-    tmux.enable = true;
-    nvim.enable = true;
-  };
 
   shell = {
     enable = true;
@@ -39,16 +22,18 @@
     starship.enable = true;
   };
 
+  # --------------------[WM]----------------------
+  wm.xmonad = {
+    enable = true;
+    terminal = pkgs.kitty;
+  };
+
+  # --------------------[Devel]----------------------
   devel.git = {
     enable = true;
     signing = false;
     github.enable = true;
     lazygit.enable = true;
-  };
-
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
   };
 
   devel.languages = {
@@ -59,126 +44,64 @@
     python.enable = true;
   };
 
-  programs.vscode = {
+  programs.direnv = {
     enable = true;
-    package =
-      pkgs.vscode.fhsWithPackages
-      (ps:
-        with ps; [
-          rustup
-          zlib
-          openssl
-          pkg-config
-          icu
-          dotnetCorePackages.runtime_8_0
-          openjdk
-        ]);
-
-    profiles.default.userSettings = {
-      "editor.fontLigatures" = true;
-      "workbench.iconTheme" = "file-icons";
-    };
+    nix-direnv.enable = true;
   };
 
-  programs.nnn = {
-    enable = true;
+  # --------------------[Apps]----------------------
+  apps = {
+    kitty.enable = true;
+    zathura.enable = true;
+    tmux.enable = true;
+    nvim.enable = true;
   };
 
-  programs.ncspot = {
-    enable = true;
-    settings = {
-      use_nerdfont = true;
-    };
-  };
+  programs.nnn.enable = true;
+  programs.btop.enable = true;
+  programs.fzf.enable = true;
 
-  home.packages = with pkgs; let
-    tex = texlive.combine {
-      inherit
-        (texlive)
-        scheme-medium
-        biblatex
-        typewriter
-        pgfplots
-        flagderiv
-        lipsum
-        import
-        esint
-        ;
-    };
-
-    brainrot = pkgs.writeShellScriptBin "brainrot" ''
-      FILE="/home/nikoof/videos/memes/1-hour-brainrot.webm"
-      if [ ! -z $1 ]; then
-        FILE=$1
-      fi
-      DUR=$(${pkgs.ffmpeg_6-full}/bin/ffmpeg -i $FILE 2>&1 | ${pkgs.ripgrep}/bin/rg -i DURATION | tail -1)
-      HOUR=$(echo $DUR | cut -d ':' -f2)
-      MINUTE=$(echo $DUR | cut -d ':' -f3)
-      SECOND=$(echo $DUR | cut -d ':' -f4 | cut -d '.' -f1)
-      LEN=$((HOUR * 60 * 60 + MINUTE * 60 + SECOND))
-      R=$(shuf -i 0-$LEN -n1)
-
-      echo "# mpv EDL v0" > /tmp/brainrot.edl
-      echo "$FILE,$R,$LEN" >> /tmp/brainrot.edl
-      echo "$FILE,0,$R" >> /tmp/brainrot.edl
-
-      ${pkgs.mpv}/bin/mpv --loop /tmp/brainrot.edl
-    '';
-  in [
-    rclone
-    rclone-browser
-
-    # TODO: factor these out into a module
+  home.packages = with pkgs; [
+    # Terminal apps
     uutils-coreutils-noprefix
-    fd
     presenterm
-    mprocs
-    xh
-    fselect
-    q-text-as-data
-    ripgrep
-    ripgrep-all
     tokei
 
+    # Typesetting
+    graphviz
+    typst
+
+    # Productivity
+    anki-bin
     obsidian
     zotero
-    rnote
 
-    zbar
-
+    # Literally browsers but x4
     ungoogled-chromium
     libreoffice-qt6-still
     thunderbird
     unstable.spotify
 
+    # IM
+    discord # browsers +1
+    gajim
+    signal-desktop
+
+    # Audio stuff (?)
     easyeffects
     helvum
     carla
     dragonfly-reverb
 
-    discord
-    gajim
-    signal-desktop
-
-    mpv
-    ffmpeg_6-full
-    obs-studio
+    # Images/Video
     gimp3
-    unstable.qbittorrent
+    obs-studio
 
-    anki-bin
-    biber
-    graphviz
-    dot2tex
-    tex
-    typst
-
+    # Misc
     local.sam
-    brainrot
-
-    tenacity
-    kdePackages.kdenlive
-
     osu-lazer-bin
+    unstable.qbittorrent
+    rclone
+    rclone-browser
   ];
 }

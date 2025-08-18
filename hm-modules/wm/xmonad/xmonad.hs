@@ -185,7 +185,6 @@ myKeys conf =
         ("M-b h", spawn "mpv ~/videos/memes/chip-stayin-alive.webm"),
         ("M-b u", spawn "mpv ~/videos/memes/gilgamesh.mp4"),
         ("M-b r", spawn "mpv ~/videos/memes/rat-microwave-dance.mp4"),
-        ("M-b b", spawn "brainrot"),
         -- Apps <M-a> (mostly)
         ("M-w", kill),
         ("M-a b", spawn "chromium"),

@@ -9,7 +9,6 @@
     ./apps
     ./desktop
     ./peripherals
-    ./wm
   ];
 
   config = {

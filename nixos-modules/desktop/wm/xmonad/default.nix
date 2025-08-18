@@ -5,9 +5,9 @@
   pkgs,
   ...
 }: let
-  cfg = config.wm.xmonad;
+  cfg = config.desktop.wm.xmonad;
 in {
-  options.wm.xmonad = {
+  options.desktop.wm.xmonad = {
     enable = lib.mkEnableOption "Enable xmonad config";
   };
 
@@ -38,7 +38,7 @@ in {
 
     programs.xss-lock = {
       enable = true;
-      lockerCommand = "${pkgs.i3lock}/bin/i3lock -f -k -i ${../../../wallpapers/moebius-bw.png}";
+      lockerCommand = "${pkgs.i3lock}/bin/i3lock -f -k -i ${../../../../wallpapers/moebius-bw.png}";
     };
 
     # Utilities

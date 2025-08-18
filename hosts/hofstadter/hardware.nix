@@ -50,19 +50,6 @@
     };
   };
 
-  # fileSystems."/" = {
-  #   device = "/dev/disk/by-uuid/334da67a-d7cc-4da4-a6ad-3e3ab561cceb";
-  #   fsType = "ext4";
-  # };
-
-  # fileSystems."/boot" = {
-  #   device = "/dev/disk/by-uuid/965B-EF50";
-  #   fsType = "vfat";
-  #   options = ["fmask=0022" "dmask=0022"];
-  # };
-
-  # swapDevices = [{device = "/.swapfile";}];
-
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   hardware.enableRedistributableFirmware = true;
