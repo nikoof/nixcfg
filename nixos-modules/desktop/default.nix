@@ -88,6 +88,7 @@ in {
       PATH = ["${XDG_BIN_HOME}"];
 
       RUSTUP_HOME = "${XDG_DATA_HOME}/rustup";
+      CARGO_HOME = "${XDG_DATA_HOME}/cargo";
       GTK2_RC_FILES = "${XDG_CONFIG_HOME}/gtk-2.0/gtkrc";
       HISTFILE = "${XDG_STATE_HOME}/bash/history";
       RANDFILE = "${XDG_STATE_HOME}/rnd";
@@ -95,6 +96,7 @@ in {
       XCOMPOSECACHE = "${XDG_CACHE_HOME}/X11/xcompose";
       SQLITE_HISTORY = "${XDG_CACHE_HOME}/sqlite_history";
       STACK_XDG = "1";
+      JUPYTER_CONFIG_DIR = "${XDG_CONFIG_HOME}/jupyter";
     };
   };
 }
