@@ -146,7 +146,7 @@
 
     zbar
 
-    chromium
+    ungoogled-chromium
     libreoffice-qt6-still
     thunderbird
     unstable.spotify
@@ -178,5 +178,7 @@
 
     tenacity
     kdePackages.kdenlive
+
+    osu-lazer-bin
   ];
 }

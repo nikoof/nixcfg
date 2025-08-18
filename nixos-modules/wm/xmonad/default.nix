@@ -38,7 +38,7 @@ in {
 
     programs.xss-lock = {
       enable = true;
-      lockerCommand = "${pkgs.i3lock}/bin/i3lock";
+      lockerCommand = "${pkgs.i3lock}/bin/i3lock -f -k -i ${../../../wallpapers/moebius-bw.png}";
     };
 
     # Utilities

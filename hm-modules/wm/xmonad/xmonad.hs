@@ -139,6 +139,7 @@ myManageHook :: ManageHook
 myManageHook =
   composeAll
     [ className =? "firefox" --> doShift "2",
+      className =? "chromium-browser" --> doShift "2",
       className =? "discord" --> doShift "3",
       className =? "spotify" --> doShift "5",
       className =? "Gimp" --> doShift "7" <+> doFloat,
@@ -156,6 +157,7 @@ myKeys :: XConfig l -> [(String, X ())]
 myKeys conf =
   let term = XMonad.terminal conf
       scrot = "sleep 0.2; scrot -zfs -F '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f && rm $f'"
+      scrotZbar = "sleep 0.2; scrot -zfs -F '/tmp/%F_%T_$wx$h.png' -e 'zbarimg -q -1 $f | cut -f2- -d: | tr -d '\\r\\n' | xclip -selection clipboard -target text/plain -in && rm $f'"
       xcolor = "xcolor | tr -d '\\r\\n' | xclip -selection clipboard -in"
       -- TODO: Use base16Colors here
       dmenuRun = "dmenu_run -fn 'FiraCode Nerd Font Mono-12' -nb '#000000' -nf '#ffffff' -sb '#b294bb' -sf '#1d1f21'"
@@ -166,6 +168,7 @@ myKeys conf =
    in [ -- Essentials <top-level>
         ("M-<Return>", spawn term),
         ("M-S-s", unGrab *> spawn scrot),
+        ("M-C-s", unGrab *> spawn scrotZbar),
         ("M-e", spawn $ term <> "-e nnn"),
         ("M-r", spawn dmenuRun),
         ("M-S-e", spawn dmenuEmoji),
@@ -185,7 +188,7 @@ myKeys conf =
         ("M-b b", spawn "brainrot"),
         -- Apps <M-a> (mostly)
         ("M-w", kill),
-        ("M-a b", spawn "firefox"),
+        ("M-a b", spawn "chromium"),
         ("M-a d", spawn "discord"),
         ("M-a s", spawn "spotify"),
         ("M-a n", spawn "neovide"),

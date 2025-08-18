@@ -221,7 +221,12 @@
   apps.gns3.enable = true;
   apps.gaming.steam.enable = true;
 
-  peripherals.wacom.enable = true;
+  hardware.opentabletdriver = {
+    enable = true;
+    daemon.enable = true;
+  };
+
+  # peripherals.wacom.enable = true;
   peripherals.nitrokey = {
     enable = true;
     enableSSHSupport = true;

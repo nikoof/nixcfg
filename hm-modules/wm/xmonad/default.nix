@@ -139,12 +139,6 @@ in {
       };
     };
 
-    qt = {
-      enable = true;
-      style.name = lib.mkForce "Adwaita-Dark";
-      style.package = pkgs.adwaita-qt;
-    };
-
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
@@ -153,16 +147,16 @@ in {
         "image/jpeg" = ["sxiv.desktop"];
         "image/gif" = ["sxiv.desktop"];
 
-        "x-scheme-handler/http" = ["firefox.desktop"];
-        "x-scheme-handler/https" = ["firefox.desktop"];
-        "x-scheme-handler/chrome" = ["firefox.desktop"];
-        "text/html" = ["firefox.desktop"];
-        "application/x-extension-htm" = ["firefox.desktop"];
-        "application/x-extension-html" = ["firefox.desktop"];
-        "application/x-extension-shtml" = ["firefox.desktop"];
-        "application/xhtml+xml" = ["firefox.desktop"];
-        "application/x-extension-xhtml" = ["firefox.desktop"];
-        "application/x-extension-xht" = ["firefox.desktop"];
+        "x-scheme-handler/http" = ["chromium-browser.desktop"];
+        "x-scheme-handler/https" = ["chromium-browser.desktop"];
+        "x-scheme-handler/chrome" = ["chromium-browser.desktop"];
+        "text/html" = ["chromium-browser.desktop"];
+        "application/x-extension-htm" = ["chromium-browser.desktop"];
+        "application/x-extension-html" = ["chromium-browser.desktop"];
+        "application/x-extension-shtml" = ["chromium-browser.desktop"];
+        "application/xhtml+xml" = ["chromium-browser.desktop"];
+        "application/x-extension-xhtml" = ["chromium-browser.desktop"];
+        "application/x-extension-xht" = ["chromium-browser.desktop"];
         "x-scheme-handler/settings" = ["io.elementary.switchboard.desktop"];
         "x-scheme-handler/mailto" = ["userapp-Thunderbird-IVBPY2.desktop"];
         "message/rfc822" = ["userapp-Thunderbird-IVBPY2.desktop"];
@@ -171,16 +165,16 @@ in {
       };
 
       associations.added = {
-        "x-scheme-handler/http" = ["firefox.desktop;"];
-        "x-scheme-handler/https" = ["firefox.desktop;"];
-        "x-scheme-handler/chrome" = ["firefox.desktop;"];
-        "text/html" = ["firefox.desktop;"];
-        "application/x-extension-htm" = ["firefox.desktop;"];
-        "application/x-extension-html" = ["firefox.desktop;"];
-        "application/x-extension-shtml" = ["firefox.desktop;"];
-        "application/xhtml+xml" = ["firefox.desktop;"];
-        "application/x-extension-xhtml" = ["firefox.desktop;"];
-        "application/x-extension-xht" = ["firefox.desktop;"];
+        "x-scheme-handler/http" = ["chromium-browser.desktop;"];
+        "x-scheme-handler/https" = ["chromium-browser.desktop;"];
+        "x-scheme-handler/chrome" = ["chromium-browser.desktop;"];
+        "text/html" = ["chromium-browser.desktop;"];
+        "application/x-extension-htm" = ["chromium-browser.desktop;"];
+        "application/x-extension-html" = ["chromium-browser.desktop;"];
+        "application/x-extension-shtml" = ["chromium-browser.desktop;"];
+        "application/xhtml+xml" = ["chromium-browser.desktop;"];
+        "application/x-extension-xhtml" = ["chromium-browser.desktop;"];
+        "application/x-extension-xht" = ["chromium-browser.desktop;"];
         "x-scheme-handler/settings" = ["io.elementary.switchboard.desktop;"];
         "x-scheme-handler/mailto" = ["userapp-Thunderbird-IVBPY2.desktop;"];
         "x-scheme-handler/mid" = ["userapp-Thunderbird-IVBPY2.desktop;"];
