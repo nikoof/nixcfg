@@ -85,7 +85,7 @@
       }
       nvim.categoryDefinitions
       nvim.packageDefinitions;
-    defaultPackage = nixCatsBuilder nvim.defaultPackageName;
+    nvimPackage = nixCatsBuilder nvim.defaultPackageName;
   in
     {
       nixosModules.default = ./nixos-modules;
@@ -141,7 +141,7 @@
           (import ./packages) {
             pkgs = nixpkgs.legacyPackages.${system};
           }
-          // utils.mkAllWithDefault defaultPackage;
+          // {nvim = nvimPackage;};
       in {
         packages = thesePkgs;
       }

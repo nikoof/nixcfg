@@ -5,8 +5,5 @@
   sam = pkgs.callPackage ./sam.nix {};
 
   tockloader = pkgs.python3Packages.callPackage ./tockloader.nix {};
-
-  python3Packages = {
-    jupyterlab-vim = pkgs.python3Packages.callPackage ./jupyterlab-vim.nix {};
-  };
+  jupyterlab-vim = pkgs.python3Packages.callPackage ./jupyterlab-vim.nix {};
 }
