@@ -25,6 +25,9 @@
       url = "github:nix-community/nh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nixCats.url = "github:BirdeeHub/nixCats-nvim";
   };
 
   outputs = inputs @ {
@@ -73,6 +76,16 @@
         (v.path or ./hosts/${name}/configuration.nix)
       ];
     });
+
+    utils = inputs.nixCats.utils;
+    nvim = import ./hm-modules/apps/nvim/nvim.nix {inherit inputs;};
+    nixCatsBuilder =
+      utils.baseBuilder nvim.luaPath {
+        inherit pkgs;
+      }
+      nvim.categoryDefinitions
+      nvim.packageDefinitions;
+    defaultPackage = nixCatsBuilder nvim.defaultPackageName;
   in
     {
       nixosModules.default = ./nixos-modules;
@@ -124,9 +137,11 @@
     }
     // flake-utils.lib.eachDefaultSystem (
       system: let
-        thesePkgs = (import ./packages) {
-          pkgs = nixpkgs.legacyPackages.${system};
-        };
+        thesePkgs =
+          (import ./packages) {
+            pkgs = nixpkgs.legacyPackages.${system};
+          }
+          // utils.mkAllWithDefault defaultPackage;
       in {
         packages = thesePkgs;
       }
