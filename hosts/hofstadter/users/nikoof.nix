@@ -7,6 +7,8 @@
 }: {
   imports = [
     inputs.self.outputs.homeManagerModules.default
+    inputs.agenix.homeManagerModules.default
+    ../../../secrets
   ];
 
   # ------------------[General]-------------------
@@ -61,7 +63,20 @@
   programs.btop.enable = true;
   programs.fzf.enable = true;
 
+  programs.taskwarrior = {
+    enable = true;
+    package = pkgs.taskwarrior3;
+    config = {
+      sync.server = {
+        url = "https://tw.nikoof.ro";
+        client_id = "d24fc42c-857c-48cd-ab3d-943c56f6eb42";
+      };
+    };
+  };
+
   home.packages = with pkgs; [
+    lunar-client
+
     # Terminal apps
     uutils-coreutils-noprefix
     presenterm
@@ -71,14 +86,18 @@
     graphviz
     typst
 
+    sageWithDoc
+    mathematica
+
     # Productivity
     anki-bin
     obsidian
     zotero
+    vit
 
     # Literally browsers but x4
     ungoogled-chromium
-    libreoffice-qt6-still
+    libreoffice-still
     thunderbird
     unstable.spotify
 
@@ -99,9 +118,11 @@
 
     # Misc
     local.sam
-    osu-lazer-bin
+    unstable.osu-lazer-bin
     unstable.qbittorrent
     rclone
     rclone-browser
+
+    ciscoPacketTracer8
   ];
 }

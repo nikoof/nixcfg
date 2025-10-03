@@ -95,6 +95,11 @@ myScratchpads =
       "carla"
       "carla"
       (className =? "Carla2")
+      (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4)),
+    NS
+      "pwvucontrol"
+      "pwvucontrol"
+      (className =? "pwvucontrol")
       (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))
   ]
 
@@ -157,8 +162,10 @@ myKeys :: XConfig l -> [(String, X ())]
 myKeys conf =
   let term = XMonad.terminal conf
       scrot = "sleep 0.2; scrot -zfs -F '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f && rm $f'"
-      scrotZbar = "sleep 0.2; scrot -zfs -F '/tmp/%F_%T_$wx$h.png' -e 'zbarimg -q -1 $f | cut -f2- -d: | tr -d '\\r\\n' | xclip -selection clipboard -target text/plain -in && rm $f'"
-      xcolor = "xcolor | tr -d '\\r\\n' | xclip -selection clipboard -in"
+      scrotFull = "sleep 0.2; scrot -zm -F '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f && rm $f'"
+      scrotWindow = "sleep 0.2; scrot -zu -F '/tmp/%F_%T_$wx$h.png' -e 'xclip -selection clipboard -target image/png -i $f && rm $f'"
+      scrotZbar = "sleep 0.2; scrot -zfs -F '/tmp/%F_%T_$wx$h.png' -e 'zbarimg -q -1 $f | cut -f2- -d: | xclip -rmlastnl -selection clipboard -target text/plain -in && rm $f'"
+      xcolor = "xcolor | xclip -rmlastnl -selection clipboard -in"
       -- TODO: Use base16Colors here
       dmenuRun = "dmenu_run -fn 'FiraCode Nerd Font Mono-12' -nb '#000000' -nf '#ffffff' -sb '#b294bb' -sf '#1d1f21'"
       dmenuEmoji = "BEMOJI_PICKER_CMD=\"dmenu-nk -i -l 20\" bemoji"
@@ -168,6 +175,8 @@ myKeys conf =
    in [ -- Essentials <top-level>
         ("M-<Return>", spawn term),
         ("M-S-s", unGrab *> spawn scrot),
+        ("<Print>", unGrab *> spawn scrotFull),
+        ("M1-<Print>", unGrab *> spawn scrotWindow),
         ("M-C-s", unGrab *> spawn scrotZbar),
         ("M-e", spawn $ term <> "-e nnn"),
         ("M-r", spawn dmenuRun),
@@ -185,6 +194,8 @@ myKeys conf =
         ("M-b h", spawn "mpv ~/videos/memes/chip-stayin-alive.webm"),
         ("M-b u", spawn "mpv ~/videos/memes/gilgamesh.mp4"),
         ("M-b r", spawn "mpv ~/videos/memes/rat-microwave-dance.mp4"),
+        ("M-b d", spawn "mpv ~/videos/memes/douapuncteparantezaparanteza.mp4"),
+        ("M-v", spawn "mpv ~/videos/memes/Vineboomsoundeffect.m4a"),
         -- Apps <M-a> (mostly)
         ("M-w", kill),
         ("M-a b", spawn "chromium"),
@@ -193,7 +204,8 @@ myKeys conf =
         ("M-a n", spawn "neovide"),
         -- Scratchpads <M-s>
         ("M-s k", namedScratchpadAction myScratchpads "keepassxc"),
-        ("M-s v", namedScratchpadAction myScratchpads "carla"),
+        ("M-s v", namedScratchpadAction myScratchpads "pwvucontrol"),
+        ("M-s c", namedScratchpadAction myScratchpads "carla"),
         -- Window movement
         ("M1-<Tab>", windows W.focusDown),
         ("M1-S-<Tab>", windows W.focusUp),

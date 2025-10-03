@@ -18,7 +18,6 @@
   ];
 
   nix.settings.cores = 12;
-
   system.stateVersion = "24.05";
   nixpkgs.hostPlatform = "x86_64-linux";
 
@@ -76,7 +75,6 @@
     wifi.macAddress = "random";
     ethernet.macAddress = "preserve";
   };
-
   # -----------------[Packages]--------------------
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages."${system}".default
@@ -92,7 +90,7 @@
   users.users.nikoof = {
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical" "cdrom" "ubridge" "adbusers" "kvm" "podman"];
+    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical" "cdrom" "ubridge" "adbusers" "kvm" "podman" "wireshark"];
   };
 
   home-manager = {
@@ -126,6 +124,15 @@
   };
 
   # -----------------[Services]------------------------
+  services.nixseparatedebuginfod.enable = true;
+  services.ratbagd.enable = true;
+
+  # TODO: remove
+  services.mysql = {
+    enable = true;
+    package = pkgs.mariadb;
+  };
+
   programs.bash = {
     completion.enable = true;
     enableLsColors = true;
@@ -148,6 +155,10 @@
   };
 
   services.gnome.gnome-keyring.enable = true;
+  services.protonmail-bridge = {
+    enable = true;
+    path = with pkgs; [gnome-keyring];
+  };
 
   services.udev = {
     # BBC micro:bit for Tock development
@@ -194,5 +205,15 @@
         ];
       };
     };
+  };
+
+  services.jupyterhub = {
+    enable = false;
+    jupyterlabEnv = pkgs.python3.withPackages (p:
+      with p; [
+        jupyterhub
+        jupyterlab
+        numpy
+      ]);
   };
 }

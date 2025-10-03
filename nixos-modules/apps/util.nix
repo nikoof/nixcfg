@@ -17,12 +17,20 @@ in {
   };
 
   config = {
+    programs.wireshark = lib.mkIf cfg.networking.enable {
+      enable = true;
+      dumpcap.enable = true;
+    };
+
     environment.systemPackages = with pkgs;
       []
       ++ lib.lists.optionals cfg.cli.enable [
         zip
         unzip
         p7zip-rar
+
+        file
+        exiftool
 
         ripgrep
         fzf
@@ -48,8 +56,10 @@ in {
         bind.dnsutils
         tcpdump
         wireshark
+        termshark
         xh
         curl
+        wireguard-tools
       ];
   };
 }

@@ -6,4 +6,5 @@ let
 in {
   "wireless.conf.age".publicKeys = keys;
   "smb-fw2b.age".publicKeys = keys;
+  "taskwarrior-sync.age".publicKeys = keys;
 }

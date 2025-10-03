@@ -61,7 +61,6 @@
     };
 
     targets.plymouth.enable = false;
-    targets.qt.enable = false;
 
     # INFO: these two targets add overlays to nixpkgs, which causes errors when using readOnlyPkgs.
     # However, due to how this is done in stylix, it is not possible to prevent it by simply disabling the targets.

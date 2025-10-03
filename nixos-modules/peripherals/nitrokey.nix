@@ -15,13 +15,15 @@ in {
   config = lib.mkMerge [
     (lib.mkIf cfg.enable {
       hardware.nitrokey.enable = true;
-      # services.pcscd.enable = true;
+      # required for pam_u2f; make sure to add `disable-ccid` to
+      # ~/.gpg/scdaemon.conf to prevent conflicts between pcscd and gpg-agent
+      services.pcscd.enable = true;
       services.dbus.packages = [pkgs.gcr];
 
       environment.systemPackages = with pkgs; [
         python3Packages.pynitrokey
         pinentry
-        pinentry-gtk2
+        pinentry-dmenu
       ];
 
       security.pam = {
@@ -30,7 +32,7 @@ in {
           settings = {
             cue = true;
             control = "sufficient";
-            authFile = "/etc/Nitrokey/u2f_keys";
+            authfile = "/etc/Nitrokey/u2f_keys";
           };
         };
 
@@ -45,7 +47,7 @@ in {
       programs.gnupg.agent = {
         enable = true;
         enableSSHSupport = true;
-        pinentryPackage = pkgs.pinentry-gtk2;
+        pinentryPackage = pkgs.pinentry-dmenu;
       };
     })
   ];

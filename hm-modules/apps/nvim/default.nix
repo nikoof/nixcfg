@@ -17,6 +17,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home.sessionVariables = {
+      EDITOR = nvim.defaultPackageName;
+    };
+
     nixCats = {
       enable = true;
       luaPath = ./.;

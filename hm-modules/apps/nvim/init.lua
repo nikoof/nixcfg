@@ -11,9 +11,9 @@ vim.o.relativenumber = true
 vim.o.winborder = "double"
 vim.o.signcolumn = "yes"
 
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.shiftwidth = 4
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
 vim.o.expandtab = true
 
 vim.o.undofile = true
@@ -31,6 +31,10 @@ vim.cmd("colorscheme base16-tomorrow-night")
 -- keybinds
 local kmap = vim.keymap.set
 kmap("n", "<leader>o", ":update<CR>:source<CR>")
+kmap("n", "j", "gj")
+kmap("n", "k", "gk")
+kmap("n", "x", "\"_x")
+kmap("n", "X", "\"_X")
 
 -- system clipboard
 kmap({ "n", "v", "x" }, "<leader>y", '"+y')
@@ -72,12 +76,14 @@ kmap("n", "<leader>li", vim.lsp.buf.hover)
 kmap("n", "<leader>ld", vim.diagnostic.open_float)
 kmap("n", "gD", vim.lsp.buf.declaration, { noremap = true, silent = true })
 kmap("n", "gd", vim.lsp.buf.definition, { noremap = true, silent = true })
+kmap("n", "gr", vim.lsp.buf.references, { noremap = true, silent = true })
+kmap("n", "gi", vim.lsp.buf.implementation, { noremap = true, silent = true })
 
 -- UI binds
 kmap("n", "<leader>uh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
 -- lsp
-vim.lsp.enable({ "lua_ls", "nixd", "clangd", "rust-analyzer" })
+vim.lsp.enable({ "lua_ls", "nixd", "clangd", "rust_analyzer", "tinymist", "hls", "basedpyright" })
 vim.lsp.config("lua_ls", {
     settings = {
         Lua = {
@@ -124,9 +130,9 @@ require("toggleterm").setup({
 })
 
 require("mini.pick").setup()
+require("mini.align").setup()
 require("oil").setup()
 
-require("mini.pairs").setup()
 require("Comment").setup({
     toggler = {
         line = '<leader>/',
@@ -140,4 +146,22 @@ require("Comment").setup({
         basic = true,
         extra = false,
     }
+})
+
+require("typst-preview").setup()
+require("tla").setup({
+  java_executable = nixCats.extra("java_executable"),
+  java_opts = { '-XX:+UseParallelGC' },
+  tla2tools = nixCats.extra("tla2tools"),
+})
+require("plantuml").setup({
+  renderer = {
+    type = 'image',
+    options = {
+      prog = 'sxiv',
+      dark_mode = false,
+      format = "png", -- Allowed values: nil, 'png', 'svg'.
+    }
+  },
+  render_on_write = true,
 })

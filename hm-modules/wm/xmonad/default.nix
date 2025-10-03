@@ -46,6 +46,7 @@ in {
         bemoji
 
         alsa-utils
+        pwvucontrol
         playerctl
         brightnessctl
 

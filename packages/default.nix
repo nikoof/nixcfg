@@ -1,5 +1,6 @@
 {pkgs, ...}: rec {
   boomer = pkgs.callPackage ./boomer {};
+  sowon = pkgs.callPackage ./sowon.nix {};
   dfm = pkgs.callPackage ./dfm.nix {};
   r2k = pkgs.callPackage ./r2k.nix {};
   sam = pkgs.callPackage ./sam.nix {};

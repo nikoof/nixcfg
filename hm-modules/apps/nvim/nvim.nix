@@ -22,7 +22,7 @@
     # this includes LSPs
     lspsAndRuntimeDeps = {
       general = with pkgs; [
-        lazygit
+        ripgrep
       ];
       lua = with pkgs; [
         lua-language-server
@@ -40,10 +40,42 @@
         rust-analyzer
         clippy
       ];
+      typst = with pkgs; [
+        tinymist
+      ];
+      haskell = with pkgs; [
+        haskell-language-server
+      ];
+      python = with pkgs; [
+        basedpyright
+      ];
     };
 
     # This is for plugins that will load at startup without using packadd:
-    startupPlugins = {
+    startupPlugins = let
+      plantuml-nvim = pkgs.vimUtils.buildVimPlugin {
+        pname = "plantuml.nvim";
+        version = "2025-03-29";
+        src = pkgs.fetchFromGitLab {
+          owner = "itaranto";
+          repo = "plantuml.nvim";
+          rev = "06644d3688bb0ad08a58e91428c0b2d98678e443";
+          hash = "sha256-LuS2R9QnLw3xDqquo5g9PYihFknTk2RfPJe5NAT0ppo=";
+        };
+      };
+      tla-nvim = pkgs.vimUtils.buildVimPlugin {
+        pname = "tla.nvim";
+        version = "2025-08-07";
+        src = pkgs.fetchFromGitHub {
+          owner = "susliko";
+          repo = "tla.nvim";
+          rev = "1752abe9b7dec23a26ff11a629e2ee88e66c366b";
+          hash = "sha256-O9qYMy8LoXR/aUjqsTfbMFNl3Me6SpnLVsCgiIhD6Fk=";
+        };
+
+        propagatedBuildInputs = with pkgs; [lua51Packages.plenary-nvim];
+      };
+    in {
       general = with pkgs.vimPlugins; [
         base16-nvim
         bufferline-nvim
@@ -54,9 +86,14 @@
         comment-nvim
 
         oil-nvim
+        mini-align
         mini-pick
-        mini-pairs
         mini-icons
+
+        typst-preview-nvim
+
+        plantuml-nvim
+        tla-nvim
       ];
     };
 
@@ -129,10 +166,15 @@
         nix = true;
         c = true;
         rust = true;
+        typst = true;
+        haskell = true;
+        python = true;
       };
       # anything else to pass and grab in lua with `nixCats.extra`
       extra = {
         nixdExtras.nixpkgs = ''import ${pkgs.path} {}'';
+        tla2tools = "${pkgs.tlaplus}";
+        java_executable = "${pkgs.openjdk}/bin/java";
       };
     };
   };

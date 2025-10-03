@@ -7,4 +7,5 @@
 }: {
   age.secrets.wireless = {file = ./wireless.conf.age;};
   age.secrets.smb-fw2b = {file = ./smb-fw2b.age;};
+  age.secrets.taskwarrior-sync = {file = ./taskwarrior-sync.age;};
 }
