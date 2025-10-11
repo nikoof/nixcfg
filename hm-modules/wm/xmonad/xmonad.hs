@@ -67,7 +67,7 @@ main =
 
 wallpaperCmd = "feh --no-fehbg --bg-center @wallpaperPath@ @wallpaperPath@"
 
-myConfig = myConfig' `additionalKeysP` myKeys myConfig'
+myConfig = myConfig' `additionalKeysP` myKeys myConfig' `removeKeysP` ["M-<Space>", "M-p"]
   where
     myConfig' =
       def

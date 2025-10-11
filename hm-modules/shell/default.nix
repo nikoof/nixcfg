@@ -51,6 +51,7 @@ in {
       clar = "clear";
 
       zathura = "zathura --fork";
+      z = "zathura --fork";
 
       nob = "./nob";
 
