@@ -36,11 +36,13 @@ in {
         fzf
         q-text-as-data
         mprocs # TODO: remove if switch to tmux
+        jq
       ]
       ++ lib.lists.optionals cfg.media.enable [
         ffmpeg
         mpv
         imagemagick
+        pdftk
         zbar
         qrencode
         yt-dlp
@@ -52,7 +54,7 @@ in {
       ]
       ++ lib.lists.optionals cfg.networking.enable [
         nmap # provides ncat
-        socat # nc alternative
+        unstable.gost # better socat
         bind.dnsutils
         tcpdump
         wireshark

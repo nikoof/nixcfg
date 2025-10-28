@@ -28,6 +28,24 @@ vim.o.completeopt = "menu,preview,noselect"
 
 vim.cmd("colorscheme base16-tomorrow-night")
 
+-- packages
+-- I want this to be mostly portable to non-Nix setups, so try to
+-- install packages with the new nvim package manager.
+local ok, _ = pcall(require, "nixCats")
+if not ok then
+  vim.pack.add({
+    { src = "https://github.com/RRethy/base16-nvim" },
+    { src = "https://github.com/akinsho/bufferline.nvim" },
+    { src = "https://github.com/akinsho/toggleterm.nvim" },
+    { src = "https://github.com/mrjones2014/smart-splits.nvim" },
+
+    { src = "https://github.com/stevearc/oil.nvim" },
+    { src = "https://github.com/nvim-mini/mini.pick" },
+    { src = "https://github.com/nvim-mini/mini.align" },
+    { src = "https://github.com/nvim-mini/mini.icons" },
+  })
+end
+
 -- keybinds
 local kmap = vim.keymap.set
 kmap("n", "<leader>o", ":update<CR>:source<CR>")
@@ -45,14 +63,19 @@ kmap({ "n", "v", "x" }, "<leader>p", '"+p')
 kmap("n", "<esc>", ":nohlsearch<CR><esc>", { noremap = true, silent = true })
 
 -- splits
+local splits = require("smart-splits")
 kmap("n", "\\", ":split<CR>")
 kmap("n", "|", ":vsplit<CR>")
-kmap("n", "<C-j>", "<C-w><C-j>")
-kmap("n", "<C-k>", "<C-w><C-k>")
-kmap("n", "<C-l>", "<C-w><C-l>")
-kmap("n", "<C-h>", "<C-w><C-h>")
+kmap("n", "<C-h>", splits.move_cursor_left)
+kmap("n", "<C-j>", splits.move_cursor_down)
+kmap("n", "<C-k>", splits.move_cursor_up)
+kmap("n", "<C-l>", splits.move_cursor_right)
+kmap("n", "<A-h>", splits.resize_left)
+kmap("n", "<A-j>", splits.resize_down)
+kmap("n", "<A-k>", splits.resize_up)
+kmap("n", "<A-l>", splits.resize_right)
 
--- wtf?
+-- wtf? (toggleterm)
 kmap("n", "<leader>tv", [[<cmd>exe v:count1 . "ToggleTerm direction=vertical"<CR>]])
 kmap("n", "<leader>th", [[<cmd>exe v:count1 . "ToggleTerm direction=horizontal"<CR>]])
 kmap("t", "<esc>", "<C-\\><C-n>")
@@ -82,7 +105,7 @@ kmap("n", "gi", vim.lsp.buf.implementation, { noremap = true, silent = true })
 -- UI binds
 kmap("n", "<leader>uh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
--- lsp
+-- LSP
 vim.lsp.enable({ "lua_ls", "nixd", "clangd", "rust_analyzer", "tinymist", "hls", "basedpyright" })
 vim.lsp.config("lua_ls", {
     settings = {
@@ -117,7 +140,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 -- plugins
 require("nvim-treesitter.configs").setup({ highlight = { enable = true, } })
-
 require("bufferline").setup()
 require("toggleterm").setup({
     size = function(term)
@@ -128,11 +150,6 @@ require("toggleterm").setup({
         end
     end,
 })
-
-require("mini.pick").setup()
-require("mini.align").setup()
-require("oil").setup()
-
 require("Comment").setup({
     toggler = {
         line = '<leader>/',
@@ -148,20 +165,9 @@ require("Comment").setup({
     }
 })
 
+
+require("mini.pick").setup()
+require("mini.align").setup()
+require("oil").setup()
+
 require("typst-preview").setup()
-require("tla").setup({
-  java_executable = nixCats.extra("java_executable"),
-  java_opts = { '-XX:+UseParallelGC' },
-  tla2tools = nixCats.extra("tla2tools"),
-})
-require("plantuml").setup({
-  renderer = {
-    type = 'image',
-    options = {
-      prog = 'sxiv',
-      dark_mode = false,
-      format = "png", -- Allowed values: nil, 'png', 'svg'.
-    }
-  },
-  render_on_write = true,
-})

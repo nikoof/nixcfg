@@ -1,7 +1,7 @@
 {inputs, ...}: rec {
   luaPath = ./.;
-  defaultPackageName = "nvim";
-  packageNames = [defaultPackageName];
+  defaultPackageName = "nvimFull";
+  packageNames = [defaultPackageName "nvim"];
   categoryDefinitions = {
     pkgs,
     settings,
@@ -24,104 +24,67 @@
       general = with pkgs; [
         ripgrep
       ];
-      lua = with pkgs; [
+
+      devel = with pkgs; [
+        # c
+        clang-tools
+        gdb
+        # rust
+        rust-analyzer
+        clippy
+        # haskell
+        haskell-language-server
+        # python
+        basedpyright
+        # nix
+        nixd
+        alejandra
+        # lua
         lua-language-server
         stylua
       ];
-      nix = with pkgs; [
-        nixd
-        alejandra
-      ];
-      c = with pkgs; [
-        clang-tools
-        gdb
-      ];
-      rust = with pkgs; [
-        rust-analyzer
-        clippy
-      ];
-      typst = with pkgs; [
+
+      edu = with pkgs; [
+        # typst
         tinymist
-      ];
-      haskell = with pkgs; [
-        haskell-language-server
-      ];
-      python = with pkgs; [
-        basedpyright
       ];
     };
 
     # This is for plugins that will load at startup without using packadd:
-    startupPlugins = let
-      plantuml-nvim = pkgs.vimUtils.buildVimPlugin {
-        pname = "plantuml.nvim";
-        version = "2025-03-29";
-        src = pkgs.fetchFromGitLab {
-          owner = "itaranto";
-          repo = "plantuml.nvim";
-          rev = "06644d3688bb0ad08a58e91428c0b2d98678e443";
-          hash = "sha256-LuS2R9QnLw3xDqquo5g9PYihFknTk2RfPJe5NAT0ppo=";
-        };
-      };
-      tla-nvim = pkgs.vimUtils.buildVimPlugin {
-        pname = "tla.nvim";
-        version = "2025-08-07";
-        src = pkgs.fetchFromGitHub {
-          owner = "susliko";
-          repo = "tla.nvim";
-          rev = "1752abe9b7dec23a26ff11a629e2ee88e66c366b";
-          hash = "sha256-O9qYMy8LoXR/aUjqsTfbMFNl3Me6SpnLVsCgiIhD6Fk=";
-        };
-
-        propagatedBuildInputs = with pkgs; [lua51Packages.plenary-nvim];
-      };
-    in {
+    startupPlugins = {
       general = with pkgs.vimPlugins; [
         base16-nvim
         bufferline-nvim
         toggleterm-nvim
-
-        nvim-lspconfig
-        nvim-treesitter.withAllGrammars
-        comment-nvim
+        smart-splits-nvim
 
         oil-nvim
         mini-align
         mini-pick
         mini-icons
+      ];
+
+      devel = with pkgs.vimPlugins; [
+        nvim-lspconfig
+        nvim-treesitter.withAllGrammars
+        comment-nvim
 
         typst-preview-nvim
-
-        plantuml-nvim
-        tla-nvim
       ];
     };
 
     # not loaded automatically at startup.
     # use with packadd and an autocommand in config to achieve lazy loading
     optionalPlugins = {
-      lua = with pkgs.vimPlugins; [
-        lazydev-nvim
-        # TODO: figure out what to do with this
-      ];
+      # TODO: figure out what to do with this
       general = with pkgs.vimPlugins; [
       ];
     };
 
     # shared libraries to be added to LD_LIBRARY_PATH
     # variable available to nvim runtime
-    sharedLibraries = {
-      general = with pkgs; [];
-    };
-
-    # environmentVariables:
-    # this section is for environmentVariables that should be available
-    # at RUN TIME for plugins. Will be available to path within neovim terminal
-    environmentVariables = {
-      # test = {
-      #   CATTESTVAR = "It worked!";
-      # };
-    };
+    sharedLibraries = {};
+    environmentVariables = {};
 
     # categories of the function you would have passed to withPackages
     python3.libraries = {
@@ -147,8 +110,6 @@
       name,
       ...
     }: {
-      # they contain a settings set defined above
-      # see :help nixCats.flake.outputs.settings
       settings = {
         suffix-path = true;
         suffix-LD = true;
@@ -159,22 +120,40 @@
 
       # and a set of categories that you want
       # (and other information to pass to lua)
-      # and a set of categories that you want
       categories = {
         general = true;
-        lua = true;
-        nix = true;
-        c = true;
-        rust = true;
-        typst = true;
-        haskell = true;
-        python = true;
       };
       # anything else to pass and grab in lua with `nixCats.extra`
       extra = {
         nixdExtras.nixpkgs = ''import ${pkgs.path} {}'';
-        tla2tools = "${pkgs.tlaplus}";
-        java_executable = "${pkgs.openjdk}/bin/java";
+      };
+    };
+
+    nvimFull = {
+      pkgs,
+      name,
+      ...
+    }: {
+      # they contain a settings set defined above
+      # see :help nixCats.flake.outputs.settings
+      settings = {
+        suffix-path = true;
+        suffix-LD = true;
+        wrapRc = true;
+        aliases = ["nvim"]; # IMPORTANT: your alias may not conflict with your other packages.
+        neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+      };
+
+      # and a set of categories that you want
+      # (and other information to pass to lua)
+      categories = {
+        general = true;
+        devel = true;
+        edu = true;
+      };
+      # anything else to pass and grab in lua with `nixCats.extra`
+      extra = {
+        nixdExtras.nixpkgs = ''import ${pkgs.path} {}'';
       };
     };
   };

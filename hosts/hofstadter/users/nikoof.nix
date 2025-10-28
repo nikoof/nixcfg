@@ -94,6 +94,8 @@
     obsidian
     zotero
     vit
+    rnote
+    restream
 
     # Literally browsers but x4
     ungoogled-chromium
@@ -104,7 +106,7 @@
     # IM
     discord # browsers +1
     gajim
-    signal-desktop
+    unstable.signal-desktop
 
     # Audio stuff (?)
     easyeffects

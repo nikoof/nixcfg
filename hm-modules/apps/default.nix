@@ -10,6 +10,6 @@
     ./kitty.nix
     ./tmux.nix
     ./zathura.nix
-    ./nvim
+    ./nvim.nix
   ];
 }

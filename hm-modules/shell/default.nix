@@ -52,6 +52,8 @@ in {
 
       zathura = "zathura --fork";
       z = "zathura --fork";
+      s = "sxiv";
+      pf = "ps aux | rg -i";
 
       nob = "./nob";
 

@@ -84,6 +84,9 @@
     man-db
 
     eduvpn-client
+
+    wineWow64Packages.full
+    winetricks
   ];
 
   # ------------------[Users]------------------------

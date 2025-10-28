@@ -50,17 +50,6 @@
       ];
     };
 
-    pkgsArm = import nixpkgs {
-      system = "aarch64-linux";
-      config.allowUnfree = true;
-      config.allowUnsupportedSystem = true;
-      overlays = with overlays; [
-        local-packages
-        modifications
-        unstable-packages
-      ];
-    };
-
     mkSystem = name: v: (nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
@@ -78,32 +67,19 @@
     });
 
     utils = inputs.nixCats.utils;
-    nvim = import ./hm-modules/apps/nvim/nvim.nix {inherit inputs;};
+    nvim = import ./nvim {inherit inputs;};
     nixCatsBuilder =
       utils.baseBuilder nvim.luaPath {
         inherit pkgs;
       }
       nvim.categoryDefinitions
       nvim.packageDefinitions;
-    nvimPackage = nixCatsBuilder nvim.defaultPackageName;
   in
     {
       nixosModules.default = ./nixos-modules;
       homeManagerModules.default = ./hm-modules;
 
       nixosConfigurations.hofstadter = mkSystem "hofstadter" {};
-      nixosConfigurations.mandelbrot = nixpkgs.lib.nixosSystem {
-        specialArgs = {inherit inputs;};
-        modules = [
-          inputs.agenix.nixosModules.default
-          ./secrets
-          ./hosts/mandelbrot/configuration.nix
-        ];
-      };
-
-      images = {
-        mandelbrot = self.nixosConfigurations.mandelbrot.config.system.build.sdImage;
-      };
 
       devShell.${system} = let
         xmonadGhc = pkgs.haskellPackages.ghcWithPackages (hp:
@@ -141,7 +117,11 @@
           (import ./packages) {
             pkgs = nixpkgs.legacyPackages.${system};
           }
-          // {nvim = nvimPackage;};
+          // (builtins.listToAttrs (map (p: {
+              name = p;
+              value = nixCatsBuilder p;
+            })
+            nvim.packageNames));
       in {
         packages = thesePkgs;
       }
