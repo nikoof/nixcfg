@@ -48,7 +48,7 @@ in {
         yt-dlp
       ]
       ++ lib.lists.optionals cfg.monitoring.enable [
-        du-dust
+        dust
         btop
         nvtopPackages.full
       ]

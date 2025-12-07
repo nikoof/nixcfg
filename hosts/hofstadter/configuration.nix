@@ -127,7 +127,7 @@
   };
 
   # -----------------[Services]------------------------
-  services.nixseparatedebuginfod.enable = true;
+  services.nixseparatedebuginfod2.enable = true;
   services.ratbagd.enable = true;
 
   # TODO: remove
@@ -165,9 +165,6 @@
 
   services.udev = {
     # BBC micro:bit for Tock development
-    packages = with pkgs; [
-      android-udev-rules
-    ];
     extraRules = ''
       ACTION!="add|change", GOTO="openocd_rules_end"
       SUBSYSTEM!="usb|tty|hidraw", GOTO="openocd_rules_end"
@@ -197,16 +194,6 @@
 
       # Required for specialisations.dgpu-passthrough, but kept globally
       swtpm.enable = true;
-      ovmf = {
-        enable = true;
-        packages = [
-          (pkgs.OVMF.override {
-            secureBoot = true;
-            tpmSupport = true;
-          })
-          .fd
-        ];
-      };
     };
   };
 

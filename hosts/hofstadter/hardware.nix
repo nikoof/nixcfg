@@ -59,6 +59,7 @@
   hardware.nvidia = {
     open = true;
     modesetting.enable = true;
+    nvidiaSettings = false;
 
     prime = {
       intelBusId = "PCI:0:2:0";
@@ -98,7 +99,7 @@
       intel-media-driver
       vpl-gpu-rt
       nvidia-vaapi-driver
-      vaapiVdpau
+      libva-vdpau-driver
     ];
   };
 

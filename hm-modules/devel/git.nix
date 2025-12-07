@@ -15,18 +15,21 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    programs.delta = {
+      enable = true;
+      enableGitIntegration = true;
+    };
+
     programs.git = {
       enable = true;
-      userName = "Nicolas Bratoveanu";
-      userEmail = "nicolasbratoveanu@proton.me";
-
-      lfs.enable = true;
-      delta.enable = true;
-
-      extraConfig = {
+      settings = {
+        user.name = "Nicolas Bratoveanu";
+        user.email = "nicolasbratoveanu@proton.me";
         safe = {directory = "/etc/nixos";};
         push = {autoSetupRemote = true;};
       };
+
+      lfs.enable = true;
 
       signing = lib.mkIf cfg.signing {
         signByDefault = true;

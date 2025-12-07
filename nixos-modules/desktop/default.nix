@@ -22,10 +22,6 @@ in {
       # I currently don't use Wayland at all so it's not imperative.
       xclip
 
-      ripgrep
-      btop
-      du-dust
-
       keepassxc
     ];
 
@@ -34,7 +30,7 @@ in {
       nerd-fonts.fira-code
       corefonts
       noto-fonts
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       noto-fonts-cjk-sans
       charis-sil
       seshat

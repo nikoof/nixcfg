@@ -32,8 +32,9 @@ in {
         feh
 
         scrot
+        xclip
         xcolor
-        xdragon
+        dragon-drop
 
         mpv
         sxiv

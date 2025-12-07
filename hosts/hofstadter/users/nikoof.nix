@@ -91,7 +91,6 @@
     unstable.typst
 
     sageWithDoc
-    mathematica
 
     # Productivity
     anki-bin
@@ -125,9 +124,9 @@
     gimp3
     obs-studio
 
-    unstable.freecad
-    unstable.kicad
-    unstable.orca-slicer
+    freecad
+    kicad
+    orca-slicer
 
     # Misc
     local.sam
@@ -135,7 +134,5 @@
     unstable.qbittorrent
     rclone
     rclone-browser
-
-    ciscoPacketTracer8
   ];
 }
