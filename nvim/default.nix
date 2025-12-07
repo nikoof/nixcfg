@@ -46,13 +46,14 @@
 
       edu = with pkgs; [
         # typst
-        tinymist
+        unstable.tinymist
       ];
     };
 
     # This is for plugins that will load at startup without using packadd:
     startupPlugins = {
       general = with pkgs.vimPlugins; [
+        nvim-highlight-colors
         base16-nvim
         bufferline-nvim
         toggleterm-nvim
@@ -68,8 +69,10 @@
         nvim-lspconfig
         nvim-treesitter.withAllGrammars
         comment-nvim
+      ];
 
-        typst-preview-nvim
+      edu = with pkgs; [
+        unstable.vimPlugins.typst-preview-nvim
       ];
     };
 

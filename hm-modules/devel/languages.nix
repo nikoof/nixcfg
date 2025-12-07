@@ -24,16 +24,26 @@ in {
         gcc
         gdb
         clang-tools
+        gnumake
       ]
       ++ lib.lists.optionals cfg.rust.enable [
         cargo
         rustc
         rust-analyzer
       ]
-      ++ lib.lists.optionals cfg.python.enable [
-        python314
+      ++ lib.lists.optionals cfg.python.enable
+      (let
+        python = python313.withPackages (pp:
+          with pp; [
+            requests
+            types-requests
+            beautifulsoup4
+            types-beautifulsoup4
+          ]);
+      in [
+        python
         basedpyright
-      ]
+      ])
       ++ lib.lists.optionals cfg.haskell.enable [
         ghc
         cabal-install

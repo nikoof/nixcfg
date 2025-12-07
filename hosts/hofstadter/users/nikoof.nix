@@ -17,6 +17,10 @@
   home.preferXdgDirectories = true;
   home.stateVersion = "24.05";
 
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
+
   shell = {
     enable = true;
     bash.enable = true;
@@ -84,7 +88,7 @@
 
     # Typesetting
     graphviz
-    typst
+    unstable.typst
 
     sageWithDoc
     mathematica
@@ -99,9 +103,12 @@
 
     # Literally browsers but x4
     ungoogled-chromium
-    libreoffice-still
+    libreoffice
     thunderbird
     unstable.spotify
+
+    sqlite
+    sqlitebrowser
 
     # IM
     discord # browsers +1
@@ -117,6 +124,10 @@
     # Images/Video
     gimp3
     obs-studio
+
+    unstable.freecad
+    unstable.kicad
+    unstable.orca-slicer
 
     # Misc
     local.sam

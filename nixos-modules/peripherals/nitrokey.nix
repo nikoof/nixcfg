@@ -21,9 +21,7 @@ in {
       services.dbus.packages = [pkgs.gcr];
 
       environment.systemPackages = with pkgs; [
-        python3Packages.pynitrokey
-        pinentry
-        pinentry-dmenu
+        unstable.python3Packages.pynitrokey
       ];
 
       security.pam = {
@@ -47,7 +45,7 @@ in {
       programs.gnupg.agent = {
         enable = true;
         enableSSHSupport = true;
-        pinentryPackage = pkgs.pinentry-dmenu;
+        pinentryPackage = pkgs.pinentry-qt;
       };
     })
   ];
