@@ -117,6 +117,7 @@
 
   apps.gns3.enable = true;
   apps.gaming.steam.enable = true;
+  apps.gaming.bottles.enable = true;
 
   # -----------------[Peripherals]---------------------
   peripherals.wacom.enable = true;

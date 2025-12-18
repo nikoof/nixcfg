@@ -63,6 +63,14 @@
     nvim.enable = true;
   };
 
+  programs.sioyek = {
+    enable = true;
+    config = {
+      should_launch_new_window = "1";
+      default_dark_mode = "1";
+    };
+  };
+
   programs.nnn.enable = true;
   programs.btop.enable = true;
   programs.fzf.enable = true;

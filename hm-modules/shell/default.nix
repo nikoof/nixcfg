@@ -52,7 +52,7 @@ in {
       celar = "clear";
 
       zathura = "zathura --fork";
-      z = "zathura --fork";
+      z = "sioyek";
       s = "sxiv";
       pf = "ps aux | rg -i";
 

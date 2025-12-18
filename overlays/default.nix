@@ -4,8 +4,8 @@
   };
 
   modifications = final: prev: {
-    graphite-gtk-theme = prev.graphite-gtk-theme.override {
-      tweaks = ["nord"];
+    bottles = prev.bottles.override {
+      removeWarningPopup = true;
     };
 
     ciscoPacketTracer8 = prev.ciscoPacketTracer8.overrideAttrs {
@@ -19,6 +19,9 @@
         })
       ];
     };
+
+    # NOTE: nh broke search again, I'm just gonna stay on their master lmao
+    nh = inputs.nh.packages.${prev.system}.default;
 
     # NOTE: overriding noto-fonts forces a rebuild of libreoffice
     # noto-fonts = prev.noto-fonts.override {
@@ -43,7 +46,7 @@
     unstable = import inputs.nixpkgs-unstable {
       system = final.system;
       overlays = [modifications];
-      config.allowUnfree = true;
+      inherit (prev) config;
     };
   };
 }

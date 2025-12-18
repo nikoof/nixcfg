@@ -199,9 +199,11 @@ myKeys conf =
         -- Apps <M-a> (mostly)
         ("M-w", kill),
         ("M-a b", spawn "chromium"),
-        ("M-a d", spawn "discord"),
         ("M-a s", spawn "spotify"),
         ("M-a n", spawn "neovide"),
+        -- Messaging apps <M-x>
+        ("M-x d", spawn "discord"),
+        ("M-x s", spawn "signal-desktop"),
         -- Scratchpads <M-s>
         ("M-s k", namedScratchpadAction myScratchpads "keepassxc"),
         ("M-s v", namedScratchpadAction myScratchpads "pwvucontrol"),

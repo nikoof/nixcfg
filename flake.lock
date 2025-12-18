@@ -415,6 +415,26 @@
         "type": "github"
       }
     },
+    "nh": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1764961938,
+        "narHash": "sha256-V7lRjvq6vFq0hR4fNYFznahMo/NayVHK18ELKL4Q0To=",
+        "owner": "nix-community",
+        "repo": "nh",
+        "rev": "ef8d8c4cc6904bcd8046eccad9005136abedb19a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nh",
+        "type": "github"
+      }
+    },
     "nixCats": {
       "locked": {
         "lastModified": 1764009888,
@@ -586,6 +606,7 @@
         "home-manager": "home-manager_2",
         "lanzaboote": "lanzaboote",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
+        "nh": "nh",
         "nixCats": "nixCats",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
