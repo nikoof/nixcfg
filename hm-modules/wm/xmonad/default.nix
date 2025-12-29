@@ -142,7 +142,8 @@ in {
     xdg.mimeApps = {
       enable = true;
       defaultApplications = {
-        "application/pdf" = ["zathura.desktop"];
+        "application/pdf" = ["sioyek.desktop"];
+        "application/epub" = ["sioyek.desktop"];
         "image/png" = ["sxiv.desktop"];
         "image/jpeg" = ["sxiv.desktop"];
         "image/gif" = ["sxiv.desktop"];

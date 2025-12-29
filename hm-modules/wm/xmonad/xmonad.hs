@@ -92,6 +92,11 @@ myScratchpads =
       (className =? "KeePassXC")
       (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4)),
     NS
+      "btop"
+      "kitty --class=btop btop"
+      (className =? "btop")
+      (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4)),
+    NS
       "carla"
       "carla"
       (className =? "Carla2")
@@ -208,6 +213,7 @@ myKeys conf =
         ("M-s k", namedScratchpadAction myScratchpads "keepassxc"),
         ("M-s v", namedScratchpadAction myScratchpads "pwvucontrol"),
         ("M-s c", namedScratchpadAction myScratchpads "carla"),
+        ("M-s b", namedScratchpadAction myScratchpads "btop"),
         -- Window movement
         ("M1-<Tab>", windows W.focusDown),
         ("M1-S-<Tab>", windows W.focusUp),

@@ -128,7 +128,7 @@
   };
 
   # -----------------[Services]------------------------
-  services.nixseparatedebuginfod2.enable = true;
+  # services.nixseparatedebuginfod2.enable = true;
   services.ratbagd.enable = true;
 
   # TODO: remove

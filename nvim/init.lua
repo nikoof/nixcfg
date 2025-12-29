@@ -58,8 +58,8 @@ end
 -- keybinds
 local kmap = vim.keymap.set
 kmap("n", "<leader>o", ":update<CR>:source<CR>")
-kmap("n", "j", "gj")
-kmap("n", "k", "gk")
+kmap("n", "j", "gj", { silent = true })
+kmap("n", "k", "gk", { silent = true })
 kmap("n", "x", "\"_x")
 kmap("n", "X", "\"_X")
 

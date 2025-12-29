@@ -59,16 +59,9 @@
   apps = {
     kitty.enable = true;
     zathura.enable = true;
+    sioyek.enable = true;
     tmux.enable = true;
     nvim.enable = true;
-  };
-
-  programs.sioyek = {
-    enable = true;
-    config = {
-      should_launch_new_window = "1";
-      default_dark_mode = "1";
-    };
   };
 
   programs.nnn.enable = true;

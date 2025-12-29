@@ -10,6 +10,7 @@
     ./kitty.nix
     ./tmux.nix
     ./zathura.nix
+    ./sioyek.nix
     ./nvim.nix
   ];
 }
