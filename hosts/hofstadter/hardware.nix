@@ -13,6 +13,7 @@
 
   boot.initrd.availableKernelModules = ["xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod"];
 
+  boot.kernelPackages = inputs.cachyos-kernels.legacyPackages.x86_64-linux.linuxPackages-cachyos-bore-lto;
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
   hardware.firmware = [pkgs.linux-firmware];

@@ -103,7 +103,7 @@
 
     # Literally browsers but x4
     ungoogled-chromium
-    libreoffice
+    libreoffice-fresh
     thunderbird
     unstable.spotify
 
