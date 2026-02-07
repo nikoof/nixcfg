@@ -80,7 +80,8 @@
   };
 
   home.packages = with pkgs; [
-    local.ga68
+    unstable.local.ga68
+    unstable.local.ga68.info
     newsboat
 
     lunar-client

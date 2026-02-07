@@ -1,4 +1,6 @@
 result
+result-dev
 result-man
+result-info
 /.pre-commit-config.yaml
 /.direnv

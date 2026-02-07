@@ -62,12 +62,30 @@
       else stdenv;
   };
 in
-  wrapCCWith {
+  wrapCCWith rec {
     name = "ga68";
     cc = pkg;
+    # propagateDoc = false;
+
     extraBuildCommands = ''
-      if [ -e $cc/bin/ga68 ]; then
-        wrap ga68 $wrapper $cc/bin/ga68
+      if [ -e ${cc}/bin/ga68 ]; then
+        wrap ga68 $wrapper ${cc}/bin/ga68
       fi
+
+      # Remove all non-ga68 related files to prevent
+      # conflicts when including this in a buildEnv
+      find $out/bin -type f,l ! -name ga68 -delete
+
+      # Hack to only link ga68 {man,info}pages into {man,info} output.
+      # Also to prevent conflicts in buildEnv.
+      rm -r $man
+      mkdir -p $man/share/man/man1
+      ln -s ${cc.man}/share/man/man1/ga68.1.gz $man/share/man/man1/ga68.1.gz
+
+      rm -r $info
+      mkdir -p $info/share/info
+      ln -s ${cc.info}/share/info/ga68.info $info/share/info/
+      ln -s ${cc.info}/share/info/ga68-internals.info $info/share/info/
+      ln -s ${cc.info}/share/info/ga68-coding-guidelines.info $info/share/info/
     '';
   }
