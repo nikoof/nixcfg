@@ -63,6 +63,7 @@
   };
 in
   wrapCCWith {
+    name = "ga68";
     cc = pkg;
     extraBuildCommands = ''
       if [ -e $cc/bin/ga68 ]; then
