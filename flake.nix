@@ -121,7 +121,7 @@
       system: let
         thesePkgs =
           (import ./packages) {
-            pkgs = nixpkgs.legacyPackages.${system};
+            pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
           }
           // (builtins.listToAttrs (map (p: {
               name = p;

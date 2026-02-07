@@ -80,6 +80,7 @@
   };
 
   home.packages = with pkgs; [
+    local.ga68
     newsboat
 
     lunar-client
