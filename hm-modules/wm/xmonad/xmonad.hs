@@ -200,6 +200,7 @@ myKeys conf =
         ("M-b u", spawn "mpv ~/videos/memes/gilgamesh.mp4"),
         ("M-b r", spawn "mpv ~/videos/memes/rat-microwave-dance.mp4"),
         ("M-b d", spawn "mpv ~/videos/memes/douapuncteparantezaparanteza.mp4"),
+        ("M-b w", spawn "mpv ~/music/wise-mystical-tree.mp3"),
         ("M-v", spawn "mpv ~/videos/memes/Vineboomsoundeffect.m4a"),
         -- Apps <M-a> (mostly)
         ("M-w", kill),

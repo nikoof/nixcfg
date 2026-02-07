@@ -14,7 +14,8 @@
     };
 
     networkConfig = {
-      Private = false;
+      Private = true;
+      VirtualEthernet = true;
     };
 
     filesConfig = {

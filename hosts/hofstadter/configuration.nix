@@ -87,6 +87,8 @@
 
     wineWow64Packages.full
     winetricks
+
+    podman-compose
   ];
 
   # ------------------[Users]------------------------
@@ -131,6 +133,11 @@
   # services.nixseparatedebuginfod2.enable = true;
   services.ratbagd.enable = true;
 
+  services.open-webui = {
+    enable = true;
+    package = pkgs.unstable.open-webui;
+  };
+
   # TODO: remove
   services.mysql = {
     enable = true;
@@ -153,7 +160,7 @@
   };
 
   services.ollama = {
-    enable = false;
+    enable = true;
     acceleration = "cuda";
     package = pkgs.unstable.ollama-cuda;
   };

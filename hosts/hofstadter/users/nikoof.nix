@@ -73,14 +73,17 @@
     package = pkgs.taskwarrior3;
     config = {
       sync.server = {
-        url = "https://tw.nikoof.ro";
+        url = "https://tw.gw.nikoof.ro";
         client_id = "d24fc42c-857c-48cd-ab3d-943c56f6eb42";
       };
     };
   };
 
   home.packages = with pkgs; [
+    newsboat
+
     lunar-client
+    gdlauncher-carbon
 
     # Terminal apps
     uutils-coreutils-noprefix
@@ -100,6 +103,7 @@
     vit
     rnote
     restream
+    timewarrior
 
     # Literally browsers but x4
     ungoogled-chromium
@@ -112,6 +116,7 @@
 
     # IM
     discord # browsers +1
+    unstable.vesktop
     gajim
     unstable.signal-desktop
 
@@ -135,5 +140,6 @@
     unstable.qbittorrent
     rclone
     rclone-browser
+    encfs
   ];
 }
