@@ -85,8 +85,8 @@
 
     eduvpn-client
 
-    wineWow64Packages.full
-    winetricks
+    # wineWow64Packages.full
+    # winetricks
 
     podman-compose
   ];
@@ -135,7 +135,7 @@
 
   services.open-webui = {
     enable = true;
-    package = pkgs.unstable.open-webui;
+    package = pkgs.open-webui;
   };
 
   # TODO: remove
