@@ -1,5 +1,6 @@
 # nixcfg
 Personal Nix flake. Contains my nixos configurations, some nixos and home-manager modules and some obscure packages. Some slightly more notable ones:
+* `ga68` - wrapped gcc 16 snapshot with only the GNU Algol 68 frontend (this is here until gcc16 and ga68 hit nixpkgs; see [here](/packages/gcc))
 * `boomer` - [tsoding](https://www.twitch.tv/tsoding)'s zooming in utility
 * `dfm` - shell script dmenu-based file manager
 * `sam` - a fork of [vidarh's sam fork](https://github.com/vidarh/SAM) with dynamic arrays
