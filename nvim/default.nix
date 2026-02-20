@@ -118,7 +118,7 @@
         suffix-LD = true;
         wrapRc = true;
         aliases = []; # IMPORTANT: your alias may not conflict with your other packages.
-        neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+        neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
       };
 
       # and a set of categories that you want
@@ -144,7 +144,7 @@
         suffix-LD = true;
         wrapRc = true;
         aliases = ["nvim"]; # IMPORTANT: your alias may not conflict with your other packages.
-        neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+        neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
       };
 
       # and a set of categories that you want

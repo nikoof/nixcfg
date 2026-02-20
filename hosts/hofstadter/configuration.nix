@@ -96,6 +96,7 @@
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
     extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical" "cdrom" "ubridge" "adbusers" "kvm" "podman" "wireshark"];
+    uid = 1000;
   };
 
   home-manager = {
@@ -183,9 +184,29 @@
     '';
   };
 
+  # ----------------------[Shares]-----------------------
+  fileSystems."/mnt/share/sutherland/misc" = {
+    device = "//sutherland.lan/misc";
+    fsType = "cifs";
+    options = let
+      # this line prevents hanging on network split
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,uid=${builtins.toString config.users.users.nikoof.uid}";
+    in ["${automount_opts},credentials=${config.age.secrets.smb-fw2b.path}"];
+  };
+
+  fileSystems."/mnt/share/sutherland/lexmb" = {
+    device = "//sutherland.lan/lexmb";
+    fsType = "cifs";
+    options = let
+      # this line prevents hanging on network split
+      automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s,uid=${builtins.toString config.users.users.nikoof.uid}";
+    in ["${automount_opts},credentials=${config.age.secrets.smb-fw2b.path}"];
+  };
+
   # ------------------[Virtualisation]-------------------
   virtualisation.podman = {
     enable = true;
+    dockerSocket.enable = true;
     autoPrune = {
       enable = true;
       dates = "monthly";

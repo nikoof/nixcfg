@@ -21,7 +21,7 @@
     };
 
     # NOTE: nh broke search again, I'm just gonna stay on their master lmao
-    nh = inputs.nh.packages.${prev.system}.default;
+    nh = inputs.nh.packages.${prev.stdenv.hostPlatform.system}.default;
 
     # NOTE: overriding noto-fonts forces a rebuild of libreoffice
     # noto-fonts = prev.noto-fonts.override {
@@ -44,7 +44,7 @@
 
   unstable-packages = final: prev: {
     unstable = import inputs.nixpkgs-unstable {
-      system = final.system;
+      system = final.stdenv.hostPlatform.system;
       overlays = [modifications local-packages];
       inherit (prev) config;
     };
