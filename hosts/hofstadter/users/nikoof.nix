@@ -80,17 +80,19 @@
   };
 
   home.packages = with pkgs; [
-    unstable.local.ga68
-    unstable.local.ga68.info
-    newsboat
-
-    lunar-client
-    gdlauncher-carbon
+    tlaplus18
 
     # Terminal apps
     uutils-coreutils-noprefix
     presenterm
     tokei
+
+    newsboat
+
+    # CAD
+    freecad
+    kicad
+    orca-slicer
 
     # Typesetting
     graphviz
@@ -102,10 +104,8 @@
     anki-bin
     obsidian
     zotero
-    vit
     rnote
     restream
-    timewarrior
 
     # Literally browsers but x4
     ungoogled-chromium
@@ -113,28 +113,16 @@
     thunderbird
     unstable.spotify
 
-    sqlite
-    sqlitebrowser
-
     # IM
     discord # browsers +1
-    unstable.vesktop
-    gajim
     unstable.signal-desktop
 
     # Audio stuff (?)
-    easyeffects
     helvum
-    carla
-    dragonfly-reverb
 
     # Images/Video
     gimp3
     obs-studio
-
-    freecad
-    kicad
-    orca-slicer
 
     # Misc
     local.sam
@@ -142,6 +130,7 @@
     unstable.qbittorrent
     rclone
     rclone-browser
-    encfs
+
+    sdrpp
   ];
 }

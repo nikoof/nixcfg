@@ -21,6 +21,10 @@
   system.stateVersion = "24.05";
   nixpkgs.hostPlatform = "x86_64-linux";
 
+  # Allow using cache for aarch64 images
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
+  nix.settings.extra-platforms = ["aarch64-linux" "arm-linux"];
+
   # -----------------[Boot]----------------------
   boot.loader = {
     systemd-boot.enable = lib.mkForce false;
@@ -116,6 +120,7 @@
     media.enable = true;
     monitoring.enable = true;
     networking.enable = true;
+    db.enable = true;
   };
 
   apps.gns3.enable = true;

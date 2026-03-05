@@ -8,6 +8,7 @@
   cfg = config.devel.languages;
 in {
   options.devel.languages = {
+    algol68.enable = lib.mkEnableOption "Enable Algol68 tools";
     cpp.enable = lib.mkEnableOption "Enable C/C++ development tools";
     rust.enable = lib.mkEnableOption "Enable Rust development tools";
     python.enable = lib.mkEnableOption "Enable Python development tools";
@@ -48,6 +49,10 @@ in {
         ghc
         cabal-install
         haskell-language-server
+      ]
+      ++ lib.lists.optionals cfg.algol68.enable [
+        unstable.local.ga68
+        unstable.local.ga68.info
       ];
   };
 }

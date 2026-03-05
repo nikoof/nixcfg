@@ -21,7 +21,8 @@ in {
       services.dbus.packages = [pkgs.gcr];
 
       environment.systemPackages = with pkgs; [
-        unstable.python3Packages.pynitrokey
+        unstable.pynitrokey
+        opensc
       ];
 
       security.pam = {

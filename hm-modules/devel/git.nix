@@ -14,6 +14,7 @@ in {
     lazygit.enable = lib.mkEnableOption "Enable lazygit frontend";
   };
 
+  # TODO: this is just completely outdated and frankly probably unnecessary.
   config = lib.mkIf cfg.enable {
     programs.delta = {
       enable = true;

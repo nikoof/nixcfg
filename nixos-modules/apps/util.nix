@@ -14,6 +14,7 @@ in {
     apps.util.media.enable = lib.mkEnableOption "Media utilities (`ffmpeg`, `mpv`, `zbar` etc.)";
     apps.util.monitoring.enable = lib.mkEnableOption "Monitoring utilities (`btop`, `nvtop` etc.)";
     apps.util.networking.enable = lib.mkEnableOption "Network utilities (`nc`, `nmap`, `dig` etc.)";
+    apps.util.db.enable = lib.mkEnableOption "Databases (`sqlite`, `souffle` (datalog))";
   };
 
   config = {
@@ -48,6 +49,8 @@ in {
         yt-dlp
       ]
       ++ lib.lists.optionals cfg.monitoring.enable [
+        pciutils
+        usbutils
         dust
         btop
         nvtopPackages.full
@@ -62,6 +65,11 @@ in {
         xh
         curl
         wireguard-tools
+        opensslFull
+      ]
+      ++ lib.lists.optionals cfg.db.enable [
+        sqlite
+        souffle
       ];
   };
 }

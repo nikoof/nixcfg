@@ -19,6 +19,7 @@ in {
 
       settings = {
         paste_actions = "quote-urls-at-prompt,replace-dangerous-control-codes";
+        confirm_os_window_close = "0";
       };
     };
   };
