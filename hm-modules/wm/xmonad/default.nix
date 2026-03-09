@@ -66,7 +66,7 @@ in {
       enableContribAndExtras = true;
       config = pkgs.replaceVars ./xmonad.hs ({
           terminal = "${cfg.terminal}/bin/${cfg.terminal.meta.mainProgram}";
-          wallpaperPath = ../../../wallpapers/moebius-bw.png;
+          wallpaperPath = ../../../wallpapers/old-one.png;
         }
         // colors);
       libFiles = {

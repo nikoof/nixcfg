@@ -82,6 +82,7 @@
   # -----------------[Packages]--------------------
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages."${system}".default
+    cryptsetup
 
     man-pages
     man-pages-posix

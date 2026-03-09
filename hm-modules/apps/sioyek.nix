@@ -19,6 +19,11 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    home.shellAliases = {
+      z = "${config.programs.sioyek.package}/bin/sioyek";
+      zt = "${config.programs.sioyek.package}/bin/sioyek --shared-database-path /tmp/sioyek.tmp";
+    };
+
     programs.sioyek = {
       enable = true;
       config = {

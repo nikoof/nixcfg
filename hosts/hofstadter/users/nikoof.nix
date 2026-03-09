@@ -58,7 +58,7 @@
   # --------------------[Apps]----------------------
   apps = {
     kitty.enable = true;
-    zathura.enable = true;
+    zathura.enable = false;
     sioyek.enable = true;
     tmux.enable = true;
     nvim.enable = true;
@@ -132,5 +132,7 @@
     rclone-browser
 
     sdrpp
+
+    unstable.vintagestory
   ];
 }
