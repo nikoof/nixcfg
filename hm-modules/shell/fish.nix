@@ -27,6 +27,10 @@ in {
       interactiveShellInit = ''
         set fish_greeting # Disable greeting
         fish_vi_key_bindings
+
+        function detached
+          nohup $argv >/dev/null 2>&1 & disown
+        end
       '';
     };
   };

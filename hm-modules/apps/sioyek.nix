@@ -19,9 +19,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.shellAliases = {
-      z = "${config.programs.sioyek.package}/bin/sioyek";
-      zt = "${config.programs.sioyek.package}/bin/sioyek --shared-database-path /tmp/sioyek.tmp";
+    programs.fish.shellAliases = {
+      z = "detached ${config.programs.sioyek.package}/bin/sioyek";
+      zt = "detached ${config.programs.sioyek.package}/bin/sioyek --shared-database-path /tmp/sioyek.tmp";
     };
 
     programs.sioyek = {
