@@ -55,7 +55,9 @@ in {
     services.xserver.xkb = {
       layout = "ro,us";
       variant = ",colemak_dh";
-      options = "grp:win_space_toggle,compose:menu,caps:swapescape";
+      # Using keyd instead
+      # options = "grp:win_space_toggle,compose:menu,caps:swapescape";
+      options = "grp:win_space_toggle,compose:menu";
     };
 
     security.rtkit.enable = true;

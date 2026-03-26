@@ -140,15 +140,21 @@
   # services.nixseparatedebuginfod2.enable = true;
   services.ratbagd.enable = true;
 
-  services.open-webui = {
+  hardware.uinput.enable = true;
+  services.keyd = {
     enable = true;
-    package = pkgs.open-webui;
-  };
 
-  # TODO: remove
-  services.mysql = {
-    enable = true;
-    package = pkgs.mariadb;
+    keyboards = {
+      "default" = {
+        ids = ["*"];
+        settings = {
+          main = {
+            esc = "capslock";
+            capslock = "esc";
+          };
+        };
+      };
+    };
   };
 
   programs.bash = {
