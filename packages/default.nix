@@ -4,6 +4,7 @@
   dfm = pkgs.callPackage ./dfm.nix {};
   r2k = pkgs.callPackage ./r2k.nix {};
   sam = pkgs.callPackage ./sam.nix {};
+  coppelia = pkgs.callPackage ./coppelia {};
 
   tockloader = pkgs.python3Packages.callPackage ./tockloader.nix {};
   jupyterlab-vim = pkgs.python3Packages.callPackage ./jupyterlab-vim.nix {};
