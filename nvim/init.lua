@@ -115,7 +115,7 @@ kmap("n", "gi", vim.lsp.buf.implementation, { noremap = true, silent = true })
 kmap("n", "<leader>uh", function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end)
 
 -- LSP
-vim.lsp.enable({ "lua_ls", "nixd", "clangd", "rust_analyzer", "tinymist", "hls", "basedpyright" })
+vim.lsp.enable({ "lua_ls", "nixd", "clangd", "rust_analyzer", "tinymist", "hls", "basedpyright", "jdtls" })
 vim.lsp.config("lua_ls", {
     settings = {
         Lua = {

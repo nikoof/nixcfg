@@ -24,6 +24,7 @@
   # Allow using cache for aarch64 images
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
   nix.settings.extra-platforms = ["aarch64-linux" "arm-linux"];
+  # temp disable
 
   # -----------------[Boot]----------------------
   boot.loader = {
@@ -90,17 +91,19 @@
 
     eduvpn-client
 
+    local.kathara
+
     # wineWow64Packages.full
     # winetricks
 
-    podman-compose
+    # podman-compose
   ];
 
   # ------------------[Users]------------------------
   users.users.nikoof = {
     description = "Nicolas Bratoveanu";
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical" "cdrom" "ubridge" "adbusers" "kvm" "podman" "wireshark"];
+    extraGroups = ["wheel" "networkmanager" "dialout" "tty" "plugdev" "uucd" "libvirtd" "optical" "cdrom" "ubridge" "adbusers" "kvm" "podman" "wireshark" "docker"];
     uid = 1000;
   };
 
@@ -218,13 +221,15 @@
 
   # ------------------[Virtualisation]-------------------
   virtualisation.podman = {
-    enable = true;
+    enable = false; # <=======================================================
     dockerSocket.enable = true;
     autoPrune = {
       enable = true;
       dates = "monthly";
     };
   };
+
+  virtualisation.docker.enable = true;
 
   programs.virt-manager.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;

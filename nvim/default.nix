@@ -42,6 +42,8 @@
         # lua
         lua-language-server
         stylua
+        # java
+        jdt-language-server
       ];
 
       edu = with pkgs; [
@@ -69,6 +71,7 @@
         nvim-lspconfig
         nvim-treesitter.withAllGrammars
         comment-nvim
+        nvim-jdtls
       ];
 
       edu = with pkgs; [
