@@ -29,7 +29,8 @@ buildPythonApplication {
   # upstream doesn't declare any entrypoints in pyproject.toml
   postInstall = ''
     mkdir $out/bin
-    cp $out/lib/python3.13/site-packages/kathara.py $out/bin/kathara
+    PYTHON_LIBS=$(find $out/lib -type d -name 'python*' | head -n 1)
+    cp $PYTHON_LIBS/site-packages/kathara.py $out/bin/kathara
     chmod +x $out/bin/kathara
   '';
 
