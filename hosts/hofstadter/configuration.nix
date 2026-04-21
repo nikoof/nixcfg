@@ -180,6 +180,9 @@
     enable = true;
     acceleration = "cuda";
     package = pkgs.unstable.ollama-cuda;
+    environmentVariables = {
+      "OLLAMA_CONTEXT_LENGTH" = "64000";
+    };
   };
 
   services.gnome.gnome-keyring.enable = true;

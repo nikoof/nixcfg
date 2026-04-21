@@ -43,7 +43,7 @@
   };
 
   devel.languages = {
-    algol68.enable = true;
+    algol68.enable = false;
     cpp.enable = true;
     rust.enable = true;
     haskell.enable = true;

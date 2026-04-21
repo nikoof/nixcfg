@@ -30,7 +30,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
 
     cachyos-kernels.url = "github:xddxdd/nix-cachyos-kernel/release";
