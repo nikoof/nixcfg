@@ -135,6 +135,6 @@
 
     sdrpp
 
-    unstable.vintagestory
+    local.vintagestory
   ];
 }

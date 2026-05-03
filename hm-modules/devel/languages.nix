@@ -40,6 +40,7 @@ in {
             types-requests
             beautifulsoup4
             types-beautifulsoup4
+            protobuf
           ]);
       in [
         python

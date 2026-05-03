@@ -39,6 +39,8 @@ in {
       alegreya
       alegreya-sans
       cm_unicode
+      carlito
+      vista-fonts
     ];
 
     i18n.defaultLocale = "en_US.UTF-8";

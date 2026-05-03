@@ -11,6 +11,8 @@
 
   kathara = pkgs.python3Packages.callPackage ./kathara.nix {};
 
+  vintagestory = pkgs.callPackage ./vintagestory.nix {};
+
   ga68 = pkgs.callPackage ./gcc/ga68.nix {
     # Non-GNU/Linux OSes are currently "impure" platforms, with their libc
     # outside of the store.  Thus, GCC, GFortran, & co. must always look for files

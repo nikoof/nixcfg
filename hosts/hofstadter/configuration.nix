@@ -140,7 +140,6 @@
   };
 
   # -----------------[Services]------------------------
-  services.zerotierone.enable = true;
   # services.nixseparatedebuginfod2.enable = true;
   services.ratbagd.enable = true;
 
