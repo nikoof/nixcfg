@@ -2,11 +2,12 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
-    flake-utils.url = "github:numtide/flake-utils";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     pre-commit = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,10 +39,10 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    flake-utils,
     pre-commit,
     ...
   }: let
+    lib = nixpkgs.lib;
     system = "x86_64-linux";
     overlays = import ./overlays {inherit inputs;};
     pkgs = import nixpkgs {
@@ -71,6 +72,9 @@
       ];
     });
 
+    supportedSystems = lib.systems.flakeExposed;
+    eachSupportedSystem = lib.genAttrs supportedSystems;
+
     utils = inputs.nixCats.utils;
     nvim = import ./nvim {inherit inputs;};
     nixCatsBuilder =
@@ -79,56 +83,52 @@
       }
       nvim.categoryDefinitions
       nvim.packageDefinitions;
-  in
-    {
-      nixosModules.default = ./nixos-modules;
-      homeManagerModules.default = ./hm-modules;
+  in {
+    nixosModules.default = ./nixos-modules;
+    homeManagerModules.default = ./hm-modules;
 
-      nixosConfigurations.hofstadter = mkSystem "hofstadter" {};
+    nixosConfigurations.hofstadter = mkSystem "hofstadter" {};
 
-      devShell.${system} = let
-        xmonadGhc = pkgs.haskellPackages.ghcWithPackages (hp:
-          with hp; [
-            xmonad
-            xmonad-contrib
-            xmonad-extras
-          ]);
-      in
-        nixpkgs.legacyPackages.${system}.mkShell {
-          inherit (self.checks.${system}.pre-commit-check) shellHook;
+    devShell.${system} = let
+      xmonadGhc = pkgs.haskellPackages.ghcWithPackages (hp:
+        with hp; [
+          xmonad
+          xmonad-contrib
+          xmonad-extras
+        ]);
+    in
+      nixpkgs.legacyPackages.${system}.mkShell {
+        inherit (self.checks.${system}.pre-commit-check) shellHook;
 
-          packages = [
-            inputs.agenix.packages.${system}.default
+        packages = [
+          inputs.agenix.packages.${system}.default
 
-            pkgs.haskell-language-server
-            xmonadGhc
-          ];
-        };
-
-      checks.${system} = {
-        pre-commit-check = pre-commit.lib.${system}.run {
-          src = ./.;
-          hooks = {
-            alejandra.enable = true;
-          };
-        };
+          pkgs.haskell-language-server
+          xmonadGhc
+        ];
       };
 
-      formatter.${system} = pkgs.alejandra;
-    }
-    // flake-utils.lib.eachDefaultSystem (
-      system: let
-        thesePkgs =
-          (import ./packages) {
-            pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
-          }
-          // (builtins.listToAttrs (map (p: {
-              name = p;
-              value = nixCatsBuilder p;
-            })
-            nvim.packageNames));
-      in {
-        packages = thesePkgs;
-      }
+    checks.${system} = {
+      pre-commit-check = pre-commit.lib.${system}.run {
+        src = ./.;
+        hooks = {
+          alejandra.enable = true;
+        };
+      };
+    };
+
+    formatter.${system} = pkgs.alejandra;
+
+    packages = eachSupportedSystem (
+      system:
+        (import ./packages) {
+          pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
+        }
+        // (builtins.listToAttrs (map (p: {
+            name = p;
+            value = nixCatsBuilder p;
+          })
+          nvim.packageNames))
     );
+  };
 }

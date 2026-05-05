@@ -1,0 +1,3 @@
+- [ ] Remove `local` overlay and use `self.outputs.packages` instead.
+- [ ] Clean up nixos-modules, hm-modules.
+- [ ] Migrate nixCats nvim to nix-wrapper-modules.
