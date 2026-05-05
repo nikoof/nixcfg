@@ -1,3 +1,10 @@
-- [ ] Remove `local` overlay and use `self.outputs.packages` instead.
+- [ ] Remove dependencies.
+    - [X] flake-utils; see (1000 Instances of flake-utils)[https://nixcademy.com/posts/1000-instances-of-flake-utils/]
+    - [X] pre-commit; I can just run `nix fmt` or something.
+    - [ ] nixos-hardware; Not sure if this actually does anything.
+    - [ ] stylix; Not sure, I really cba to write all that.
+- [ ] Don't use `specialArgs` for DI. See [Flakes aren't real](https://jade.fyi/blog/flakes-arent-real/).
+- [ ] Expose local packages as overlay and consume that to produce `packages`. See [Flakes aren't real](https://jade.fyi/blog/flakes-arent-real/).
 - [ ] Clean up nixos-modules, hm-modules.
 - [ ] Migrate nixCats nvim to nix-wrapper-modules.
+- [ ] Eventually drop home-manager and use wrappers instead. This is essentially single-user anyway.

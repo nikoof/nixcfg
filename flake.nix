@@ -8,11 +8,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    pre-commit = {
-      url = "github:cachix/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     stylix.url = "github:danth/stylix/release-25.11";
 
@@ -39,7 +34,6 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    pre-commit,
     ...
   }: let
     lib = nixpkgs.lib;
@@ -84,40 +78,11 @@
       nvim.categoryDefinitions
       nvim.packageDefinitions;
   in {
-    nixosModules.default = ./nixos-modules;
+    overlays = overlays;
+    nixosModules = ./nixos-modules;
     homeManagerModules.default = ./hm-modules;
 
     nixosConfigurations.hofstadter = mkSystem "hofstadter" {};
-
-    devShell.${system} = let
-      xmonadGhc = pkgs.haskellPackages.ghcWithPackages (hp:
-        with hp; [
-          xmonad
-          xmonad-contrib
-          xmonad-extras
-        ]);
-    in
-      nixpkgs.legacyPackages.${system}.mkShell {
-        inherit (self.checks.${system}.pre-commit-check) shellHook;
-
-        packages = [
-          inputs.agenix.packages.${system}.default
-
-          pkgs.haskell-language-server
-          xmonadGhc
-        ];
-      };
-
-    checks.${system} = {
-      pre-commit-check = pre-commit.lib.${system}.run {
-        src = ./.;
-        hooks = {
-          alejandra.enable = true;
-        };
-      };
-    };
-
-    formatter.${system} = pkgs.alejandra;
 
     packages = eachSupportedSystem (
       system:
@@ -130,5 +95,24 @@
           })
           nvim.packageNames))
     );
+
+    devShell.${system} = let
+      xmonadGhc = pkgs.haskellPackages.ghcWithPackages (hp:
+        with hp; [
+          xmonad
+          xmonad-contrib
+          xmonad-extras
+        ]);
+    in
+      nixpkgs.legacyPackages.${system}.mkShell {
+        packages = [
+          inputs.agenix.packages.${system}.default
+
+          pkgs.haskell-language-server
+          xmonadGhc
+        ];
+      };
+
+    formatter.${system} = pkgs.alejandra;
   };
 }
