@@ -4,7 +4,10 @@
     - [ ] nixos-hardware; Not sure if this actually does anything.
     - [ ] stylix; Not sure, I really cba to write all that.
 - [ ] Don't use `specialArgs` for DI. See [Flakes aren't real](https://jade.fyi/blog/flakes-arent-real/).
-- [ ] Expose local packages as overlay and consume that to produce `packages`. See [Flakes aren't real](https://jade.fyi/blog/flakes-arent-real/).
+- [X] Expose local packages as overlay and consume that to produce `packages`. See [Flakes aren't real](https://jade.fyi/blog/flakes-arent-real/).
+    - I'm still not particularly happy with how this is. Because I prefer to namespace local packages as `local.*`, I need to separate overlays.
+      Also, when creating `packages`, I just reimport `./packages` to build them against `nixpkgs-unstable`.
+    - I might even just drop the side-by-side stable/unstable nixpkgs and just stay on unstable.
 - [ ] Clean up nixos-modules, hm-modules.
 - [ ] Migrate nixCats nvim to nix-wrapper-modules.
 - [ ] Eventually drop home-manager and use wrappers instead. This is essentially single-user anyway.

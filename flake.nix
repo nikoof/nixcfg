@@ -34,19 +34,35 @@
   outputs = inputs @ {
     self,
     nixpkgs,
+    nixpkgs-unstable,
     ...
   }: let
     lib = nixpkgs.lib;
     system = "x86_64-linux";
-    overlays = import ./overlays {inherit inputs;};
+
+    overlays = {
+      modifications = import ./overlays/modifications.nix;
+
+      local = final: prev: {
+        local = import ./packages {pkgs = final;};
+      };
+
+      unstable = final: prev: {
+        unstable = import nixpkgs-unstable {
+          inherit (final) config;
+          inherit (final.stdenv.hostPlatform) system;
+        };
+      };
+    };
+
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
       config.allowUnsupportedSystem = false;
       overlays = with overlays; [
-        local-packages
+        local
+        unstable
         modifications
-        unstable-packages
       ];
     };
 
@@ -78,12 +94,10 @@
       nvim.categoryDefinitions
       nvim.packageDefinitions;
   in {
-    overlays = overlays;
-    nixosModules = ./nixos-modules;
-    homeManagerModules.default = ./hm-modules;
+    # Export packages as overlay to support cross-compilation.
+    overlays.default = final: prev: import ../packages {pkgs = final;};
 
-    nixosConfigurations.hofstadter = mkSystem "hofstadter" {};
-
+    # Packages exported here are built against nixpkgs-unstable.
     packages = eachSupportedSystem (
       system:
         (import ./packages) {
@@ -95,6 +109,11 @@
           })
           nvim.packageNames))
     );
+
+    nixosModules = ./nixos-modules;
+    homeManagerModules.default = ./hm-modules;
+
+    nixosConfigurations.hofstadter = mkSystem "hofstadter" {};
 
     devShell.${system} = let
       xmonadGhc = pkgs.haskellPackages.ghcWithPackages (hp:
