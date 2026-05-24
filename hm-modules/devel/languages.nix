@@ -41,6 +41,12 @@ in {
             beautifulsoup4
             types-beautifulsoup4
             protobuf
+            numpy
+            nptyping
+            pandas
+            pandas-stubs
+            xlrd
+            scikit-learn
           ]);
       in [
         python
