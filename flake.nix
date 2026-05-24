@@ -26,7 +26,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixCats.url = "github:BirdeeHub/nixCats-nvim";
+    wrappers = {
+      url = "github:BirdeeHub/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     cachyos-kernels.url = "github:xddxdd/nix-cachyos-kernel/release";
   };
@@ -35,9 +38,11 @@
     self,
     nixpkgs,
     nixpkgs-unstable,
+    wrappers,
     ...
   }: let
     lib = nixpkgs.lib;
+    wlib = wrappers.lib;
     system = "x86_64-linux";
 
     overlays = {
@@ -85,14 +90,37 @@
     supportedSystems = lib.systems.flakeExposed;
     eachSupportedSystem = lib.genAttrs supportedSystems;
 
-    utils = inputs.nixCats.utils;
-    nvim = import ./nvim {inherit inputs;};
-    nixCatsBuilder =
-      utils.baseBuilder nvim.luaPath {
-        inherit pkgs;
-      }
-      nvim.categoryDefinitions
-      nvim.packageDefinitions;
+    # TODO: clean this up
+    nvimModule = lib.modules.importApply ./nvim/module.nix inputs;
+    nvimWrapper = wlib.evalModule nvimModule;
+    nvim = nvimWrapper.config;
+    nvimFull = nvimWrapper.config.apply {
+      # See https://github.com/BirdeeHub/nix-wrapper-modules/discussions/506?discussioncomment-16818608
+      specs.nix = {...}: {
+        enable = true;
+      };
+      specs.c = {...}: {
+        enable = true;
+      };
+      specs.rust = {...}: {
+        enable = true;
+      };
+      specs.haskell = {...}: {
+        enable = true;
+      };
+      specs.python = {...}: {
+        enable = true;
+      };
+      specs.lua = {...}: {
+        enable = true;
+      };
+      specs.java = {...}: {
+        enable = true;
+      };
+      specs.typst = {...}: {
+        enable = true;
+      };
+    };
   in {
     # Export packages as overlay to support cross-compilation.
     overlays.default = final: prev: import ../packages {pkgs = final;};
@@ -103,25 +131,26 @@
         (import ./packages) {
           pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
         }
-        // (builtins.listToAttrs (map (p: {
-            name = p;
-            value = nixCatsBuilder p;
-          })
-          nvim.packageNames))
+        // {
+          nvim = nvim.wrap {inherit pkgs;};
+          nvimFull = nvimFull.wrap {inherit pkgs;};
+        }
     );
 
-    nixosModules = ./nixos-modules;
+    nixosModules.default = ./nixos-modules;
     homeManagerModules.default = ./hm-modules;
 
     nixosConfigurations.hofstadter = mkSystem "hofstadter" {};
 
     devShell.${system} = let
-      xmonadGhc = pkgs.haskellPackages.ghcWithPackages (hp:
-        with hp; [
-          xmonad
-          xmonad-contrib
-          xmonad-extras
-        ]);
+      xmonadGhc = pkgs.haskellPackages.ghcWithPackages (
+        hp:
+          with hp; [
+            xmonad
+            xmonad-contrib
+            xmonad-extras
+          ]
+      );
     in
       nixpkgs.legacyPackages.${system}.mkShell {
         packages = [
