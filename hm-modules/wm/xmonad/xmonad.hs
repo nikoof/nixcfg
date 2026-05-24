@@ -105,6 +105,11 @@ myScratchpads =
       "pwvucontrol"
       "pwvucontrol"
       (className =? "pwvucontrol")
+      (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4)),
+    NS
+      "notes"
+      "kitty --class=notes nvim ~/notes.md"
+      (className =? "notes")
       (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4))
   ]
 
@@ -215,6 +220,7 @@ myKeys conf =
         ("M-s v", namedScratchpadAction myScratchpads "pwvucontrol"),
         ("M-s c", namedScratchpadAction myScratchpads "helvum"),
         ("M-s b", namedScratchpadAction myScratchpads "btop"),
+        ("M-s n", namedScratchpadAction myScratchpads "notes"),
         -- Window movement
         ("M1-<Tab>", windows W.focusDown),
         ("M1-S-<Tab>", windows W.focusUp),
