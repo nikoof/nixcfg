@@ -21,6 +21,10 @@ in {
       enableGitIntegration = true;
     };
 
+    home.packages = [
+      pkgs.unstable.git-xet
+    ];
+
     programs.git = {
       enable = true;
       settings = {
