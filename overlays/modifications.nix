@@ -28,9 +28,6 @@ final: prev: {
     ];
   };
 
-  # NOTE: nh broke search again, I'm just gonna stay on their master lmao
-  # nh = inputs.nh.packages.${prev.stdenv.hostPlatform.system}.default;
-
   # NOTE: overriding noto-fonts forces a rebuild of libreoffice
   # noto-fonts = prev.noto-fonts.override {
   #   variants = ["Noto Sans" "Noto Serif"];
