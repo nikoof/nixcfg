@@ -48,6 +48,13 @@
     ];
   };
 
+  # -----------------[Console]--------------------
+  console = {
+    enable = true;
+    earlySetup = true;
+    useXkbConfig = true;
+  };
+
   # -----------------[Networking]--------------------
   hardware.bluetooth.enable = true;
   networking = {

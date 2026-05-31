@@ -19,10 +19,15 @@ in {
         enable = true;
         enableContribAndExtras = true;
       };
+    };
 
-      displayManager.lightdm = {
-        enable = true;
-        greeters.enso.enable = true;
+    services.displayManager.ly = {
+      enable = true;
+      x11Support = true;
+      settings = {
+        battery_id = "BAT0";
+        vi_mode = true;
+        vi_default_mode = "normal";
       };
     };
 
