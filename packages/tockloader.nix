@@ -1,11 +1,16 @@
 {
   lib,
+  # TODO: don't use python here, get individual modules instead
   python,
   fetchPypi,
+  setuptools,
 }:
 python.pkgs.buildPythonApplication rec {
   pname = "tockloader";
   version = "1.9.0";
+
+  pyproject = true;
+  build-system = [setuptools];
 
   src = fetchPypi {
     inherit pname version;
