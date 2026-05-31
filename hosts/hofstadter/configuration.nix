@@ -69,10 +69,10 @@
 
   services.resolved = {
     enable = true;
-    settings.Resolve = {
-      MulticastDNS = "yes";
-      DNSOverTLS = "opportunistic";
-    };
+    dnsovertls = "opportunistic";
+    extraConfig = ''
+      MulticastDNS=yes
+    '';
   };
 
   networking.networkmanager = {
@@ -80,7 +80,6 @@
     wifi.macAddress = "random";
     ethernet.macAddress = "preserve";
   };
-
   # -----------------[Packages]--------------------
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages."${system}".default
@@ -178,6 +177,7 @@
 
   services.ollama = {
     enable = true;
+    acceleration = "cuda";
     package = pkgs.unstable.ollama-cuda;
     environmentVariables = {
       "OLLAMA_CONTEXT_LENGTH" = "64000";

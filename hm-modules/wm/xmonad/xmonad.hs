@@ -97,9 +97,9 @@ myScratchpads =
       (className =? "btop")
       (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4)),
     NS
-      "crosspipe"
-      "crosspipe"
-      (className =? "crosspipe")
+      "helvum"
+      "helvum"
+      (className =? "helvum")
       (customFloating $ W.RationalRect (1 / 8) (1 / 8) (3 / 4) (3 / 4)),
     NS
       "pwvucontrol"
@@ -218,7 +218,7 @@ myKeys conf =
         -- Scratchpads <M-s>
         ("M-s k", namedScratchpadAction myScratchpads "keepassxc"),
         ("M-s v", namedScratchpadAction myScratchpads "pwvucontrol"),
-        ("M-s c", namedScratchpadAction myScratchpads "crosspipe"),
+        ("M-s c", namedScratchpadAction myScratchpads "helvum"),
         ("M-s b", namedScratchpadAction myScratchpads "btop"),
         ("M-s n", namedScratchpadAction myScratchpads "notes"),
         -- Window movement

@@ -27,7 +27,7 @@ in {
     programs.sioyek = {
       enable = true;
       config = {
-        startup_commands = ["toggle_visual_scroll"];
+        startup_commands = "toggle_visual_scroll";
         should_launch_new_window = "1";
         should_warn_about_user_key_override = "0";
         create_table_of_contents_if_not_exists = "1";

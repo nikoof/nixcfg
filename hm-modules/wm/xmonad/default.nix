@@ -133,7 +133,6 @@ in {
 
     gtk = {
       enable = true;
-      gtk4.theme = config.gtk.theme;
       iconTheme = {
         package = pkgs.papirus-icon-theme;
         name = "Papirus";

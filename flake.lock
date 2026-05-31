@@ -355,16 +355,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1779726825,
-        "narHash": "sha256-RUkMrREjKDQrA+dA9+xZviGAxM5W1aVdyOr/bSYpHrE=",
+        "lastModified": 1775425411,
+        "narHash": "sha256-KY6HsebJHEe5nHOWP7ur09mb0drGxYSzE3rQxy62rJo=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "b179bde238977f7d4454fc770b1a727eaf55111c",
+        "rev": "0d02ec1d0a05f88ef9e74b516842900c41f0f2fe",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
-        "ref": "release-26.05",
+        "ref": "release-25.11",
         "repo": "home-manager",
         "type": "github"
       }
@@ -389,6 +389,26 @@
       "original": {
         "owner": "nix-community",
         "repo": "lanzaboote",
+        "type": "github"
+      }
+    },
+    "nh": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1777125825,
+        "narHash": "sha256-oPMVyjFCwV+VH/H8mLS62m70usq/KC/LMGP3FLbuel4=",
+        "owner": "nix-community",
+        "repo": "nh",
+        "rev": "7c6840a8c89ff180cdc19dc4a07f90d654a34c0a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nh",
         "type": "github"
       }
     },
@@ -441,11 +461,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1780229317,
-        "narHash": "sha256-3bEds3Qx8AerQ4Fq+SlYvdDnvr7IVEcCUtcHG/PR1dk=",
+        "lastModified": 1776431409,
+        "narHash": "sha256-VM4awWParPQ2eXI1v7x27D6LyuhQjtnFFGnfWp5KBt8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "eb72e3691d9442680242793f3548573a2704b90f",
+        "rev": "50bf6747c134ec24f9786e48847d9bbb315694f8",
         "type": "github"
       },
       "original": {
@@ -456,16 +476,16 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1780051219,
-        "narHash": "sha256-WnxzG4x47uCgjz+uD+vOzbF+Qid+hKyYdJWbduA9w7g=",
+        "lastModified": 1776221942,
+        "narHash": "sha256-FbQAeVNi7G4v3QCSThrSAAvzQTmrmyDLiHNPvTF2qFM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e8e446a361172fe838243958325845d0b845c5e5",
+        "rev": "1766437c5509f444c1b15331e82b8b6a9b967000",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
-        "ref": "nixos-26.05",
+        "ref": "nixos-25.11",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -540,6 +560,7 @@
         "cachyos-kernels": "cachyos-kernels",
         "home-manager": "home-manager_2",
         "lanzaboote": "lanzaboote",
+        "nh": "nh",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",

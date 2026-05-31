@@ -110,7 +110,7 @@
 
     # Literally browsers but x4
     ungoogled-chromium
-    libreoffice
+    libreoffice-fresh
     thunderbird
     unstable.spotify
     local.coppelia
@@ -120,7 +120,7 @@
     unstable.signal-desktop
 
     # Audio stuff (?)
-    crosspipe
+    helvum
 
     # Images/Video
     gimp3
