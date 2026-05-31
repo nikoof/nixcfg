@@ -26,11 +26,11 @@ assert waylandSupport -> wayland != null;
 assert waylandSupport -> libxkbcommon != null;
   stdenv.mkDerivation (finalAttrs: {
     pname = "vintagestory";
-    version = "1.22.1";
+    version = "1.22.2";
 
     src = fetchurl {
       url = "https://cdn.vintagestory.at/gamefiles/stable/vs_client_linux-x64_${finalAttrs.version}.tar.gz";
-      hash = "sha256-LCX59pWRKDQEHXYw87bo3iX3hfj+CEU8Y4V2M4jNdpM=";
+      hash = "sha256-caLSOm/WXpXrjC1az72Nc0XDWOpWB2R9iVq8ShDEZgU=";
     };
 
     __structuredAttrs = true;
