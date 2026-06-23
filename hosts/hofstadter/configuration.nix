@@ -38,16 +38,6 @@
     pkiBundle = "/etc/secureboot";
   };
 
-  boot.plymouth = {
-    enable = true;
-    theme = "cubes";
-    themePackages = with pkgs; [
-      (adi1090x-plymouth-themes.override {
-        selected_themes = ["cubes"];
-      })
-    ];
-  };
-
   # -----------------[Console]--------------------
   console = {
     enable = true;
