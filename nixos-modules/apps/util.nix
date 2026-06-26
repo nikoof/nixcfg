@@ -65,7 +65,7 @@ in {
         xh
         curl
         wireguard-tools
-        opensslFull
+        openssl
       ]
       ++ lib.lists.optionals cfg.db.enable [
         sqlite

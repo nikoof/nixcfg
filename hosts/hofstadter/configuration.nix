@@ -66,10 +66,10 @@
 
   services.resolved = {
     enable = true;
-    dnsovertls = "opportunistic";
-    extraConfig = ''
-      MulticastDNS=yes
-    '';
+    settings.Resolve = {
+      DNSOverTLS = "opportunistic";
+      MulticastDNS = "yes";
+    };
   };
 
   networking.networkmanager = {
@@ -174,7 +174,6 @@
 
   services.ollama = {
     enable = true;
-    acceleration = "cuda";
     package = pkgs.unstable.ollama-cuda;
     environmentVariables = {
       "OLLAMA_CONTEXT_LENGTH" = "64000";

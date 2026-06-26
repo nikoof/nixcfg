@@ -113,14 +113,13 @@
     libreoffice-fresh
     thunderbird
     unstable.spotify
-    local.coppelia
 
     # IM
     discord # browsers +1
     unstable.signal-desktop
 
     # Audio stuff (?)
-    helvum
+    crosspipe
 
     # Images/Video
     gimp3

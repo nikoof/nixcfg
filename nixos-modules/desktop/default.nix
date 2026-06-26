@@ -32,7 +32,7 @@ in {
       noto-fonts
       noto-fonts-color-emoji
       noto-fonts-cjk-sans
-      charis-sil
+      charis
       seshat
       open-sans
       gelasio

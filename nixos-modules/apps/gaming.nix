@@ -29,7 +29,7 @@ in {
       [gamescope]
       ++ lib.lists.optionals cfg.mangohud.enable [mangohud]
       ++ lib.lists.optionals cfg.heroic.enable [heroic]
-      ++ lib.lists.optionals cfg.bottles.enable [bottles]
+      ++ lib.lists.optionals cfg.bottles.enable [unstable.bottles]
       ++ lib.lists.optionals cfg.lunar-client.enable [lunar-client];
 
     networking.firewall.allowedTCPPortRanges = lib.mkIf cfg.victoria2Server.openFirewall [
