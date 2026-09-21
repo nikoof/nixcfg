@@ -199,8 +199,8 @@
   };
 
   # ----------------------[Shares]-----------------------
-  fileSystems."/mnt/share/sutherland/misc" = {
-    device = "//sutherland.lan/misc";
+  fileSystems."/mnt/share/milner/misc" = {
+    device = "//milner.lan/misc";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split
@@ -208,8 +208,8 @@
     in ["${automount_opts},credentials=${config.age.secrets.smb-fw2b.path}"];
   };
 
-  fileSystems."/mnt/share/sutherland/lexmb" = {
-    device = "//sutherland.lan/lexmb";
+  fileSystems."/mnt/share/milner/lexmb" = {
+    device = "//milner.lan/lexmb";
     fsType = "cifs";
     options = let
       # this line prevents hanging on network split
