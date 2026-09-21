@@ -96,6 +96,9 @@
     nvim = nvimWrapper.config;
     nvimFull = nvimWrapper.config.apply {
       # See https://github.com/BirdeeHub/nix-wrapper-modules/discussions/506?discussioncomment-16818608
+      specs.lean = {...}: {
+        enable = true;
+      };
       specs.nix = {...}: {
         enable = true;
       };

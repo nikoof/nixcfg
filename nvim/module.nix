@@ -47,6 +47,12 @@ inputs: {
     };
 
     # Kinda repetitive...
+    specs.lean = {
+      enable = lib.mkDefault false;
+      data = with pkgs; [unstable.vimPlugins.lean-nvim];
+      extraPackages = [];
+    };
+
     specs.c = {
       enable = lib.mkDefault false;
       data = with pkgs; [unstable.vimPlugins.nvim-lspconfig];
