@@ -39,7 +39,7 @@
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/965B-EF50";
+      device = "/dev/disk/by-uuid/5A81-E205";
       fsType = "vfat";
       options = ["fmask=0022" "dmask=0022"];
     };
