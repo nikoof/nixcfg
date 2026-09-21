@@ -174,7 +174,7 @@
 
   services.ollama = {
     enable = true;
-    package = pkgs.unstable.ollama-cuda;
+    package = pkgs.ollama-cuda;
     environmentVariables = {
       "OLLAMA_CONTEXT_LENGTH" = "64000";
     };

@@ -109,7 +109,7 @@
     restream
 
     # Literally browsers but x4
-    ungoogled-chromium
+    unstable.ungoogled-chromium
     libreoffice-fresh
     thunderbird
     unstable.spotify
@@ -135,5 +135,7 @@
     sdrpp
 
     local.vintagestory
+
+    prismlauncher
   ];
 }
