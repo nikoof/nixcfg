@@ -27,8 +27,9 @@
     };
 
     wrappers = {
-      url = "github:BirdeeHub/nix-wrapper-modules";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # doesn't find pkgs.callPackage in newer versions???? somehow????????
+      url = "github:nix-community/nix-wrapper-modules?rev=dc5184095ad488e937ec308b52c9c0b218959d8b";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     cachyos-kernels.url = "github:xddxdd/nix-cachyos-kernel/release";
@@ -77,7 +78,21 @@
         # INFO: This does not currently work with stylix, as it adds overlays to nixpkgs.
         # inputs.nixpkgs.nixosModules.readOnlyPkgs
 
-        {nixpkgs.pkgs = pkgs;}
+        # HERE
+        {
+          nixpkgs.config = {
+            allowUnfree = true;
+            allowUnsupportedSystem = false;
+          };
+
+          nixpkgs.overlays = with overlays; [
+            local
+            unstable
+            modifications
+          ];
+        }
+        # HERE
+
         self.outputs.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
         inputs.stylix.nixosModules.stylix
