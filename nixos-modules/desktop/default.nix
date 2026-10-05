@@ -97,6 +97,13 @@ in {
       SQLITE_HISTORY = "${XDG_CACHE_HOME}/sqlite_history";
       STACK_XDG = "1";
       JUPYTER_CONFIG_DIR = "${XDG_CONFIG_HOME}/jupyter";
+      DOCKER_CONFIG = "${XDG_CONFIG_HOME}/docker";
+      DOTNET_CLI_HOME = "${XDG_CONFIG_HOME}/dotnet";
+      ELAN_HOME = "${XDG_DATA_HOME}/elan";
+      DOT_SAGE = "${XDG_CONFIG_HOME}/sage";
+      NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME/npm/config/npm-init.js";
+      NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm";
+      NPM_CONFIG_TMP="$XDG_RUNTIME_DIR/npm";
     };
   };
 }
