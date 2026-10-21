@@ -109,14 +109,14 @@
     restream
 
     # Literally browsers but x4
-    unstable.ungoogled-chromium
+    ungoogled-chromium
     libreoffice-fresh
     thunderbird
     unstable.spotify
 
     # IM
     discord # browsers +1
-    unstable.signal-desktop
+    signal-desktop
 
     # Audio stuff (?)
     crosspipe
@@ -137,5 +137,6 @@
     local.vintagestory
 
     prismlauncher
+    gitlab-ci-local
   ];
 }
