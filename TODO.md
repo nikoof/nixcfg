@@ -9,5 +9,5 @@
       Also, when creating `packages`, I just reimport `./packages` to build them against `nixpkgs-unstable`.
     - I might even just drop the side-by-side stable/unstable nixpkgs and just stay on unstable.
 - [ ] Clean up nixos-modules, hm-modules.
-- [ ] Migrate nixCats nvim to nix-wrapper-modules.
+- [X] Migrate nixCats nvim to nix-wrapper-modules.
 - [ ] Eventually drop home-manager and use wrappers instead. This is essentially single-user anyway.
