@@ -27,9 +27,8 @@
     };
 
     wrappers = {
-      # doesn't find pkgs.callPackage in newer versions???? somehow????????
-      url = "github:nix-community/nix-wrapper-modules?rev=dc5184095ad488e937ec308b52c9c0b218959d8b";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      url = "github:nix-community/nix-wrapper-modules";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     cachyos-kernels.url = "github:xddxdd/nix-cachyos-kernel/release";
@@ -45,6 +44,8 @@
     lib = nixpkgs.lib;
     wlib = wrappers.lib;
     system = "x86_64-linux";
+    supportedSystems = lib.systems.flakeExposed;
+    eachSupportedSystem = lib.genAttrs supportedSystems;
 
     overlays = {
       modifications = import ./overlays/modifications.nix;
@@ -111,47 +112,16 @@
         (v.path or ./hosts/${name}/configuration.nix)
       ];
     });
-
-    supportedSystems = lib.systems.flakeExposed;
-    eachSupportedSystem = lib.genAttrs supportedSystems;
-
-    # TODO: clean this up
-    nvimModule = lib.modules.importApply ./nvim/module.nix inputs;
-    nvimWrapper = wlib.evalModule nvimModule;
-    nvim = nvimWrapper.config;
-    nvimFull = nvimWrapper.config.apply {
-      # See https://github.com/BirdeeHub/nix-wrapper-modules/discussions/506?discussioncomment-16818608
-      specs.lean = {...}: {
-        enable = true;
-      };
-      specs.nix = {...}: {
-        enable = true;
-      };
-      specs.c = {...}: {
-        enable = true;
-      };
-      specs.rust = {...}: {
-        enable = true;
-      };
-      specs.haskell = {...}: {
-        enable = true;
-      };
-      specs.python = {...}: {
-        enable = true;
-      };
-      specs.lua = {...}: {
-        enable = true;
-      };
-      specs.java = {...}: {
-        enable = true;
-      };
-      specs.typst = {...}: {
-        enable = true;
-      };
-    };
   in {
+    nixosModules.default = ./nixos-modules;
+    homeManagerModules.default = ./hm-modules;
+    wrapperModules = import ./wrapper-modules { inherit inputs lib; };
+    wrappers = builtins.mapAttrs (_: value: (wlib.evalModule value).config) self.wrapperModules;
+
     # Export packages as overlay to support cross-compilation.
     overlays.default = final: prev: import ../packages {pkgs = final;};
+
+    nixosConfigurations.hofstadter = mkSystem "hofstadter" {};
 
     # Packages exported here are built against nixpkgs-unstable.
     packages = eachSupportedSystem (
@@ -159,16 +129,12 @@
         (import ./packages) {
           pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
         }
+        // builtins.mapAttrs (_: value: value.config.wrap {inherit pkgs;}) self.wrapperModules
         // {
-          nvim = nvim.wrap {inherit pkgs;};
-          nvimFull = nvimFull.wrap {inherit pkgs;};
+          # I can't think of a nicer way to get this one in here other than having the wrapper modules also specify their packages...
+          nvimFull = (self.wrappers.nvim.apply {full = true;}).wrap {inherit pkgs;};
         }
     );
-
-    nixosModules.default = ./nixos-modules;
-    homeManagerModules.default = ./hm-modules;
-
-    nixosConfigurations.hofstadter = mkSystem "hofstadter" {};
 
     devShell.${system} = let
       xmonadGhc = pkgs.haskellPackages.ghcWithPackages (

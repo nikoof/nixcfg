@@ -675,21 +675,20 @@
     "wrappers": {
       "inputs": {
         "nixpkgs": [
-          "nixpkgs-unstable"
+          "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1777991014,
-        "narHash": "sha256-0DS24OW9d9iz+w0LCz6KpS2IpE2z2gHxeBdMZg9xpDY=",
+        "lastModified": 1793039441,
+        "narHash": "sha256-jy4OtEVuECXahyruvHqQegXnxmBZEzWQ2JMd9DKVNqw=",
         "owner": "nix-community",
         "repo": "nix-wrapper-modules",
-        "rev": "dc5184095ad488e937ec308b52c9c0b218959d8b",
+        "rev": "afb6c5e9c38d4cd244748d9a9f0a6c4d1d7cb0e2",
         "type": "github"
       },
       "original": {
         "owner": "nix-community",
         "repo": "nix-wrapper-modules",
-        "rev": "dc5184095ad488e937ec308b52c9c0b218959d8b",
         "type": "github"
       }
     }
