@@ -19,7 +19,6 @@
 
   nix.settings.cores = 12;
   system.stateVersion = "24.05";
-  nixpkgs.hostPlatform = "x86_64-linux";
 
   # Allow using cache for aarch64 images
   boot.binfmt.emulatedSystems = ["aarch64-linux"];

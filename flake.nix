@@ -76,20 +76,30 @@
       specialArgs = {inherit inputs;};
       modules = [
         # INFO: This does not currently work with stylix, as it adds overlays to nixpkgs.
-        # inputs.nixpkgs.nixosModules.readOnlyPkgs
+        inputs.nixpkgs.nixosModules.readOnlyPkgs
 
         # HERE
         {
-          nixpkgs.config = {
-            allowUnfree = true;
-            allowUnsupportedSystem = false;
-          };
-
-          nixpkgs.overlays = with overlays; [
+          nixpkgs.overlays = lib.mkForce (with overlays; [
             local
             unstable
             modifications
-          ];
+          ]);
+
+          nixpkgs.pkgs = import nixpkgs {
+            system = "x86_64-linux";
+
+            config = {
+              allowUnfree = true;
+              allowUnsupportedSystem = false;
+            };
+
+            overlays = with overlays; [
+              local
+              unstable
+              modifications
+            ];
+          };
         }
         # HERE
 
