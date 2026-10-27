@@ -43,89 +43,59 @@
   }: let
     lib = nixpkgs.lib;
     wlib = wrappers.lib;
-    system = "x86_64-linux";
+
     supportedSystems = lib.systems.flakeExposed;
     eachSupportedSystem = lib.genAttrs supportedSystems;
 
-    overlays = {
-      modifications = import ./overlays/modifications.nix;
-
-      local = final: prev: {
-        local = import ./packages {pkgs = final;};
-      };
-
-      unstable = final: prev: {
-        unstable = import nixpkgs-unstable {
-          inherit (final) config;
-          inherit (final.stdenv.hostPlatform) system;
-        };
-      };
-    };
-
-    pkgs = import nixpkgs {
-      inherit system;
-      config.allowUnfree = true;
-      config.allowUnsupportedSystem = false;
-      overlays = with overlays; [
-        local
-        unstable
-        modifications
-      ];
-    };
-
-    mkSystem = name: v: (nixpkgs.lib.nixosSystem {
+    mkSystem = name: system: opt: (nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       modules = [
-        # INFO: This does not currently work with stylix, as it adds overlays to nixpkgs.
         inputs.nixpkgs.nixosModules.readOnlyPkgs
-
-        # HERE
         {
-          nixpkgs.overlays = lib.mkForce (with overlays; [
-            local
-            unstable
-            modifications
-          ]);
-
           nixpkgs.pkgs = import nixpkgs {
-            system = "x86_64-linux";
+            inherit system;
 
             config = {
               allowUnfree = true;
               allowUnsupportedSystem = false;
             };
 
-            overlays = with overlays; [
-              local
-              unstable
-              modifications
-            ];
+            overlays = builtins.attrValues {
+              modifications = import ./overlays/modifications.nix;
+
+              local = final: prev: {
+                local = import ./packages {pkgs = final;};
+              };
+
+              unstable = final: prev: {
+                unstable = import nixpkgs-unstable {
+                  inherit (final) config;
+                  inherit (final.stdenv.hostPlatform) system;
+                };
+              };
+            };
           };
         }
-        # HERE
-
         self.outputs.nixosModules.default
-        inputs.home-manager.nixosModules.home-manager
-        inputs.stylix.nixosModules.stylix
-        inputs.agenix.nixosModules.default
-        ./secrets
-        (v.path or ./hosts/${name}/configuration.nix)
+        (opt.path or ./hosts/${name}/configuration.nix)
       ];
     });
   in {
     nixosModules.default = ./nixos-modules;
     homeManagerModules.default = ./hm-modules;
-    wrapperModules = import ./wrapper-modules { inherit inputs lib; };
+    wrapperModules = import ./wrapper-modules {inherit inputs lib;};
     wrappers = builtins.mapAttrs (_: value: (wlib.evalModule value).config) self.wrapperModules;
 
-    # Export packages as overlay to support cross-compilation.
-    overlays.default = final: prev: import ../packages {pkgs = final;};
+    nixosConfigurations.hofstadter = mkSystem "hofstadter" "x86_64-linux" {};
 
-    nixosConfigurations.hofstadter = mkSystem "hofstadter" {};
+    # Export packages as overlay to support cross-compilation.
+    overlays.default = final: prev: import ./packages {pkgs = final;};
 
     # Packages exported here are built against nixpkgs-unstable.
     packages = eachSupportedSystem (
-      system:
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in
         (import ./packages) {
           pkgs = inputs.nixpkgs-unstable.legacyPackages.${system};
         }
@@ -136,25 +106,29 @@
         }
     );
 
-    devShell.${system} = let
-      xmonadGhc = pkgs.haskellPackages.ghcWithPackages (
-        hp:
-          with hp; [
-            xmonad
-            xmonad-contrib
-            xmonad-extras
-          ]
-      );
-    in
-      nixpkgs.legacyPackages.${system}.mkShell {
-        packages = [
-          inputs.agenix.packages.${system}.default
+    devShells = eachSupportedSystem (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+        xmonadGhc = pkgs.haskellPackages.ghcWithPackages (
+          hp:
+            with hp; [
+              xmonad
+              xmonad-contrib
+              xmonad-extras
+            ]
+        );
+      in {
+        default = nixpkgs.legacyPackages.${system}.mkShell {
+          packages = [
+            inputs.agenix.packages.${system}.default
 
-          pkgs.haskell-language-server
-          xmonadGhc
-        ];
-      };
+            pkgs.haskell-language-server
+            xmonadGhc
+          ];
+        };
+      }
+    );
 
-    formatter.${system} = pkgs.alejandra;
+    formatter = eachSupportedSystem (system: nixpkgs.legacyPackages.${system}.alejandra);
   };
 }

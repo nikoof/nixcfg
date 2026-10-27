@@ -5,7 +5,19 @@
   lib,
   ...
 }: {
+  imports = [
+    inputs.stylix.nixosModules.stylix
+  ];
+
+  # XXX: stylix still fucks with readOnlyPkgs. This hack fixes it.
+  nixpkgs.overlays = lib.mkForce [];
+
   stylix = {
+    # INFO: these two targets add overlays to nixpkgs, which causes errors when using readOnlyPkgs.
+    # However, due to how this is done in stylix, it is not possible to prevent it by simply disabling the targets.
+    # targets.gnome-text-editor.enable = false;
+    # targets.nixos-icons.enable = false;
+
     enable = true;
     image = ../../wallpapers/moebius-bw.png;
     base16Scheme = {
@@ -61,11 +73,5 @@
     };
 
     targets.plymouth.enable = false;
-
-    # INFO: these two targets add overlays to nixpkgs, which causes errors when using readOnlyPkgs.
-    # However, due to how this is done in stylix, it is not possible to prevent it by simply disabling the targets.
-
-    # targets.gnome-text-editor.enable = false;
-    # targets.nixos-icons.enable = false;
   };
 }

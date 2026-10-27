@@ -6,15 +6,14 @@
   ...
 }: {
   imports = [
-    inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
-    inputs.nixos-hardware.nixosModules.common-gpu-nvidia
-
-    inputs.lanzaboote.nixosModules.lanzaboote
-
     ./hardware.nix
     ./style.nix
-    ./containers/arch.nix
-    ./containers/ubuntu.nix
+
+    inputs.lanzaboote.nixosModules.lanzaboote
+    inputs.home-manager.nixosModules.home-manager
+
+    inputs.agenix.nixosModules.default
+    ../../secrets
   ];
 
   nix.settings.cores = 12;
