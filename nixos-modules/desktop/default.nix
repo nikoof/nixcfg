@@ -101,9 +101,9 @@ in {
       DOTNET_CLI_HOME = "${XDG_CONFIG_HOME}/dotnet";
       ELAN_HOME = "${XDG_DATA_HOME}/elan";
       DOT_SAGE = "${XDG_CONFIG_HOME}/sage";
-      NPM_CONFIG_INIT_MODULE="$XDG_CONFIG_HOME/npm/config/npm-init.js";
-      NPM_CONFIG_CACHE="$XDG_CACHE_HOME/npm";
-      NPM_CONFIG_TMP="$XDG_RUNTIME_DIR/npm";
+      NPM_CONFIG_INIT_MODULE = "$XDG_CONFIG_HOME/npm/config/npm-init.js";
+      NPM_CONFIG_CACHE = "$XDG_CACHE_HOME/npm";
+      NPM_CONFIG_TMP = "$XDG_RUNTIME_DIR/npm";
     };
   };
 }

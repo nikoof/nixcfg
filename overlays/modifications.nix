@@ -23,7 +23,11 @@ final: prev: {
         desktopName = "Cisco Packet Tracer 8";
         icon = "ciscoPacketTracer8";
         exec = "env XDG_CURRENT_DESKTOP=GNOME packettracer8 %f";
-        mimeTypes = ["application/x-pkt" "application/x-pka" "application/x-pkz"];
+        mimeTypes = [
+          "application/x-pkt"
+          "application/x-pka"
+          "application/x-pkz"
+        ];
       })
     ];
   };
